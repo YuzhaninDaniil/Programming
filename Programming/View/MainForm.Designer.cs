@@ -183,7 +183,7 @@
             // 
             // IntValue
             // 
-            IntValue.Location = new Point(383, 37);
+            IntValue.Location = new Point(376, 37);
             IntValue.Name = "IntValue";
             IntValue.ReadOnly = true;
             IntValue.Size = new Size(137, 23);
@@ -244,8 +244,9 @@
             ClassesPage.Padding = new Padding(3);
             ClassesPage.Size = new Size(750, 369);
             ClassesPage.TabIndex = 1;
-            ClassesPage.Text = "ClassesPage";
+            ClassesPage.Text = "Classes";
             ClassesPage.UseVisualStyleBackColor = true;
+            ClassesPage.Click += ClassesPage_Click;
             // 
             // MainForm
             // 
