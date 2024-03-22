@@ -84,7 +84,7 @@ namespace Programming
             object parsedWeekday;
             bool isWeek = Enum.TryParse(typeof(Weekday), weekday, out parsedWeekday);
 
-            if (isWeek)
+            if (isWeek && int.Parse(weekday) <= 6)
             {
                 ParsedWeekdayLabel.Text = $"Это день недели ({parsedWeekday} = {(int)parsedWeekday})";
             }
