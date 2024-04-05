@@ -4,7 +4,7 @@
     {
         Winter,
         Spring,
-        Autumn,
         Summer,
+        Autumn,
     }
 }

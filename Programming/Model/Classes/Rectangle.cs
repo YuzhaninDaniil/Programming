@@ -1,16 +1,19 @@
-﻿namespace Programming.Model.Classes
+﻿namespace Programming
 {
     public class Rectangle
     {
         private double _length;
         private double _width;
 
+        // Автосвойство
         public string Color { get; set; }
 
+        // Конструктор без аргументов
         public Rectangle()
         {
 
         }
+        // Конструктор с параметрами
         public Rectangle(double length, double width, string color)
         {
             Length = length;
