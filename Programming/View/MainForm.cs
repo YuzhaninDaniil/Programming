@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace Programming
 {
     public partial class MainForm : Form
@@ -42,12 +44,14 @@ namespace Programming
             Random random = new Random();
             for (int i = 0; i < _rectangles.Length; i++)
             {
-                double lenght = random.Next(0, 10000) / 100d;
+                double height = random.Next(0, 10000) / 100d;
                 double width = random.Next(0, 10000) / 100d;
+                double CenterX = random.Next(0, 100000) / 100d;
+                double CenterY = random.Next(0, 100000) / 100d;
                 int RandomColorId = random.Next(0, Enum.GetValues(typeof(Color)).Length);
                 string color = Enum.GetValues(typeof(Color)).GetValue(RandomColorId).ToString();
 
-                _rectangles[i] = new Rectangle(lenght, width, color);
+                _rectangles[i] = new Rectangle(height, width, color, CenterX, CenterY);
             }
         }
 
@@ -59,9 +63,12 @@ namespace Programming
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentRectangle = _rectangles[RectanglesListBox.SelectedIndex];
-            RectangleLengthTextBox.Text = _currentRectangle.Length.ToString();
+            RectangleHeightTextBox.Text = _currentRectangle.Height.ToString();
             RectangleWidthTextBox.Text = _currentRectangle.Width.ToString();
             RectangleColorTextBox.Text = _currentRectangle.Color;
+            RectangleCenterXTextBox.Text = _currentRectangle.Center.X.ToString();
+            RectangleCenterYTextBox.Text = _currentRectangle.Center.Y.ToString();
+            RectangleIdTextBox.Text = _currentRectangle.Id.ToString();
         }
 
         /// <summary>
@@ -69,17 +76,22 @@ namespace Programming
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RectangleLenghtTextBox_TextChanged(object sender, EventArgs e)
+        private void RectangleHeightTextBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                double lenght = double.Parse(RectangleLengthTextBox.Text);
-                _currentRectangle.Length = lenght;
-                RectangleLengthTextBox.BackColor = System.Drawing.Color.White;
+                double lenght = double.Parse(RectangleHeightTextBox.Text);
+                _currentRectangle.Height = lenght;
+                RectangleHeightTextBox.BackColor = System.Drawing.Color.White;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
-                RectangleLengthTextBox.BackColor = System.Drawing.Color.LightPink;
+                RectangleHeightTextBox.BackColor = System.Drawing.Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException)
+            {
+                RectangleHeightTextBox.BackColor = System.Drawing.Color.LightPink;
             }
         }
 
@@ -96,7 +108,12 @@ namespace Programming
                 _currentRectangle.Width = width;
                 RectangleWidthTextBox.BackColor = System.Drawing.Color.White;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
+            {
+                RectangleWidthTextBox.BackColor = System.Drawing.Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException)
             {
                 RectangleWidthTextBox.BackColor = System.Drawing.Color.LightPink;
             }
@@ -189,10 +206,16 @@ namespace Programming
                 _currentMovie.DurationInMinutes = ParsedDuration;
                 MovieDurationTextBox.BackColor = System.Drawing.Color.White;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
+            {
+                MovieDurationTextBox.BackColor = System.Drawing.Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException)
             {
                 MovieDurationTextBox.BackColor = System.Drawing.Color.LightPink;
             }
+
         }
 
         private void MovieReleaseYearTextBox_TextChanged(object sender, EventArgs e)
@@ -203,7 +226,12 @@ namespace Programming
                 _currentMovie.ReleaseYear = releaseYear;
                 MovieReleaseYearTextBox.BackColor = System.Drawing.Color.White;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
+            {
+                MovieReleaseYearTextBox.BackColor = System.Drawing.Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException)
             {
                 MovieReleaseYearTextBox.BackColor = System.Drawing.Color.LightPink;
             }
@@ -217,7 +245,12 @@ namespace Programming
                 _currentMovie.Rating = rating;
                 MovieRatingTextBox.BackColor = System.Drawing.Color.White;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
+            {
+                MovieRatingTextBox.BackColor = System.Drawing.Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException)
             {
                 MovieRatingTextBox.BackColor = System.Drawing.Color.LightPink;
             }
@@ -230,22 +263,24 @@ namespace Programming
                 _currentMovie.Title = MovieTitleTextBox.Text;
                 MovieTitleTextBox.BackColor = System.Drawing.Color.White;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MovieTitleTextBox.BackColor = System.Drawing.Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void MovieGenreTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!Enum.TryParse(typeof(Genre), MovieGenreTextBox.Text, out _))
+            try
+            {
+                _currentMovie.Genre = MovieGenreTextBox.Text;
+                MovieGenreTextBox.BackColor = System.Drawing.Color.White;
+            }
+            catch (ArgumentException ex)
             {
                 MovieGenreTextBox.BackColor = System.Drawing.Color.LightPink;
-            }
-            else
-            {
-                MovieGenreTextBox.BackColor = System.Drawing.Color.White;
-                _currentMovie.Genre = MovieGenreTextBox.Text;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -335,23 +370,45 @@ namespace Programming
         {
             string weekday = WeekdayTextBox.Text;
             object parsedWeekday;
-            bool isWeek = Enum.TryParse(typeof(Weekday), weekday, out parsedWeekday);
+            //bool isWeek = Enum.TryParse(typeof(Weekday), weekday, out parsedWeekday);
 
-            if (isWeek && int.Parse(weekday) <= 6)
+
+            //if (weekday.ToLower() == "monday" || weekday == "Tuesday" || weekday == "Wednesday" || weekday == "Thursday"
+            //    || weekday == "Friday" || weekday == "Saturday" || weekday == "Sunday")
+            //{
+            //    weekday = char.ToUpper(weekday[0]) + weekday.Substring(1);
+            //    ParsedWeekdayLabel.Text = $"Это день недели {weekday} = {(int)parsedWeekday}";
+            //}
+            //else if(isWeek && int.Parse(weekday) <= 7 && int.Parse(weekday)!= 0)
+            //{
+            //    ParsedWeekdayLabel.Text = $"Это день недели ({parsedWeekday} = {(int)parsedWeekday})";
+            //}
+            //else
+            //{
+            //    ParsedWeekdayLabel.Text = "Нет такого дня недели";
+            //}
+            bool isWeek = Enum.TryParse(typeof(Weekday), weekday, true, out parsedWeekday); // true используется для игнорирования регистра
+
+            // Сравнение с использованием StringComparison.OrdinalIgnoreCase
+            if (weekday.Equals("monday", StringComparison.OrdinalIgnoreCase) ||
+                weekday.Equals("tuesday", StringComparison.OrdinalIgnoreCase) ||
+                weekday.Equals("wednesday", StringComparison.OrdinalIgnoreCase) ||
+                weekday.Equals("thursday", StringComparison.OrdinalIgnoreCase) ||
+                weekday.Equals("friday", StringComparison.OrdinalIgnoreCase) ||
+                weekday.Equals("saturday", StringComparison.OrdinalIgnoreCase) ||
+                weekday.Equals("sunday", StringComparison.OrdinalIgnoreCase))
+            {
+                weekday = char.ToUpper(weekday[0]) + weekday.Substring(1).ToLower();
+                ParsedWeekdayLabel.Text = $"Это день недели {weekday} = {(int)parsedWeekday}";
+            }
+            else if (isWeek && int.Parse(weekday) <= 7 && int.Parse(weekday) != 0)
             {
                 ParsedWeekdayLabel.Text = $"Это день недели ({parsedWeekday} = {(int)parsedWeekday})";
-            }
-            else if (weekday == "Monday" || weekday.ToLower() == "вторник" || weekday.ToLower() == "среда" ||
-             weekday.ToLower() == "четверг" || weekday.ToLower() == "пятница" || weekday.ToLower() == "суббота" ||
-             weekday.ToLower() == "воскресенье")
-            {
-                ParsedWeekdayLabel.Text = $"Это день недели {weekday} = {(int)parsedWeekday}";
             }
             else
             {
                 ParsedWeekdayLabel.Text = "Нет такого дня недели";
             }
-
         }
 
         /// <summary>
@@ -384,6 +441,12 @@ namespace Programming
 
             // явно приводим к типу int, чтобы из перечисления перейти к числу
             IntValue.Text = $"{(int)Enum.Parse(selectedEnum, SelectedValue)}";
+        }
+
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            EnumerationsGroup.BackColor = System.Drawing.Color.Transparent;
         }
         #endregion
     }

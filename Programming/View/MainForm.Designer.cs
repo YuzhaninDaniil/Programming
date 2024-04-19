@@ -32,6 +32,7 @@
             EnumsPage = new TabPage();
             EnumerationsGroup = new GroupBox();
             SeasonGroupBox = new GroupBox();
+            ResetButton = new Button();
             GoButton = new Button();
             SeasonsComboBox = new ComboBox();
             label5 = new Label();
@@ -62,12 +63,18 @@
             label9 = new Label();
             MovieListBox = new ListBox();
             RectanglesGroupBox = new GroupBox();
+            RectangleIdTextBox = new TextBox();
+            RectangleCenterYTextBox = new TextBox();
+            RectangleCenterXTextBox = new TextBox();
+            label16 = new Label();
+            label15 = new Label();
+            label14 = new Label();
             RectangleFindButton = new Button();
             RectangleColorTextBox = new TextBox();
             label8 = new Label();
             RectangleWidthTextBox = new TextBox();
             label7 = new Label();
-            RectangleLengthTextBox = new TextBox();
+            RectangleHeightTextBox = new TextBox();
             label6 = new Label();
             RectanglesListBox = new ListBox();
             MainTabControl.SuspendLayout();
@@ -123,6 +130,7 @@
             // 
             // SeasonGroupBox
             // 
+            SeasonGroupBox.Controls.Add(ResetButton);
             SeasonGroupBox.Controls.Add(GoButton);
             SeasonGroupBox.Controls.Add(SeasonsComboBox);
             SeasonGroupBox.Controls.Add(label5);
@@ -132,6 +140,16 @@
             SeasonGroupBox.TabIndex = 1;
             SeasonGroupBox.TabStop = false;
             SeasonGroupBox.Text = "SeasonHandle";
+            // 
+            // ResetButton
+            // 
+            ResetButton.Location = new Point(192, 38);
+            ResetButton.Name = "ResetButton";
+            ResetButton.Size = new Size(75, 23);
+            ResetButton.TabIndex = 3;
+            ResetButton.Text = "Reset";
+            ResetButton.UseVisualStyleBackColor = true;
+            ResetButton.Click += ResetButton_Click;
             // 
             // GoButton
             // 
@@ -415,12 +433,18 @@
             // 
             // RectanglesGroupBox
             // 
+            RectanglesGroupBox.Controls.Add(RectangleIdTextBox);
+            RectanglesGroupBox.Controls.Add(RectangleCenterYTextBox);
+            RectanglesGroupBox.Controls.Add(RectangleCenterXTextBox);
+            RectanglesGroupBox.Controls.Add(label16);
+            RectanglesGroupBox.Controls.Add(label15);
+            RectanglesGroupBox.Controls.Add(label14);
             RectanglesGroupBox.Controls.Add(RectangleFindButton);
             RectanglesGroupBox.Controls.Add(RectangleColorTextBox);
             RectanglesGroupBox.Controls.Add(label8);
             RectanglesGroupBox.Controls.Add(RectangleWidthTextBox);
             RectanglesGroupBox.Controls.Add(label7);
-            RectanglesGroupBox.Controls.Add(RectangleLengthTextBox);
+            RectanglesGroupBox.Controls.Add(RectangleHeightTextBox);
             RectanglesGroupBox.Controls.Add(label6);
             RectanglesGroupBox.Controls.Add(RectanglesListBox);
             RectanglesGroupBox.Location = new Point(3, 23);
@@ -429,6 +453,57 @@
             RectanglesGroupBox.TabIndex = 0;
             RectanglesGroupBox.TabStop = false;
             RectanglesGroupBox.Text = "Rectangles";
+            // 
+            // RectangleIdTextBox
+            // 
+            RectangleIdTextBox.Location = new Point(267, 211);
+            RectangleIdTextBox.Name = "RectangleIdTextBox";
+            RectangleIdTextBox.ReadOnly = true;
+            RectangleIdTextBox.Size = new Size(47, 23);
+            RectangleIdTextBox.TabIndex = 13;
+            // 
+            // RectangleCenterYTextBox
+            // 
+            RectangleCenterYTextBox.Location = new Point(267, 182);
+            RectangleCenterYTextBox.Name = "RectangleCenterYTextBox";
+            RectangleCenterYTextBox.ReadOnly = true;
+            RectangleCenterYTextBox.Size = new Size(47, 23);
+            RectangleCenterYTextBox.TabIndex = 12;
+            // 
+            // RectangleCenterXTextBox
+            // 
+            RectangleCenterXTextBox.Location = new Point(267, 153);
+            RectangleCenterXTextBox.Name = "RectangleCenterXTextBox";
+            RectangleCenterXTextBox.ReadOnly = true;
+            RectangleCenterXTextBox.Size = new Size(47, 23);
+            RectangleCenterXTextBox.TabIndex = 11;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(244, 215);
+            label16.Name = "label16";
+            label16.Size = new Size(21, 15);
+            label16.TabIndex = 10;
+            label16.Text = "ID:";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(244, 185);
+            label15.Name = "label15";
+            label15.Size = new Size(17, 15);
+            label15.TabIndex = 9;
+            label15.Text = "Y:";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(244, 154);
+            label14.Name = "label14";
+            label14.Size = new Size(17, 15);
+            label14.TabIndex = 8;
+            label14.Text = "X:";
             // 
             // RectangleFindButton
             // 
@@ -474,22 +549,22 @@
             label7.TabIndex = 3;
             label7.Text = "Width:";
             // 
-            // RectangleLengthTextBox
+            // RectangleHeightTextBox
             // 
-            RectangleLengthTextBox.Location = new Point(204, 40);
-            RectangleLengthTextBox.Name = "RectangleLengthTextBox";
-            RectangleLengthTextBox.Size = new Size(110, 23);
-            RectangleLengthTextBox.TabIndex = 2;
-            RectangleLengthTextBox.TextChanged += RectangleLenghtTextBox_TextChanged;
+            RectangleHeightTextBox.Location = new Point(204, 40);
+            RectangleHeightTextBox.Name = "RectangleHeightTextBox";
+            RectangleHeightTextBox.Size = new Size(110, 23);
+            RectangleHeightTextBox.TabIndex = 2;
+            RectangleHeightTextBox.TextChanged += RectangleHeightTextBox_TextChanged;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Location = new Point(204, 22);
             label6.Name = "label6";
-            label6.Size = new Size(47, 15);
+            label6.Size = new Size(46, 15);
             label6.TabIndex = 1;
-            label6.Text = "Length:";
+            label6.Text = "Height:";
             // 
             // RectanglesListBox
             // 
@@ -558,7 +633,7 @@
         private Label label8;
         private TextBox RectangleWidthTextBox;
         private Label label7;
-        private TextBox RectangleLengthTextBox;
+        private TextBox RectangleHeightTextBox;
         private Label label6;
         private ListBox RectanglesListBox;
         private TextBox MovieReleaseYearTextBox;
@@ -574,5 +649,12 @@
         private Label label12;
         private TextBox MovieRatingTextBox;
         private Label label11;
+        private Button ResetButton;
+        private TextBox RectangleIdTextBox;
+        private TextBox RectangleCenterYTextBox;
+        private TextBox RectangleCenterXTextBox;
+        private Label label16;
+        private Label label15;
+        private Label label14;
     }
 }

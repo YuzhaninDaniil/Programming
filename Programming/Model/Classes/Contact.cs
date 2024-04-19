@@ -2,20 +2,58 @@
 {
     public class Contact
     {
-        private string _email;
+        private const string _symbols = "abcdefghijklmnopqrstuvwxyz ";
 
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
+        private string _email;
+        private string _name;
+        private string _surname;
 
         public Contact(string name, string phoneNumber, string email)
         {
-            this.Name = name;
-            this.PhoneNumber = phoneNumber;
-            this.Email = email;
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Email = email;
         }
 
         public Contact()
         {
+
+        }
+
+        private void AssertStringContainsOnlyLetters(string value, string propertyName)
+        {
+            value = value.ToLower();
+            foreach (char c in value)
+            {
+                if (!_symbols.Contains(c))
+                {
+                    throw new ArgumentException($"Поле {propertyName} должно содержать толко латиницу");
+                }
+            }
+        }
+
+        public string PhoneNumber { get; set; }
+
+        public string Name
+        {
+            get { return _name; }
+
+            set
+            {
+                AssertStringContainsOnlyLetters(value, nameof(Name));
+                _name = value;
+            }
+
+        }
+
+        public string Surname
+        {
+            get { return _surname; }
+            set
+            {
+                AssertStringContainsOnlyLetters(value, nameof(Surname));
+                _surname = value;
+            }
         }
 
         public string Email

@@ -10,6 +10,7 @@
 
         public Movie()
         {
+
         }
 
         public Movie(string title, int durationInMinutes, int releaseYear, string genre, double rating)
@@ -26,10 +27,7 @@
             get { return _durationInMinutes; }
             set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Продолжительность фильма не может быть отрицательной.");
-                }
+                Validator.AssertOnPositiveValue(value, nameof(DurationInMinutes));
                 _durationInMinutes = value;
             }
         }
@@ -39,10 +37,7 @@
             get { return _releaseYear; }
             set
             {
-                if (value < 1900 || value > DateTime.Now.Year)
-                {
-                    throw new ArgumentException("Год выпуска фильма должен быть в диапазоне от 1900 до текущего года.");
-                }
+                Validator.AssertValueInRange(value, 1900, DateTime.Now.Year, nameof(ReleaseYear));
                 _releaseYear = value;
             }
         }
@@ -79,10 +74,7 @@
             get { return _rating; }
             set
             {
-                if (value < 0 || value > 10)
-                {
-                    throw new ArgumentException("Рейтинг фильма должен быть в диапазоне от 0 до 10.");
-                }
+                Validator.AssertValueInRange(value, 0, 10, nameof(Rating));
                 _rating = value;
             }
         }

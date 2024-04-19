@@ -6,11 +6,11 @@
         private int _minutes;
         private int _seconds;
 
-        // Конструктор без параметров
         public Time()
         {
+
         }
-        // Конструктор с параметрами
+
         public Time(int hours, int minutes, int seconds)
         {
             Hours = hours;
@@ -23,10 +23,7 @@
             get { return _hours; }
             set
             {
-                if (value < 0 || value > 23)
-                {
-                    throw new ArgumentException("Часы должны быть в диапазоне от 0 до 23.");
-                }
+                Validator.AssertValueInRange(value, 0, 23, nameof(Hours));
                 _hours = value;
             }
         }
@@ -36,10 +33,7 @@
             get { return _minutes; }
             set
             {
-                if (value < 0 || value > 60)
-                {
-                    throw new ArgumentException("Минуты должны быть в диапазоне от 0 до 60.");
-                }
+                Validator.AssertValueInRange(value, 0, 60, nameof(Minutes));
                 _minutes = value;
             }
         }
@@ -49,10 +43,7 @@
             get { return _seconds; }
             set
             {
-                if (value < 0 || value > 60)
-                {
-                    throw new ArgumentException("Секунды должны быть в диапазоне от 0 до 60.");
-                }
+                Validator.AssertValueInRange(value, 0, 60, nameof(Seconds));
                 _seconds = value;
             }
         }

@@ -15,6 +15,7 @@
 
         public Discipline()
         {
+
         }
 
         private string Name { get; set; }
@@ -24,10 +25,7 @@
             get { return _numOfStudents; }
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException("Число студентов должно быть больше 0");
-                }
+                Validator.AssertOnPositiveValue(value, nameof(NumOfStudents));
                 _numOfStudents = value;
             }
         }
@@ -37,10 +35,7 @@
             get { return _curriculum; }
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentException("Курс должен быть больше 0");
-                }
+                Validator.AssertOnPositiveValue(value, nameof(Сurriculum));
                 _curriculum = value;
             }
         }

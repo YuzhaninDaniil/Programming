@@ -2,45 +2,58 @@
 {
     public class Rectangle
     {
-        private double _length;
+        private double _height;
         private double _width;
+        private int _id;
+        private static int _allRectangleCount = 0;
 
-        // Автосвойство
-        public string Color { get; set; }
-
-        // Конструктор без аргументов
         public Rectangle()
         {
 
         }
-        // Конструктор с параметрами
-        public Rectangle(double length, double width, string color)
+
+        public Rectangle(double height, double width, string color, double centerX, double centerY)
         {
-            Length = length;
+            Height = height;
             Width = width;
             Color = color;
+            Center = new Point2D(centerX, centerY);
+            _allRectangleCount++;
+            _id = _allRectangleCount;
+
         }
-        public double Length
+
+        public string Color { get; set; }
+
+        public Point2D Center { get; private set; }
+
+        public int Id
         {
-            get { return _length; }
+            get { return _id; }
+            //private set { _id = value; }
+        }
+
+        public static int AllRectanglesCount
+        {
+            get { return _allRectangleCount; }
+        }
+
+        public double Height
+        {
+            get { return _height; }
             set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Длина прямоугольника не может быть отрицательной.");
-                }
-                _length = value;
+                Validator.AssertOnPositiveValue(value, nameof(Height));
+                _height = value;
             }
         }
+
         public double Width
         {
             get { return _width; }
             set
             {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Ширина прямоугольника не может быть отрицательной.");
-                }
+                Validator.AssertOnPositiveValue(value, nameof(Width));
                 _width = value;
             }
         }
