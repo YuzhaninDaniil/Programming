@@ -1,3 +1,5 @@
+using System.Drawing;
+using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace Programming
@@ -31,10 +33,8 @@ namespace Programming
 
         #region Classes
 
-        #region Rectangles
-
-        private Rectangle[] _rectangles = new Rectangle[5];
-        private Rectangle _currentRectangle;
+        private Rectangle[] _rectangles1 = new Rectangle[5];
+        private Rectangle _currentRectangle1;
 
         /// <summary>
         /// инициализирует массив _rectangles объектами 
@@ -42,16 +42,17 @@ namespace Programming
         private void InitializeRectangles()
         {
             Random random = new Random();
-            for (int i = 0; i < _rectangles.Length; i++)
+            for (int i = 0; i < _rectangles1.Length; i++)
             {
+                _rectangles1[i] = new Rectangle();
                 double height = random.Next(0, 10000) / 100d;
                 double width = random.Next(0, 10000) / 100d;
                 double CenterX = random.Next(0, 100000) / 100d;
                 double CenterY = random.Next(0, 100000) / 100d;
-                int RandomColorId = random.Next(0, Enum.GetValues(typeof(Color)).Length);
-                string color = Enum.GetValues(typeof(Color)).GetValue(RandomColorId).ToString();
+                int RandomColorId = random.Next(0, Enum.GetValues(typeof(ColorEnum)).Length);
+                string color = Enum.GetValues(typeof(ColorEnum)).GetValue(RandomColorId).ToString();
 
-                _rectangles[i] = new Rectangle(height, width, color, CenterX, CenterY);
+                _rectangles1[i] = new Rectangle(height, width, color, CenterX, CenterY);
             }
         }
 
@@ -62,13 +63,13 @@ namespace Programming
         /// <param name="e"></param>
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentRectangle = _rectangles[RectanglesListBox.SelectedIndex];
-            RectangleHeightTextBox.Text = _currentRectangle.Height.ToString();
-            RectangleWidthTextBox.Text = _currentRectangle.Width.ToString();
-            RectangleColorTextBox.Text = _currentRectangle.Color;
-            RectangleCenterXTextBox.Text = _currentRectangle.Center.X.ToString();
-            RectangleCenterYTextBox.Text = _currentRectangle.Center.Y.ToString();
-            RectangleIdTextBox.Text = _currentRectangle.Id.ToString();
+            _currentRectangle1 = _rectangles1[RectanglesListBox.SelectedIndex];
+            RectangleHeightTextBox.Text = _currentRectangle1.Height.ToString();
+            RectangleWidthTextBox.Text = _currentRectangle1.Width.ToString();
+            RectangleColorTextBox.Text = _currentRectangle1.Color;
+            RectangleCenterXTextBox.Text = _currentRectangle1.Center.X.ToString();
+            RectangleCenterYTextBox.Text = _currentRectangle1.Center.Y.ToString();
+            RectangleIdTextBox.Text = _currentRectangle1.Id.ToString();
         }
 
         /// <summary>
@@ -81,17 +82,17 @@ namespace Programming
             try
             {
                 double lenght = double.Parse(RectangleHeightTextBox.Text);
-                _currentRectangle.Height = lenght;
-                RectangleHeightTextBox.BackColor = System.Drawing.Color.White;
+                _currentRectangle1.Height = lenght;
+                RectangleHeightTextBox.BackColor = Color.White;
             }
             catch (ArgumentException ex)
             {
-                RectangleHeightTextBox.BackColor = System.Drawing.Color.LightPink;
+                RectangleHeightTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException)
             {
-                RectangleHeightTextBox.BackColor = System.Drawing.Color.LightPink;
+                RectangleHeightTextBox.BackColor = Color.LightPink;
             }
         }
 
@@ -105,17 +106,17 @@ namespace Programming
             try
             {
                 double width = double.Parse(RectangleWidthTextBox.Text);
-                _currentRectangle.Width = width;
-                RectangleWidthTextBox.BackColor = System.Drawing.Color.White;
+                _currentRectangle1.Width = width;
+                RectangleWidthTextBox.BackColor = Color.White;
             }
             catch (ArgumentException ex)
             {
-                RectangleWidthTextBox.BackColor = System.Drawing.Color.LightPink;
+                RectangleWidthTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (FormatException)
             {
-                RectangleWidthTextBox.BackColor = System.Drawing.Color.LightPink;
+                RectangleWidthTextBox.BackColor = Color.LightPink;
             }
         }
 
@@ -126,14 +127,14 @@ namespace Programming
         /// <param name="e"></param>
         private void RectangleColorTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!Enum.TryParse(typeof(Color), RectangleColorTextBox.Text, out _))
+            if (!Enum.TryParse(typeof(ColorEnum), RectangleColorTextBox.Text, out _))
             {
-                RectangleColorTextBox.BackColor = System.Drawing.Color.LightPink;
+                RectangleColorTextBox.BackColor = Color.LightPink;
             }
             else
             {
-                RectangleColorTextBox.BackColor = System.Drawing.Color.White;
-                _currentRectangle.Color = RectangleColorTextBox.Text;
+                RectangleColorTextBox.BackColor = Color.White;
+                _currentRectangle1.Color = RectangleColorTextBox.Text;
             }
         }
         /// <summary>
@@ -161,11 +162,11 @@ namespace Programming
         /// <param name="e"></param>
         private void FindRectangleButton_Click(object sender, EventArgs e)
         {
-            RectanglesListBox.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
+            RectanglesListBox.SelectedIndex = FindRectangleWithMaxWidth(_rectangles1);
         }
 
 
-        #endregion
+        
 
         #region Movies
         private Movie[] _movies = new Movie[5];
@@ -316,8 +317,8 @@ namespace Programming
 
             switch (CurrentEnumName)
             {
-                case "Color":
-                    return typeof(Color);
+                case "ColorEnum":
+                    return typeof(ColorEnum);
                 case "Weekday":
                     return typeof(Weekday);
                 case "EducationForm":
@@ -447,6 +448,172 @@ namespace Programming
         private void ResetButton_Click(object sender, EventArgs e)
         {
             EnumerationsGroup.BackColor = System.Drawing.Color.Transparent;
+        }
+        #endregion
+
+        #region Rectangles
+        private static List<Rectangle> _rectangles = new List<Rectangle>();
+        private static Rectangle _currentRectangle = null;
+        private static List<Panel> _rectanglePanels = new List<Panel>();
+
+        private void AddRectangleButton_Click(object sender, EventArgs e)
+        {
+            Rectangle newRectangle = RectangleFactory.Randomize(RectanglesPanel.Width, RectanglesPanel.Height);
+            _rectangles.Add(newRectangle);
+
+            RectanglesListBox2.Items.Add($"{newRectangle.Id}. (X = {newRectangle.Center.X}, Y = {newRectangle.Center.Y}, W = {newRectangle.Width}; H = {newRectangle.Height})");
+
+            Panel newPanel = new Panel();
+            newPanel.BackColor = Color.FromArgb(127, 127, 255, 127);
+            // Находим координаты точки верхнего левого края прямоугольника
+            newPanel.Location = new Point((int)(newRectangle.Center.X - newRectangle.Width / 2), (int)(newRectangle.Center.Y - newRectangle.Height / 2));
+            newPanel.Width = (int)newRectangle.Width;
+            newPanel.Height = (int)newRectangle.Height;
+
+            _rectanglePanels.Add(newPanel);
+            RectanglesPanel.Controls.Add(newPanel);
+            FindCollisions();
+        }
+
+        private void DeleteRectangleButton_Click(object sender, EventArgs e)
+        {
+            ClearRectangleInfo();
+        }
+
+        private void RectanglesListBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RectanglesListBox2.SelectedIndex < 0)
+            {
+                RectangleIdTextBox2.Text = string.Empty;
+                RectangleCenterXTextBox2.Text = string.Empty;
+                RectangleCenterYTextBox2.Text = string.Empty;
+                RectangleWidthTextBox2.Text = string.Empty;
+                RectangleHeightTextBox2.Text = string.Empty;
+            }
+            else
+            {
+                _currentRectangle = _rectangles[RectanglesListBox2.SelectedIndex];
+
+                RectangleWidthTextBox2.Text = _currentRectangle.Width.ToString();
+                RectangleHeightTextBox2.Text = _currentRectangle.Height.ToString();
+                RectangleCenterXTextBox2.Text = _currentRectangle.Center.X.ToString();
+                RectangleCenterYTextBox2.Text = _currentRectangle.Center.Y.ToString();
+                RectangleIdTextBox2.Text = _currentRectangle.Id.ToString();
+            }
+        }
+
+        private void RectangleCenterXTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(RectangleCenterXTextBox2.Text)) return;
+            try
+            {
+                int text = int.Parse(RectangleCenterXTextBox2.Text);
+                _currentRectangle.Center = new Point2D(text, _currentRectangle.Center.Y);
+                RectangleCenterXTextBox2.BackColor = Color.White;
+                UpdateRectangleInfo();
+
+                _rectanglePanels[RectanglesListBox2.SelectedIndex].Location = new Point(
+                    text - _rectanglePanels[RectanglesListBox2.SelectedIndex].Width / 2,
+                    _rectanglePanels[RectanglesListBox2.SelectedIndex].Location.Y);
+
+                FindCollisions();
+            }
+            catch (Exception)
+            {
+                RectangleCenterXTextBox2.BackColor = Color.LightPink;
+            }
+        }
+
+        private void RectanglesCenterYTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(RectangleCenterYTextBox2.Text)) return;
+            try
+            {
+                int text = int.Parse(RectangleCenterYTextBox2.Text);
+                _currentRectangle.Center = new Point2D(_currentRectangle.Center.X, int.Parse(RectangleCenterYTextBox2.Text));
+                RectangleCenterYTextBox2.BackColor = Color.White;
+                UpdateRectangleInfo();
+
+                _rectanglePanels[RectanglesListBox2.SelectedIndex].Location = new Point(
+                    _rectanglePanels[RectanglesListBox2.SelectedIndex].Location.X,
+                    text - _rectanglePanels[RectanglesListBox2.SelectedIndex].Height / 2);
+
+                FindCollisions();
+            }
+            catch (Exception)
+            {
+                RectangleCenterYTextBox2.BackColor = Color.LightPink;
+            }
+        }
+
+        private void RectangleWidthTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(RectangleWidthTextBox2.Text)) return;
+            try
+            {
+                int text = int.Parse(RectangleWidthTextBox2.Text);
+                _currentRectangle.Width = text;
+                RectangleWidthTextBox2.BackColor = Color.White;
+                UpdateRectangleInfo();
+
+                _rectanglePanels[RectanglesListBox2.SelectedIndex].Width = text;
+
+                FindCollisions();
+            }
+            catch (Exception)
+            {
+                RectangleWidthTextBox2.BackColor = Color.LightPink;
+            }
+        }
+
+        private void RectangleHeightTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(RectangleHeightTextBox2.Text)) return;
+            try
+            {
+                int text = int.Parse(RectangleHeightTextBox2.Text);
+                _currentRectangle.Height = text;
+                RectangleHeightTextBox2.BackColor = Color.White;
+                UpdateRectangleInfo();
+
+                _rectanglePanels[RectanglesListBox2.SelectedIndex].Height = text;
+
+                FindCollisions();
+            }
+            catch (Exception)
+            {
+                RectangleHeightTextBox2.BackColor = Color.LightPink;
+            }
+        }
+
+        private void UpdateRectangleInfo()
+        {
+            Rectangle selectedRectangle = _rectangles[RectanglesListBox2.SelectedIndex];
+            RectanglesListBox2.Items[RectanglesListBox2.SelectedIndex] = $"{selectedRectangle.Id}. (X = {selectedRectangle.Center.X}, Y = {selectedRectangle.Center.Y}; W = {selectedRectangle.Width}; H = {selectedRectangle.Height})";
+        }
+
+        private void FindCollisions()
+        {
+            for (int i = 0; i < _rectanglePanels.Count; i++)
+            {
+                _rectanglePanels[i].BackColor = Color.FromArgb(127, 127, 255, 127);
+                for (int j = 0; j < _rectanglePanels.Count; j++)
+                {
+                    if (CollisionManager.IsCollision(_rectangles[i], _rectangles[j]) && i != j)
+                    {
+                        _rectanglePanels[i].BackColor = Color.FromArgb(127, 255, 127, 127);
+                    }
+                }
+            }
+        }
+        private void ClearRectangleInfo()
+        {
+            if (RectanglesListBox2.SelectedIndex < 0) return;
+            _rectangles.RemoveAt(RectanglesListBox2.SelectedIndex);
+            _rectanglePanels.RemoveAt(RectanglesListBox2.SelectedIndex);
+            RectanglesPanel.Controls.RemoveAt(RectanglesListBox2.SelectedIndex);
+            RectanglesListBox2.Items.RemoveAt(RectanglesListBox2.SelectedIndex);
+            FindCollisions();
         }
         #endregion
     }

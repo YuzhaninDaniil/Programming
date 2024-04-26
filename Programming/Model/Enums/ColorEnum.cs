@@ -1,6 +1,6 @@
 ﻿namespace Programming
 {
-    public enum Color
+    public enum ColorEnum
     {
         Red,
         Orange,
