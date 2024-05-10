@@ -1,5 +1,8 @@
 ﻿namespace Programming
 {
+    /// <summary>
+    /// Хранит дни недели. Первая константа равна 1.
+    /// </summary>
     public enum Weekday
     {
         Monday = 1,

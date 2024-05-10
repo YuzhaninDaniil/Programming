@@ -1,5 +1,8 @@
 ﻿namespace Programming
 {
+    /// <summary>
+    /// Хранит цвета.
+    /// </summary>
     public enum ColorEnum
     {
         Red,
