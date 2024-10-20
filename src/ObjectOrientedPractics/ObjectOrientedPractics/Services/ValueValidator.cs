@@ -1,31 +1,56 @@
 ﻿namespace ObjectOrientedPractics
 {
+    /// <summary>
+    /// Проверяет корректность данных
+    /// </summary>
     internal static class ValueValidator
     {
-        public static void AssertStringOnLength(string value, int maxLength, string propertyName)
+        /// <summary>
+        /// Проверяет длину строки и указанного для нее максимума.
+        /// </summary>
+        /// <param name="str">Строка</param>
+        /// <param name="maxLength">Максимальная длина для строки</param>
+        /// <param name="propertyName">Имя свойства</param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void AssertStringOnLength(string str, int maxLength, string propertyName)
         {
-            if(value.Length > maxLength)
+            if(str.Length > maxLength)
             {
-                throw new ArgumentException($"{propertyName} должен быть меньше {maxLength} символов.");
+                throw new ArgumentException($"Значение свойства {propertyName} должно быть меньше {maxLength} символов.");
             }
         }
 
-        public static void IsStringNullOrEmpty(string value, string propertyName)
+        /// <summary>
+        /// Проверяет строку на null или на пустоту.
+        /// </summary>
+        /// <param name="str">Строка</param>
+        /// <param name="propertyName">Имя свойства</param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void IsStringNullOrEmpty(string str, string propertyName)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(str))
             {
-                throw new ArgumentException($"{propertyName} не должно быть null или пустым.");
+                throw new ArgumentException($"Значение свойства {propertyName} не должно быть null или пустым.");
             }
         }
-        public static void CheckNumberInRange(double value, double minValue, double maxValue, string propertyName)
+
+        /// <summary>
+        /// Проверяет, находится ли число в указанном диапазоне.
+        /// </summary>
+        /// <param name="number">Число</param>
+        /// <param name="minValue">Нижняя граница диапазоне</param>
+        /// <param name="maxValue">Верхняя граница диапазона</param>
+        /// <param name="propertyName">Имя свойства</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void CheckNumberInRange(double number, double minValue, double maxValue, string propertyName)
         {
-            if(value < minValue)
+            if(number < minValue)
             {
-                throw new ArgumentOutOfRangeException($"{propertyName} должно быть >= {minValue}");
+                throw new ArgumentOutOfRangeException($"Значение свойства {propertyName} должно быть >= {minValue}");
             }
-            if (value > maxValue)
+            if (number > maxValue)
             {
-                throw new ArgumentOutOfRangeException($"{propertyName} должно быть <= {maxValue}");
+                throw new ArgumentOutOfRangeException($"Значение свойства {propertyName} должно быть <= {maxValue}");
             }
         }
     }

@@ -13,11 +13,20 @@ namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CustomersTab : UserControl
     {
+        /// <summary>
+        /// True, если данные в полях корректны, иначе false
+        /// </summary>
+        bool _isValidData = true;
+
+        /// <summary>
+        /// Список, хранящий всех покупателей
+        /// </summary>
         private List<Customer> _customers = new();
 
+        /// <summary>
+        /// Выбранный покупатель
+        /// </summary>
         private Customer _currentCustomer;
-
-        bool _isDataCorrect = true;
 
         public CustomersTab()
         {
@@ -55,7 +64,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedItem == null) return;
-            if (!_isDataCorrect)
+            if (!_isValidData)
             {
                 CustomersListBox.SelectedItem = _currentCustomer;
                 return;
@@ -73,7 +82,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CustomersListBox_Click(object sender, EventArgs e)
         {
-            _isDataCorrect = true;
+            _isValidData = true;
 
             CustomerAddressTextBox.BackColor = Color.White;
             CustomerFullNameTextBox.BackColor = Color.White;
@@ -83,21 +92,24 @@ namespace ObjectOrientedPractics.View.Tabs
                 string newAddress = CustomerAddressTextBox.Text;
                 _currentCustomer.Address = newAddress;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _isDataCorrect = false;
+                _isValidData = false;
                 CustomerAddressTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             try
             {
                 string newFullName = CustomerFullNameTextBox.Text;
                 _currentCustomer.FullName = newFullName;
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _isDataCorrect = false;
+                _isValidData = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

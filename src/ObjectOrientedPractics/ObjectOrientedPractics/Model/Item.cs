@@ -6,7 +6,7 @@
     internal class Item
     {
         /// <summary>
-        /// Уникальный номер товара
+        /// Уникальный идентификатор товара
         /// </summary>
         private readonly int _id;
 
@@ -53,8 +53,8 @@
             get { return _info; }
             set 
             {
-                ValueValidator.AssertStringOnLength(value, 1000, nameof(Name));
-                ValueValidator.IsStringNullOrEmpty(value, nameof(Name));
+                ValueValidator.AssertStringOnLength(value, 1000, nameof(Info));
+                ValueValidator.IsStringNullOrEmpty(value, nameof(Info));
                 _info = value;
             }
         }
@@ -83,9 +83,9 @@
         /// <summary>
         /// Создает экзмепляр класса <see cref="Item"/>
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="info"></param>
-        /// <param name="cost"></param>
+        /// <param name="name">Название продукта</param>
+        /// <param name="info">Информация о продукте</param>
+        /// <param name="cost">Цена продукта</param>
         public Item(string name, string info, double cost)
         {
             _id = IdGenerator.GetNextId();
@@ -95,7 +95,7 @@
         }
 
         /// <summary>
-        /// Возвращает имя товара
+        /// Возвращает имя товара вместо служебной информации
         /// </summary>
         /// <returns> string </returns>
         public override string ToString()

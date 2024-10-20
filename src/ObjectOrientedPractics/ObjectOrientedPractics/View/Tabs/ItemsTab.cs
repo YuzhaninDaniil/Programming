@@ -14,19 +14,19 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class ItemsTab : UserControl
     {
         /// <summary>
-        /// список для хранения всех товаров
+        /// True, если данные в полях корректны, иначе false 
+        /// </summary>
+        bool _isValidData = true;
+
+        /// <summary>
+        /// Список, хранящий всех покупателей
         /// </summary>
         private List<Item> _items = new();
 
         /// <summary>
-        /// текущий выбранный товар
+        /// Выбранный покупатель
         /// </summary>
         private Item _currentItem;
-
-        /// <summary>
-        /// true если данные введены корректно, иначе - false 
-        /// </summary>
-        bool _isDataCorrect = true;
 
         public ItemsTab()
         {
@@ -35,9 +35,9 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void ItemsTab_Load(object sender, EventArgs e)
         {
-            _items.Add(new Item("Banana", "Вкусный", 1000));
-            _items.Add(new Item("Jeans", "Джинсы обычные", 5000));
-            _items.Add(new Item("Juice", "Сок персиковый", 300));
+            _items.Add(ItemFactory.Generate());
+            _items.Add(ItemFactory.Generate());
+            _items.Add(ItemFactory.Generate());
 
             ItemsListBox.DataSource = _items;
             ItemsListBox.SelectedIndex = 0;
@@ -61,7 +61,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedItem == null) return;
-            if (!_isDataCorrect)
+            if (!_isValidData)
             {
                 ItemsListBox.SelectedItem = _currentItem;
                 return;
@@ -80,7 +80,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void ItemsListBox_Click(object sender, EventArgs e)
         {
-            _isDataCorrect = true;
+            _isValidData = true;
 
             ItemCostTextBox.BackColor = Color.White;
             ItemNameTextBox.BackColor = Color.White;
@@ -93,8 +93,8 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             catch (Exception ex)
             {
+                _isValidData = false;
                 ItemCostTextBox.BackColor = Color.LightPink;
-                _isDataCorrect = false;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -105,8 +105,8 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             catch (Exception ex)
             {
+                _isValidData = false;
                 ItemNameTextBox.BackColor = Color.LightPink;
-                _isDataCorrect = false;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             try
@@ -116,8 +116,8 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             catch (Exception ex)
             {
+                _isValidData = false;
                 ItemDescriptionTextBox.BackColor = Color.LightPink;
-                _isDataCorrect = false;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
