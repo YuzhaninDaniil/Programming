@@ -14,7 +14,7 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class ItemsTab : UserControl
     {
         /// <summary>
-        /// True, если данные в полях корректны, иначе false 
+        /// True, если данные в полях корректны, иначе false
         /// </summary>
         bool _isValidData = true;
 
