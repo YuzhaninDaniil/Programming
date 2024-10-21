@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ObjectOrientedPractics
+﻿namespace ObjectOrientedPractics
 {
-    internal class Address
+    /// <summary>
+    /// Хранит данные об адресе покупателя.
+    /// </summary>
+    public class Address
     {
         /// <summary>
         /// Почтовый индекс.
@@ -39,23 +36,24 @@ namespace ObjectOrientedPractics
         private string _apartment;
 
         /// <summary>
-        /// Возвращает и задаёт Почтовый индекс. должно быть целым шестизначным числом.
+        /// Возвращает и задаёт почтовый индекс. Должно быть целым шестизначным числом.
         /// </summary>
         public int Index
         {
             get { return _index; }
             set
             {
-                if (value < 100000 || value > 999999)
-                {
-                    throw new ArgumentException("Index должен быть целым шестизначным числом");
-                }
+                ValueValidator.CheckNumberInRange(value, 100000, 999999, nameof(Index));
+                //if (value < 100000 || value > 999999)
+                //{
+                //    throw new ArgumentException("Index должен быть целым шестизначным числом");
+                //}
                 _index = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задаёт Страну/регион. не должно превышать 50 символов
+        /// Возвращает и задаёт страну/регионю. Не должно превышать 50 символов.
         /// </summary>
         public string Country
         {
@@ -63,12 +61,13 @@ namespace ObjectOrientedPractics
             set
             {
                 ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
+                ValueValidator.IsStringNullOrEmpty(value, nameof(Country));
                 _country = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задаёт Город (населенный пункт). не должно превышать 50 символов
+        /// Возвращает и задаёт город (населенный пункт).Не должно превышать 50 символов
         /// </summary>
         public string City
         {
@@ -76,12 +75,13 @@ namespace ObjectOrientedPractics
             set
             {
                 ValueValidator.AssertStringOnLength(value, 50, nameof(City));
+                ValueValidator.IsStringNullOrEmpty(value, nameof(City));
                 _city = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задаёт Улицу. не должно превышать 100 символов
+        /// Возвращает и задаёт улицу. Не должно превышать 100 символов
         /// </summary>
         public string Street
         {
@@ -89,12 +89,13 @@ namespace ObjectOrientedPractics
             set
             {
                 ValueValidator.AssertStringOnLength(value, 100, nameof(Street));
+                ValueValidator.IsStringNullOrEmpty(value, nameof(Street));
                 _street = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задаёт Номер дома. не должно превышать 10 символов
+        /// Возвращает и задаёт номер дома. Не должно превышать 10 символов
         /// </summary>
         public string Building
         {
@@ -102,12 +103,13 @@ namespace ObjectOrientedPractics
             set
             {
                 ValueValidator.AssertStringOnLength(value, 10, nameof(Building));
+                ValueValidator.IsStringNullOrEmpty(value, nameof(Building));
                 _building = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задаёт Номер квартиры/помещения. не должно превышать 10 символов
+        /// Возвращает и задаёт номер квартиры/помещения. Не должно превышать 10 символов
         /// </summary>
         public string Apartment
         {
@@ -115,6 +117,7 @@ namespace ObjectOrientedPractics
             set
             {
                 ValueValidator.AssertStringOnLength(value, 10, nameof(Apartment));
+                ValueValidator.IsStringNullOrEmpty(value, nameof(Apartment));
                 _apartment = value;
             }
         }
@@ -125,11 +128,11 @@ namespace ObjectOrientedPractics
         public Address()
         {
             Index = 100000;
-            Country = "";
-            City = "city";
-            Street = "";
-            Building = "";
-            Apartment = "";
+            Country = "Country";
+            City = "City";
+            Street = "Street";
+            Building = "Building";
+            Apartment = "Apartment";
         }
 
         /// <summary>

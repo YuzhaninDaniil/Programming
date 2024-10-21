@@ -1,15 +1,4 @@
-﻿using ObjectOrientedPractics.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class ItemsTab : UserControl
     {
@@ -28,6 +17,19 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private Item _currentItem;
 
+        public List<Item> Items
+        {
+            get { return _items; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Items не должно быть null");
+                }
+                _items = value;
+            }
+        }
+
         public ItemsTab()
         {
             InitializeComponent();
@@ -35,12 +37,9 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void ItemsTab_Load(object sender, EventArgs e)
         {
-            _items.Add(ItemFactory.Generate());
-            _items.Add(ItemFactory.Generate());
-            _items.Add(ItemFactory.Generate());
-
             ItemsListBox.DataSource = _items;
-            ItemsListBox.SelectedIndex = 0;
+            //ItemsListBox.SelectedIndex = 0;
+            ItemCategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
         }
 
         private void AddItemButton_Click(object sender, EventArgs e)
@@ -69,10 +68,11 @@ namespace ObjectOrientedPractics.View.Tabs
 
             _currentItem = ItemsListBox.SelectedItem as Item;
 
-            ItemIDTextBox.Text = _currentItem.ID.ToString();
+            ItemIDTextBox.Text = _currentItem.Id.ToString();
             ItemCostTextBox.Text = _currentItem.Cost.ToString();
             ItemNameTextBox.Text = _currentItem.Name;
             ItemDescriptionTextBox.Text = _currentItem.Info;
+            ItemCategoryComboBox.SelectedItem = _currentItem.Category;
 
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;
@@ -120,6 +120,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 ItemDescriptionTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
         }
     }
 }

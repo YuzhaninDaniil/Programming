@@ -1,22 +1,11 @@
-﻿using ObjectOrientedPractics.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CustomersTab : UserControl
     {
         /// <summary>
         /// True, если данные в полях корректны, иначе false
         /// </summary>
-        bool _isValidData = true;
+        bool _isDataValid = true;
 
         /// <summary>
         /// Список, хранящий всех покупателей
@@ -28,6 +17,19 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private Customer _currentCustomer;
 
+        public List<Customer> Customers
+        {
+            get { return _customers; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Customers не должно быть null");
+                }
+                _customers = value;
+            }
+        }
+
         public CustomersTab()
         {
             InitializeComponent();
@@ -35,10 +37,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CustomersTab_Load(object sender, EventArgs e)
         {
-            _customers.Add(CustomerFactory.GetNextCustomer());
-            _customers.Add(CustomerFactory.GetNextCustomer());
-            _customers.Add(CustomerFactory.GetNextCustomer());
-            _customers.Add(CustomerFactory.GetNextCustomer());
+            _customers.Add(CustomerFactory.Generate());
 
             CustomersListBox.DataSource = _customers;
             CustomersListBox.SelectedIndex = 0;
@@ -46,7 +45,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            Customer newCustomer = CustomerFactory.GetNextCustomer();
+            Customer newCustomer = CustomerFactory.Generate();
             _customers.Add(newCustomer);
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
@@ -64,7 +63,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedItem == null) return;
-            if (!_isValidData)
+            if (!_isDataValid)
             {
                 CustomersListBox.SelectedItem = _currentCustomer;
                 return;
@@ -72,8 +71,8 @@ namespace ObjectOrientedPractics.View.Tabs
 
             _currentCustomer = CustomersListBox.SelectedItem as Customer;
 
-            CustomerIDTextBox.Text = _currentCustomer.ID.ToString();
-            CustomerAddressTextBox.Text = _currentCustomer.Address;
+            CustomerIDTextBox.Text = _currentCustomer.Id.ToString();
+            CustomerAddressControl.Address = _currentCustomer.Address;
             CustomerFullNameTextBox.Text = _currentCustomer.FullName;
 
             CustomersListBox.DataSource = null;
@@ -82,34 +81,31 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CustomersListBox_Click(object sender, EventArgs e)
         {
-            _isValidData = true;
+            if (CustomersListBox.SelectedItem == null) { return; }
 
-            CustomerAddressTextBox.BackColor = Color.White;
+            _isDataValid = true;
+
             CustomerFullNameTextBox.BackColor = Color.White;
 
-            try
+            if (CustomerAddressControl.TryWriteAdressData())
             {
-                string newAddress = CustomerAddressTextBox.Text;
-                _currentCustomer.Address = newAddress;
+                _currentCustomer.Address = CustomerAddressControl.Address;
             }
-            catch (Exception ex)
+            else
             {
-                _isValidData = false;
-                CustomerAddressTextBox.BackColor = Color.LightPink;
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _isDataValid = false;
             }
+
 
             try
             {
                 string newFullName = CustomerFullNameTextBox.Text;
                 _currentCustomer.FullName = newFullName;
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _isValidData = false;
+                _isDataValid = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

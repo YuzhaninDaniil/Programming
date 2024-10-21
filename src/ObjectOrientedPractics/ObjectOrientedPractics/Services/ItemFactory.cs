@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ObjectOrientedPractics.Services
+﻿namespace ObjectOrientedPractics
 {
     /// <summary>
     /// Создает товар
@@ -22,7 +16,7 @@ namespace ObjectOrientedPractics.Services
         /// <returns>Item</returns>
         public static Item Generate()
         {
-            Item item = new Item($"Name{_itemGeneratedCount}", $"Information{_itemGeneratedCount}", _itemGeneratedCount);
+            Item item = new Item($"Name{_itemGeneratedCount}", $"Information{_itemGeneratedCount}", _itemGeneratedCount, Category.Plumbing);
             _itemGeneratedCount++;
             return item;
         }

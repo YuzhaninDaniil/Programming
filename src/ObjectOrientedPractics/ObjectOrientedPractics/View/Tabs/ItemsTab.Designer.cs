@@ -41,6 +41,8 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            label5 = new Label();
+            ItemCategoryComboBox = new ComboBox();
             ItemsGroupBox.SuspendLayout();
             SelectedItemsGroupBox.SuspendLayout();
             SuspendLayout();
@@ -90,6 +92,8 @@
             // 
             // SelectedItemsGroupBox
             // 
+            SelectedItemsGroupBox.Controls.Add(ItemCategoryComboBox);
+            SelectedItemsGroupBox.Controls.Add(label5);
             SelectedItemsGroupBox.Controls.Add(ItemDescriptionTextBox);
             SelectedItemsGroupBox.Controls.Add(ItemNameTextBox);
             SelectedItemsGroupBox.Controls.Add(ItemCostTextBox);
@@ -107,7 +111,7 @@
             // 
             // ItemDescriptionTextBox
             // 
-            ItemDescriptionTextBox.Location = new Point(7, 237);
+            ItemDescriptionTextBox.Location = new Point(6, 277);
             ItemDescriptionTextBox.Multiline = true;
             ItemDescriptionTextBox.Name = "ItemDescriptionTextBox";
             ItemDescriptionTextBox.Size = new Size(326, 149);
@@ -115,7 +119,7 @@
             // 
             // ItemNameTextBox
             // 
-            ItemNameTextBox.Location = new Point(7, 108);
+            ItemNameTextBox.Location = new Point(6, 166);
             ItemNameTextBox.Multiline = true;
             ItemNameTextBox.Name = "ItemNameTextBox";
             ItemNameTextBox.Size = new Size(327, 90);
@@ -123,14 +127,14 @@
             // 
             // ItemCostTextBox
             // 
-            ItemCostTextBox.Location = new Point(54, 48);
+            ItemCostTextBox.Location = new Point(75, 48);
             ItemCostTextBox.Name = "ItemCostTextBox";
             ItemCostTextBox.Size = new Size(129, 23);
             ItemCostTextBox.TabIndex = 5;
             // 
             // ItemIDTextBox
             // 
-            ItemIDTextBox.Location = new Point(54, 19);
+            ItemIDTextBox.Location = new Point(75, 19);
             ItemIDTextBox.Name = "ItemIDTextBox";
             ItemIDTextBox.ReadOnly = true;
             ItemIDTextBox.Size = new Size(129, 23);
@@ -139,7 +143,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(6, 219);
+            label4.Location = new Point(5, 259);
             label4.Name = "label4";
             label4.Size = new Size(70, 15);
             label4.TabIndex = 3;
@@ -148,7 +152,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 90);
+            label3.Location = new Point(5, 148);
             label3.Name = "label3";
             label3.Size = new Size(42, 15);
             label3.TabIndex = 2;
@@ -168,9 +172,26 @@
             label1.AutoSize = true;
             label1.Location = new Point(6, 22);
             label1.Name = "label1";
-            label1.Size = new Size(21, 15);
+            label1.Size = new Size(20, 15);
             label1.TabIndex = 0;
-            label1.Text = "ID:";
+            label1.Text = "Id:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(5, 85);
+            label5.Name = "label5";
+            label5.Size = new Size(58, 15);
+            label5.TabIndex = 8;
+            label5.Text = "Category:";
+            // 
+            // ItemCategoryComboBox
+            // 
+            ItemCategoryComboBox.FormattingEnabled = true;
+            ItemCategoryComboBox.Location = new Point(75, 82);
+            ItemCategoryComboBox.Name = "ItemCategoryComboBox";
+            ItemCategoryComboBox.Size = new Size(129, 23);
+            ItemCategoryComboBox.TabIndex = 9;
             // 
             // ItemsTab
             // 
@@ -202,5 +223,7 @@
         private Label label1;
         private Button RemoveItemButton;
         private Button AddItemButton;
+        private ComboBox ItemCategoryComboBox;
+        private Label label5;
     }
 }

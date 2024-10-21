@@ -3,7 +3,7 @@
     /// <summary>
     /// Хранит данные о покупателе
     /// </summary>
-    internal class Customer
+    public class Customer
     {
         /// <summary>
         /// Уникальный идентификатор покупателя
@@ -16,14 +16,14 @@
         private string _fullName;
 
         /// <summary>
-        /// Аддресс покупателя
+        /// Адрес покупателя
         /// </summary>
-        private string _address;
+        private Address _address;
 
         /// <summary>
         /// Возвращает значение поля id
         /// </summary>
-        public int ID { get { return _id; } }
+        public int Id { get { return _id; } }
 
         /// <summary>
         ///  Возвращает и задаёт ФИО покупателя. Не может быть больше 200 символов или пустым.
@@ -42,13 +42,11 @@
         /// <summary>
         /// Возвращает и задаёт адрес покупателя. Не может быть больше 500 символов или пустым.
         /// </summary>
-        public string Address
+        public Address Address
         {
             get { return _address; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 500, nameof(Address));
-                ValueValidator.IsStringNullOrEmpty(value, nameof(Address));
                 _address = value;
             }
         }
@@ -58,7 +56,9 @@
         /// </summary>
         public Customer()
         {
-            
+            _id = IdGenerator.GetNextId();
+            FullName = "FullName";
+            Address = new Address();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@
         /// </summary>
         /// <param name="fullName">ФИО покупателя</param>
         /// <param name="address">Адрес покупателя</param>
-        public Customer(string fullName, string address)
+        public Customer(string fullName, Address address)
         {
             _id = IdGenerator.GetNextId();
             FullName = fullName;

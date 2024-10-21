@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Address address1 = new Address();
             CustomersGroupBox = new GroupBox();
             RemoveCustomerButton = new Button();
             AddCustomerButton = new Button();
             CustomersListBox = new ListBox();
-            SelectedCustomersGroupBox = new GroupBox();
-            CustomerAddressTextBox = new TextBox();
-            CustomerFullNameTextBox = new TextBox();
-            CustomerIDTextBox = new TextBox();
-            label3 = new Label();
-            label2 = new Label();
             label1 = new Label();
+            label2 = new Label();
+            CustomerIDTextBox = new TextBox();
+            CustomerFullNameTextBox = new TextBox();
+            CustomerAddressControl = new Controls.AddressControl();
+            SelectedCustomersGroupBox = new GroupBox();
             CustomersGroupBox.SuspendLayout();
             SelectedCustomersGroupBox.SuspendLayout();
             SuspendLayout();
@@ -86,54 +86,14 @@
             CustomersListBox.Click += CustomersListBox_Click;
             CustomersListBox.SelectedIndexChanged += CustomersListBox_SelectedIndexChanged;
             // 
-            // SelectedCustomersGroupBox
+            // label1
             // 
-            SelectedCustomersGroupBox.Controls.Add(CustomerAddressTextBox);
-            SelectedCustomersGroupBox.Controls.Add(CustomerFullNameTextBox);
-            SelectedCustomersGroupBox.Controls.Add(CustomerIDTextBox);
-            SelectedCustomersGroupBox.Controls.Add(label3);
-            SelectedCustomersGroupBox.Controls.Add(label2);
-            SelectedCustomersGroupBox.Controls.Add(label1);
-            SelectedCustomersGroupBox.Location = new Point(283, 3);
-            SelectedCustomersGroupBox.Name = "SelectedCustomersGroupBox";
-            SelectedCustomersGroupBox.Size = new Size(377, 410);
-            SelectedCustomersGroupBox.TabIndex = 1;
-            SelectedCustomersGroupBox.TabStop = false;
-            SelectedCustomersGroupBox.Text = "Selected Customers";
-            // 
-            // CustomerAddressTextBox
-            // 
-            CustomerAddressTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            CustomerAddressTextBox.Location = new Point(6, 223);
-            CustomerAddressTextBox.Multiline = true;
-            CustomerAddressTextBox.Name = "CustomerAddressTextBox";
-            CustomerAddressTextBox.Size = new Size(278, 97);
-            CustomerAddressTextBox.TabIndex = 5;
-            // 
-            // CustomerFullNameTextBox
-            // 
-            CustomerFullNameTextBox.Location = new Point(6, 81);
-            CustomerFullNameTextBox.Multiline = true;
-            CustomerFullNameTextBox.Name = "CustomerFullNameTextBox";
-            CustomerFullNameTextBox.Size = new Size(278, 42);
-            CustomerFullNameTextBox.TabIndex = 4;
-            // 
-            // CustomerIDTextBox
-            // 
-            CustomerIDTextBox.Location = new Point(33, 27);
-            CustomerIDTextBox.Name = "CustomerIDTextBox";
-            CustomerIDTextBox.ReadOnly = true;
-            CustomerIDTextBox.Size = new Size(116, 23);
-            CustomerIDTextBox.TabIndex = 3;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(6, 205);
-            label3.Name = "label3";
-            label3.Size = new Size(52, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Address:";
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(20, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Id:";
             // 
             // label2
             // 
@@ -144,14 +104,49 @@
             label2.TabIndex = 1;
             label2.Text = "Full Name:";
             // 
-            // label1
+            // CustomerIDTextBox
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(6, 30);
-            label1.Name = "label1";
-            label1.Size = new Size(21, 15);
-            label1.TabIndex = 0;
-            label1.Text = "ID:";
+            CustomerIDTextBox.Location = new Point(33, 27);
+            CustomerIDTextBox.Name = "CustomerIDTextBox";
+            CustomerIDTextBox.ReadOnly = true;
+            CustomerIDTextBox.Size = new Size(116, 23);
+            CustomerIDTextBox.TabIndex = 3;
+            // 
+            // CustomerFullNameTextBox
+            // 
+            CustomerFullNameTextBox.Location = new Point(6, 81);
+            CustomerFullNameTextBox.Multiline = true;
+            CustomerFullNameTextBox.Name = "CustomerFullNameTextBox";
+            CustomerFullNameTextBox.Size = new Size(278, 42);
+            CustomerFullNameTextBox.TabIndex = 4;
+            // 
+            // CustomerAddressControl
+            // 
+            address1.Apartment = "Apartment";
+            address1.Building = "Building";
+            address1.City = "City";
+            address1.Country = "Country";
+            address1.Index = 100000;
+            address1.Street = "Street";
+            CustomerAddressControl.Address = address1;
+            CustomerAddressControl.Location = new Point(6, 150);
+            CustomerAddressControl.Name = "CustomerAddressControl";
+            CustomerAddressControl.Size = new Size(550, 184);
+            CustomerAddressControl.TabIndex = 5;
+            // 
+            // SelectedCustomersGroupBox
+            // 
+            SelectedCustomersGroupBox.Controls.Add(CustomerAddressControl);
+            SelectedCustomersGroupBox.Controls.Add(CustomerFullNameTextBox);
+            SelectedCustomersGroupBox.Controls.Add(CustomerIDTextBox);
+            SelectedCustomersGroupBox.Controls.Add(label2);
+            SelectedCustomersGroupBox.Controls.Add(label1);
+            SelectedCustomersGroupBox.Location = new Point(286, 3);
+            SelectedCustomersGroupBox.Name = "SelectedCustomersGroupBox";
+            SelectedCustomersGroupBox.Size = new Size(627, 410);
+            SelectedCustomersGroupBox.TabIndex = 1;
+            SelectedCustomersGroupBox.TabStop = false;
+            SelectedCustomersGroupBox.Text = "Selected Customers";
             // 
             // CustomersTab
             // 
@@ -160,7 +155,7 @@
             Controls.Add(SelectedCustomersGroupBox);
             Controls.Add(CustomersGroupBox);
             Name = "CustomersTab";
-            Size = new Size(663, 416);
+            Size = new Size(916, 416);
             Load += CustomersTab_Load;
             CustomersGroupBox.ResumeLayout(false);
             SelectedCustomersGroupBox.ResumeLayout(false);
@@ -174,12 +169,11 @@
         private Button RemoveCustomerButton;
         private Button AddCustomerButton;
         private ListBox CustomersListBox;
-        private GroupBox SelectedCustomersGroupBox;
-        private TextBox CustomerAddressTextBox;
-        private TextBox CustomerFullNameTextBox;
-        private TextBox CustomerIDTextBox;
-        private Label label3;
-        private Label label2;
         private Label label1;
+        private Label label2;
+        private TextBox CustomerIDTextBox;
+        private TextBox CustomerFullNameTextBox;
+        private Controls.AddressControl CustomerAddressControl;
+        private GroupBox SelectedCustomersGroupBox;
     }
 }

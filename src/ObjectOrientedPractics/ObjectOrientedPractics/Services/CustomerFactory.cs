@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ObjectOrientedPractics.Services
+﻿namespace ObjectOrientedPractics
 {
     /// <summary>
     /// Генерирует покупателя
@@ -20,9 +14,9 @@ namespace ObjectOrientedPractics.Services
         /// Создает экземпляр класса <see cref="Customer"/>
         /// </summary>
         /// <returns>Customer</returns>
-        public static Customer GetNextCustomer()
+        public static Customer Generate()
         {
-            Customer newCustomer = new Customer($"FullName{_custumerGeneratedCount}", $"Address{_custumerGeneratedCount}");
+            Customer newCustomer = new Customer($"FullName{_custumerGeneratedCount}", new Address());
             _custumerGeneratedCount++;
             return newCustomer;
         }
