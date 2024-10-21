@@ -58,7 +58,9 @@
         /// </summary>
         public Customer()
         {
-            
+            _id = IdGenerator.GetNextId();
+            FullName = "FullName";
+            Address = "Address";
         }
 
         /// <summary>

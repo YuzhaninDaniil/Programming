@@ -35,17 +35,14 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void ItemsTab_Load(object sender, EventArgs e)
         {
-            _items.Add(ItemFactory.Generate());
-            _items.Add(ItemFactory.Generate());
-            _items.Add(ItemFactory.Generate());
-
+            _items.Add(new Item());
             ItemsListBox.DataSource = _items;
             ItemsListBox.SelectedIndex = 0;
         }
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            Item newItem = ItemFactory.Generate();
+            Item newItem = new Item();
             _items.Add(newItem);
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;

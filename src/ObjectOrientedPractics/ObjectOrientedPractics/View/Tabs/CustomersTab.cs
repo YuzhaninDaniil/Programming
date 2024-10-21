@@ -35,18 +35,14 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CustomersTab_Load(object sender, EventArgs e)
         {
-            _customers.Add(CustomerFactory.GetNextCustomer());
-            _customers.Add(CustomerFactory.GetNextCustomer());
-            _customers.Add(CustomerFactory.GetNextCustomer());
-            _customers.Add(CustomerFactory.GetNextCustomer());
-
+            _customers.Add(new Customer());
             CustomersListBox.DataSource = _customers;
             CustomersListBox.SelectedIndex = 0;
         }
 
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            Customer newCustomer = CustomerFactory.GetNextCustomer();
+            Customer newCustomer = new Customer();
             _customers.Add(newCustomer);
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
@@ -58,9 +54,6 @@ namespace ObjectOrientedPractics.View.Tabs
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
         }
-
-        
-
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedItem == null) return;

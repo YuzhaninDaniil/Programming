@@ -77,7 +77,10 @@
         /// </summary>
         public Item()
         {
-            
+            _id = IdGenerator.GetNextId();
+            Name = "Name";
+            Info = "Info";
+            Cost = 0;
         }
 
         /// <summary>
