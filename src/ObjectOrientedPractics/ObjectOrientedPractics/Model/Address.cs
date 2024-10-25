@@ -1,39 +1,42 @@
 ﻿namespace ObjectOrientedPractics
 {
+    /// <summary>
+    /// Хранит информацию об адрессе покупателя.
+    /// </summary>
     public class Address
     {
         /// <summary>
-        /// 
+        /// Почтовый индекс.
         /// </summary>
         private int _index;
 
         /// <summary>
-        /// 
+        /// Страна/регион.
         /// </summary>
         private string _country;
 
         /// <summary>
-        /// 
+        /// Город (населенный пункт).
         /// </summary>
         private string _city;
 
         /// <summary>
-        /// 
+        /// Улица.
         /// </summary>
         private string _street;
 
         /// <summary>
-        /// 
+        /// Номер дома.
         /// </summary>
         private string _building;
 
         /// <summary>
-        /// 
+        /// Номер квартиры/помещения.
         /// </summary>
         private string _apartment;
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт Почтовый индекс. Должно быть целым шестизначным числом.
         /// </summary>
         public int Index
         {
@@ -49,7 +52,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт Страну/регион. Не должно превышать 50 символов.
         /// </summary>
         public string Country
         {
@@ -65,7 +68,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт Город (населенный пункт). Не должно превышать 50 символов.
         /// </summary>
         public string City
         {
@@ -81,7 +84,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт Улицу. Не должно превышать 100 символов.
         /// </summary>
         public string Street
         {
@@ -97,7 +100,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт Номер дома. Не должно превышать 10 символов.
         /// </summary>
         public string Building
         {
@@ -113,7 +116,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задаёт Номер квартиры/помещения. Не должно превышать 10 символов.
         /// </summary>
         public string Apartment
         {
@@ -129,27 +132,27 @@
         }
 
         /// <summary>
-        /// 
+        /// Создаёт пустой экземпляр класса <see cref="Address"/>.
         /// </summary>
         public Address()
         {
             Index = 100000;
-            Country = "Russia";
-            City = "Tomsk";
-            Street = "Lenina";
-            Building = "40";
-            Apartment = "428";
+            Country = "";
+            City = "";
+            Street = "";
+            Building = "";
+            Apartment = "";
         }
 
         /// <summary>
-        /// 
+        /// Создаёт экземпляр класса <see cref="Address"/>.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="country"></param>
-        /// <param name="city"></param>
-        /// <param name="street"></param>
-        /// <param name="building"></param>
-        /// <param name="apartment"></param>
+        /// <param name="index">Почтовый индекс.</param>
+        /// <param name="country">Страна/регион.</param>
+        /// <param name="city">Город (населенный пункт).</param>
+        /// <param name="street">Улица.</param>
+        /// <param name="building">Номер дома.</param>
+        /// <param name="apartment">Номер квартиры/помещения.</param>
         public Address(int index, string country, string city, string street, string building, string apartment)
         {
             Index = index;

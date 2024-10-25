@@ -192,7 +192,7 @@
         /// <summary>
         /// Проверяет число на то, есть ли в нем буквы.
         /// </summary>
-        /// <param name="text">Текст.</param>
+        /// <param name="text">Число.</param>
         /// <returns></returns>
         public bool CheckNumberOnLetter(string text)
         {
