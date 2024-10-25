@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             MainTabControl = new TabControl();
             ItemsTabPage1 = new TabPage();
             CustomersTabPage1 = new TabPage();
@@ -46,7 +47,7 @@
             MainTabControl.Location = new Point(0, 0);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(700, 491);
+            MainTabControl.Size = new Size(853, 526);
             MainTabControl.TabIndex = 0;
             // 
             // ItemsTabPage1
@@ -55,7 +56,7 @@
             ItemsTabPage1.Location = new Point(4, 24);
             ItemsTabPage1.Name = "ItemsTabPage1";
             ItemsTabPage1.Padding = new Padding(3);
-            ItemsTabPage1.Size = new Size(692, 463);
+            ItemsTabPage1.Size = new Size(845, 498);
             ItemsTabPage1.TabIndex = 0;
             ItemsTabPage1.Text = "Items";
             ItemsTabPage1.UseVisualStyleBackColor = true;
@@ -83,16 +84,18 @@
             // 
             itemsTab1.Dock = DockStyle.Fill;
             itemsTab1.Location = new Point(3, 3);
+            itemsTab1.MinimumSize = new Size(800, 470);
             itemsTab1.Name = "itemsTab1";
-            itemsTab1.Size = new Size(686, 457);
+            itemsTab1.Size = new Size(839, 492);
             itemsTab1.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 491);
+            ClientSize = new Size(853, 526);
             Controls.Add(MainTabControl);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ObjectOrientedPractics";
