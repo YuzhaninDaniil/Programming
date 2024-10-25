@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             MainTabControl = new TabControl();
             ItemsTabPage1 = new TabPage();
             itemsTab = new View.Tabs.ItemsTab();
@@ -65,8 +64,9 @@
             // 
             itemsTab.Dock = DockStyle.Fill;
             itemsTab.Location = new Point(3, 3);
+            itemsTab.MinimumSize = new Size(800, 470);
             itemsTab.Name = "itemsTab";
-            itemsTab.Size = new Size(934, 468);
+            itemsTab.Size = new Size(934, 470);
             itemsTab.TabIndex = 0;
             // 
             // CustomersTabPage1
