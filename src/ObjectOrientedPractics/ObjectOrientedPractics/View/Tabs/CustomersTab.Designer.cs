@@ -151,7 +151,7 @@
             label1.Name = "label1";
             label1.Size = new Size(21, 15);
             label1.TabIndex = 0;
-            label1.Text = "ID:";
+            label1.Text = "Id:";
             // 
             // CustomersTab
             // 

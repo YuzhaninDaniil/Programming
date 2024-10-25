@@ -66,7 +66,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             _currentItem = ItemsListBox.SelectedItem as Item;
 
-            ItemIDTextBox.Text = _currentItem.ID.ToString();
+            ItemIDTextBox.Text = _currentItem.Id.ToString();
             ItemCostTextBox.Text = _currentItem.Cost.ToString();
             ItemNameTextBox.Text = _currentItem.Name;
             ItemDescriptionTextBox.Text = _currentItem.Info;

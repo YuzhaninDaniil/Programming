@@ -65,7 +65,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             _currentCustomer = CustomersListBox.SelectedItem as Customer;
 
-            CustomerIDTextBox.Text = _currentCustomer.ID.ToString();
+            CustomerIDTextBox.Text = _currentCustomer.Id.ToString();
             CustomerAddressTextBox.Text = _currentCustomer.Address;
             CustomerFullNameTextBox.Text = _currentCustomer.FullName;
 

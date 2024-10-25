@@ -1,34 +1,34 @@
 ﻿namespace ObjectOrientedPractics
 {
     /// <summary>
-    /// Хранит информацию о товаре
+    /// Хранит информацию о товаре.
     /// </summary>
     internal class Item
     {
         /// <summary>
-        /// Уникальный идентификатор товара
+        /// Уникальный идентификатор товара.
         /// </summary>
         private readonly int _id;
 
         /// <summary>
-        /// Название товара
+        /// Название товара.
         /// </summary>
         private string _name;
 
         /// <summary>
-        /// Информация о товаре
+        /// Информация о товаре.
         /// </summary>
         private string _info;
 
         /// <summary>
-        /// Цена товара
+        /// Цена товара.
         /// </summary>
         private double _cost;
 
         /// <summary>
-        /// Возвращает Id товара
+        /// Возвращает Id товара.
         /// </summary>
-        public int ID { get { return _id; } }
+        public int Id { get { return _id; } }
 
         /// <summary>
         /// Возвращает и задает название товара. Не может быть пустым или содержать больше 200 символов.
@@ -39,8 +39,6 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
-                ValueValidator.IsStringNullOrEmpty(value, nameof(Name));
-
                 _name = value;
             }
         }
@@ -54,13 +52,12 @@
             set 
             {
                 ValueValidator.AssertStringOnLength(value, 1000, nameof(Info));
-                ValueValidator.IsStringNullOrEmpty(value, nameof(Info));
                 _info = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задает цену товара. Не может быть меньше 0 или больше 100000
+        /// Возвращает и задает цену товара. Не может быть меньше 0 или больше 100000.
         /// </summary>
         public double Cost
         {
@@ -73,22 +70,22 @@
         }
 
         /// <summary>
-        /// Создает экзмепляр класса <see cref="Item"/>
+        /// Создает экзмепляр класса <see cref="Item"/>.
         /// </summary>
         public Item()
         {
             _id = IdGenerator.GetNextId();
             Name = "Name";
             Info = "Info";
-            Cost = 0;
+            Cost = 100.0;
         }
 
         /// <summary>
         /// Создает экзмепляр класса <see cref="Item"/>
         /// </summary>
-        /// <param name="name">Название продукта</param>
-        /// <param name="info">Информация о продукте</param>
-        /// <param name="cost">Цена продукта</param>
+        /// <param name="name">Название продукта.</param>
+        /// <param name="info">Информация о продукте.</param>
+        /// <param name="cost">Цена продукта.</param>
         public Item(string name, string info, double cost)
         {
             _id = IdGenerator.GetNextId();
@@ -98,12 +95,12 @@
         }
 
         /// <summary>
-        /// Возвращает имя товара вместо служебной информации
+        /// Возвращает <see cref="Name"/>.
         /// </summary>
         /// <returns> string </returns>
         public override string ToString()
         {
-            return _name;
+            return Name;
         }
     }
 }
