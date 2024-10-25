@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             MainTabControl = new TabControl();
             ItemsTabPage1 = new TabPage();
             itemsTab = new View.Tabs.ItemsTab();
             CustomersTabPage1 = new TabPage();
-            customersTab = new View.Tabs.CustomersTab();
+            customersTab1 = new View.Tabs.CustomersTab();
             MainTabControl.SuspendLayout();
             ItemsTabPage1.SuspendLayout();
             CustomersTabPage1.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             // CustomersTabPage1
             // 
-            CustomersTabPage1.Controls.Add(customersTab);
+            CustomersTabPage1.Controls.Add(customersTab1);
             CustomersTabPage1.Location = new Point(4, 24);
             CustomersTabPage1.Name = "CustomersTabPage1";
             CustomersTabPage1.Padding = new Padding(3);
@@ -80,14 +81,13 @@
             CustomersTabPage1.Text = "Customers";
             CustomersTabPage1.UseVisualStyleBackColor = true;
             // 
-            // customersTab
+            // customersTab1
             // 
-            customersTab.Dock = DockStyle.Fill;
-            customersTab.Location = new Point(3, 3);
-            customersTab.MinimumSize = new Size(800, 470);
-            customersTab.Name = "customersTab";
-            customersTab.Size = new Size(934, 470);
-            customersTab.TabIndex = 0;
+            customersTab1.Dock = DockStyle.Fill;
+            customersTab1.Location = new Point(3, 3);
+            customersTab1.Name = "customersTab1";
+            customersTab1.Size = new Size(934, 468);
+            customersTab1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -95,6 +95,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(948, 502);
             Controls.Add(MainTabControl);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ObjectOrientedPractics";
@@ -109,7 +110,7 @@
         private TabControl MainTabControl;
         private TabPage ItemsTabPage1;
         private TabPage CustomersTabPage1;
-        private View.Tabs.CustomersTab customersTab;
         private View.Tabs.ItemsTab itemsTab;
+        private View.Tabs.CustomersTab customersTab1;
     }
 }

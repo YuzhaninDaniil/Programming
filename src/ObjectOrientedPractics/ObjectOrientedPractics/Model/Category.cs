@@ -5,13 +5,12 @@
     /// </summary>
     public enum Category
     {
-        Plumbing,
-        Camping,
-        Sport,
         Fishing,
-        Food,
-        Medicine,
-        Jewelry,
-        
+        Football,
+        Basketball,
+        Boxing,
+        Cybersport,
+        PlushToys,
+        BoardGames,
     }
 }

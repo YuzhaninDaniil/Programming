@@ -3,32 +3,25 @@
     public partial class ItemsTab : UserControl
     {
         /// <summary>
-        /// True, если данные в полях корректны, иначе false
+        /// True, если данные в полях корректны, иначе false.
         /// </summary>
-        bool _isValidData = true;
+        private bool _isDataValid = true;
+
 
         /// <summary>
-        /// Список, хранящий всех покупателей
+        /// True, если список пустой, иначе false.
+        /// </summary>
+        private bool _isDataClear = false;
+
+        /// <summary>
+        /// Список, хранящий всех покупателей.
         /// </summary>
         private List<Item> _items = new();
 
         /// <summary>
-        /// Выбранный покупатель
+        /// Выбранный покупатель.
         /// </summary>
         private Item _currentItem;
-
-        public List<Item> Items
-        {
-            get { return _items; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Items не должно быть null");
-                }
-                _items = value;
-            }
-        }
 
         public ItemsTab()
         {
@@ -37,17 +30,23 @@
 
         private void ItemsTab_Load(object sender, EventArgs e)
         {
+            _items.Add(new Item());
             ItemsListBox.DataSource = _items;
-            //ItemsListBox.SelectedIndex = 0;
+            ItemsListBox.SelectedIndex = 0;
+
+
             ItemCategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
         }
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            Item newItem = ItemFactory.Generate();
-            _items.Add(newItem);
+            Item item = new Item();
+            _items.Add(item);
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;
+            ItemsListBox.SelectedIndex = _items.Count - 1;
+
+            CheckDataForClear();
         }
 
         private void RemoveItemButton_Click(object sender, EventArgs e)
@@ -55,37 +54,44 @@
             _items.Remove(_currentItem);
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;
+            ItemsListBox.SelectedIndex = _items.Count - 1;
+
+            CheckDataForClear();
         }
 
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedItem == null) return;
-            if (!_isValidData)
+
+            if (!_isDataValid)
             {
                 ItemsListBox.SelectedItem = _currentItem;
                 return;
             }
 
             _currentItem = ItemsListBox.SelectedItem as Item;
-
-            ItemIDTextBox.Text = _currentItem.Id.ToString();
+            ItemIdTextBox.Text = _currentItem.Id.ToString();
             ItemCostTextBox.Text = _currentItem.Cost.ToString();
             ItemNameTextBox.Text = _currentItem.Name;
-            ItemDescriptionTextBox.Text = _currentItem.Info;
+            ItemInfoTextBox.Text = _currentItem.Info;
             ItemCategoryComboBox.SelectedItem = _currentItem.Category;
 
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;
         }
 
-        private void ItemsListBox_Click(object sender, EventArgs e)
+        private void ItemCostTextBox_TextChanged(object sender, EventArgs e)
         {
-            _isValidData = true;
-
+            if (_isDataClear) return;
+            _isDataValid = true;
             ItemCostTextBox.BackColor = Color.White;
-            ItemNameTextBox.BackColor = Color.White;
-            ItemDescriptionTextBox.BackColor = Color.White;
 
+            if (string.IsNullOrEmpty(ItemCostTextBox.Text) || CheckNumberOnLetter(ItemCostTextBox.Text))
+            {
+                _isDataValid = false;
+                ItemCostTextBox.BackColor = Color.LightPink;
+                return;
+            }
             try
             {
                 double cost = double.Parse(ItemCostTextBox.Text);
@@ -93,34 +99,134 @@
             }
             catch (Exception ex)
             {
-                _isValidData = false;
+                _isDataValid = false;
                 ItemCostTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+        private void ItemNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_isDataClear) return;
+            _isDataValid = true;
+            ItemNameTextBox.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(ItemNameTextBox.Text) || CheckWordOnDigit(ItemNameTextBox.Text))
+            {
+                _isDataValid = false;
+                ItemNameTextBox.BackColor = Color.LightPink;
+                return;
+            }
             try
             {
-                string name = ItemNameTextBox.Text;
-                _currentItem.Name = name;
+                _currentItem.Name = ItemNameTextBox.Text;
             }
             catch (Exception ex)
             {
-                _isValidData = false;
+                _isDataValid = false;
                 ItemNameTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_isDataClear) return;
+            _isDataValid = true;
+            ItemInfoTextBox.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(ItemInfoTextBox.Text))
+            {
+                _isDataValid = false;
+                ItemInfoTextBox.BackColor = Color.LightPink;
+                return;
+            }
             try
             {
-                string info = ItemDescriptionTextBox.Text;
-                _currentItem.Info = info;
+                _currentItem.Info = ItemInfoTextBox.Text;
             }
             catch (Exception ex)
             {
-                _isValidData = false;
-                ItemDescriptionTextBox.BackColor = Color.LightPink;
+                _isDataValid = false;
+                ItemInfoTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
+        }
+
+        private void ItemCategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentItem.Category = _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
+        }
+
+        /// <summary>
+        /// Проверяет на то, пустые ли TextBoxes.
+        /// </summary>
+        public void CheckDataForClear()
+        {
+            _isDataClear = true;
+
+            if (_items.Count <= 0)
+            {
+                ItemIdTextBox.Clear();
+                ItemIdTextBox.Enabled = false;
+                ItemCostTextBox.Clear();
+                ItemCostTextBox.Enabled = false;
+                ItemNameTextBox.Clear();
+                ItemNameTextBox.Enabled = false;
+                ItemInfoTextBox.Clear();
+                ItemInfoTextBox.Enabled = false;
+                ItemCategoryComboBox.Enabled = false;
+            }
+            else
+            {
+                ItemIdTextBox.Enabled = true;
+                ItemCostTextBox.Enabled = true;
+                ItemNameTextBox.Enabled = true;
+                ItemInfoTextBox.Enabled = true;
+                ItemCategoryComboBox.Enabled = true;
+
+                _isDataClear = false;
+            }
+        }
+
+        /// <summary>
+        /// Проверяет число на то, есть ли в нем буквы.
+        /// </summary>
+        /// <param name="text">Текст.</param>
+        /// <returns></returns>
+        public bool CheckNumberOnLetter(string text)
+        {
+            bool hasLetter = false;
+
+            foreach (char c in text)
+            {
+                if (char.IsLetter(c))
+                {
+                    hasLetter = true;
+                    break;
+                }
+            }
+            return hasLetter;
+        }
+
+        /// <summary>
+        /// Проверяет слово на то, есть ли в нем цифры.
+        /// </summary>
+        /// <param name="text">Текст.</param>
+        /// <returns></returns>
+        public bool CheckWordOnDigit(string text)
+        {
+            bool hasDigit = false;
+
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c))
+                {
+                    hasDigit = true;
+                    break;
+                }
+            }
+            return hasDigit;
         }
     }
 }

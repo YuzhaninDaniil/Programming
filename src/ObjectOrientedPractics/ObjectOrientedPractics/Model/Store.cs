@@ -1,13 +1,16 @@
 ﻿namespace ObjectOrientedPractics
 {
+    /// <summary>
+    /// Хранит информацию о товарах и покупателях.
+    /// </summary>
     internal class Store
     {
         /// <summary>
-        /// список всех покупателей.
+        /// Список всех покупателей.
         /// </summary>
         private List<Customer> _customers;
         /// <summary>
-        /// список всех товаров.
+        /// Список всех товаров.
         /// </summary>
         private List<Item> _items;
 
@@ -17,7 +20,6 @@
         public List<Customer> Customers
         {
             get { return _customers; }
-
             set
             {
                 if (_customers == null)
@@ -44,6 +46,9 @@
             }
         }
 
+        /// <summary>
+        /// Создает списки классов <see cref="Item"/> и <see cref="Customer"/>.
+        /// </summary>
         public Store()
         {
             _items = new List<Item>();

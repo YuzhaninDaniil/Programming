@@ -1,7 +1,7 @@
 ﻿namespace ObjectOrientedPractics
 {
     /// <summary>
-    /// Хранит информацию о товаре
+    /// Хранит информацию о товаре.
     /// </summary>
     public class Item
     {
@@ -44,8 +44,6 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
-                ValueValidator.IsStringNullOrEmpty(value, nameof(Name));
-
                 _name = value;
             }
         }
@@ -59,7 +57,6 @@
             set 
             {
                 ValueValidator.AssertStringOnLength(value, 1000, nameof(Info));
-                ValueValidator.IsStringNullOrEmpty(value, nameof(Info));
                 _info = value;
             }
         }
@@ -83,10 +80,10 @@
         public Item()
         {
             _id = IdGenerator.GetNextId();
-            Name = "name";
-            Info = "info";
-            Cost = 0;
-            Category = Category.Plumbing;
+            Name = "Name";
+            Info = "Info";
+            Cost = 100.0;
+            Category = Category.Fishing;
         }
 
         /// <summary>
@@ -106,12 +103,12 @@
         }
 
         /// <summary>
-        /// Возвращает имя товара вместо служебной информации.
+        /// Возвращает <see cref="Name"/>.
         /// </summary>
         /// <returns> string </returns>
         public override string ToString()
         {
-            return _name;
+            return Name;
         }
     }
 }
