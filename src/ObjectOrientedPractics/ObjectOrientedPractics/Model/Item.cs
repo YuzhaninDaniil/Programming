@@ -81,7 +81,7 @@
         }
 
         /// <summary>
-        /// Создает экзмепляр класса <see cref="Item"/>
+        /// Создает экзмепляр класса <see cref="Item"/>.
         /// </summary>
         /// <param name="name">Название продукта.</param>
         /// <param name="info">Информация о продукте.</param>
@@ -97,7 +97,7 @@
         /// <summary>
         /// Возвращает <see cref="Name"/>.
         /// </summary>
-        /// <returns> string </returns>
+        /// <returns></returns>
         public override string ToString()
         {
             return Name;

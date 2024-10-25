@@ -148,6 +148,9 @@
             }
         }
 
+        /// <summary>
+        /// Проверяет TextBoxes на пустоту.
+        /// </summary>
         public void CheckDataForClear()
         {
             _isDataClear = true;
@@ -177,9 +180,9 @@
         }
 
         /// <summary>
-        /// 
+        /// Првоеряет число на то, есть ли в нем буквы.
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">Число.</param>
         /// <returns></returns>
         public bool CheckNumberOnLetter(string text)
         {
@@ -197,9 +200,9 @@
         }
 
         /// <summary>
-        /// 
+        /// Првоеряет слово на то, есть ли в нем цифры.
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">Текст.</param>
         /// <returns></returns>
         public bool CheckWordOnDigit(string text)
         {
