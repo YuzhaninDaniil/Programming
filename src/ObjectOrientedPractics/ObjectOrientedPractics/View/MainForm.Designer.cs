@@ -84,8 +84,9 @@
             // 
             customersTab.Dock = DockStyle.Fill;
             customersTab.Location = new Point(3, 3);
+            customersTab.MinimumSize = new Size(800, 470);
             customersTab.Name = "customersTab";
-            customersTab.Size = new Size(934, 468);
+            customersTab.Size = new Size(934, 470);
             customersTab.TabIndex = 0;
             // 
             // MainForm
