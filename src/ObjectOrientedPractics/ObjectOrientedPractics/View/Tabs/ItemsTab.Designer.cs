@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             ItemsPanel = new Panel();
-            SelectedItemPanel = new Panel();
-            label1 = new Label();
-            ItemsListBox = new ListBox();
-            AddItemButton = new Button();
             RemoveItemButton = new Button();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            ItemIdTextBox = new TextBox();
-            ItemCostTextBox = new TextBox();
-            ItemNameTextBox = new TextBox();
+            AddItemButton = new Button();
+            ItemsListBox = new ListBox();
+            label1 = new Label();
+            SelectedItemPanel = new Panel();
             ItemInfoTextBox = new TextBox();
+            ItemNameTextBox = new TextBox();
+            ItemCostTextBox = new TextBox();
+            ItemIdTextBox = new TextBox();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             ItemsPanel.SuspendLayout();
             SelectedItemPanel.SuspendLayout();
             SuspendLayout();
@@ -58,6 +58,49 @@
             ItemsPanel.Name = "ItemsPanel";
             ItemsPanel.Size = new Size(287, 464);
             ItemsPanel.TabIndex = 0;
+            // 
+            // RemoveItemButton
+            // 
+            RemoveItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            RemoveItemButton.Location = new Point(102, 429);
+            RemoveItemButton.Name = "RemoveItemButton";
+            RemoveItemButton.Size = new Size(93, 32);
+            RemoveItemButton.TabIndex = 3;
+            RemoveItemButton.Text = "Remove";
+            RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveItemButton_Click;
+            // 
+            // AddItemButton
+            // 
+            AddItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            AddItemButton.Location = new Point(3, 429);
+            AddItemButton.Name = "AddItemButton";
+            AddItemButton.Size = new Size(93, 32);
+            AddItemButton.TabIndex = 2;
+            AddItemButton.Text = "Add";
+            AddItemButton.UseVisualStyleBackColor = true;
+            AddItemButton.Click += AddItemButton_Click;
+            // 
+            // ItemsListBox
+            // 
+            ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ItemsListBox.FormattingEnabled = true;
+            ItemsListBox.ItemHeight = 15;
+            ItemsListBox.Location = new Point(3, 29);
+            ItemsListBox.Name = "ItemsListBox";
+            ItemsListBox.Size = new Size(279, 394);
+            ItemsListBox.TabIndex = 1;
+            ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(3, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(42, 17);
+            label1.TabIndex = 0;
+            label1.Text = "Items";
             // 
             // SelectedItemPanel
             // 
@@ -76,82 +119,41 @@
             SelectedItemPanel.Size = new Size(501, 464);
             SelectedItemPanel.TabIndex = 1;
             // 
-            // label1
+            // ItemInfoTextBox
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(3, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(42, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Items";
+            ItemInfoTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemInfoTextBox.Location = new Point(15, 233);
+            ItemInfoTextBox.Multiline = true;
+            ItemInfoTextBox.Name = "ItemInfoTextBox";
+            ItemInfoTextBox.Size = new Size(480, 163);
+            ItemInfoTextBox.TabIndex = 9;
+            ItemInfoTextBox.TextChanged += ItemInfoTextBox_TextChanged;
             // 
-            // ItemsListBox
+            // ItemNameTextBox
             // 
-            ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ItemsListBox.FormattingEnabled = true;
-            ItemsListBox.ItemHeight = 15;
-            ItemsListBox.Location = new Point(3, 29);
-            ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(279, 394);
-            ItemsListBox.TabIndex = 1;
+            ItemNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemNameTextBox.Location = new Point(15, 117);
+            ItemNameTextBox.Multiline = true;
+            ItemNameTextBox.Name = "ItemNameTextBox";
+            ItemNameTextBox.Size = new Size(480, 95);
+            ItemNameTextBox.TabIndex = 8;
+            ItemNameTextBox.TextChanged += ItemNameTextBox_TextChanged;
             // 
-            // AddItemButton
+            // ItemCostTextBox
             // 
-            AddItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            AddItemButton.Location = new Point(3, 429);
-            AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(93, 32);
-            AddItemButton.TabIndex = 2;
-            AddItemButton.Text = "Add";
-            AddItemButton.UseVisualStyleBackColor = true;
+            ItemCostTextBox.Location = new Point(63, 62);
+            ItemCostTextBox.Name = "ItemCostTextBox";
+            ItemCostTextBox.Size = new Size(163, 23);
+            ItemCostTextBox.TabIndex = 7;
+            ItemCostTextBox.TextChanged += ItemCostTextBox_TextChanged;
             // 
-            // RemoveItemButton
+            // ItemIdTextBox
             // 
-            RemoveItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            RemoveItemButton.Location = new Point(102, 429);
-            RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(93, 32);
-            RemoveItemButton.TabIndex = 3;
-            RemoveItemButton.Text = "Remove";
-            RemoveItemButton.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label2.Location = new Point(3, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(91, 17);
-            label2.TabIndex = 1;
-            label2.Text = "Selected Item";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(15, 29);
-            label3.Name = "label3";
-            label3.Size = new Size(21, 15);
-            label3.TabIndex = 2;
-            label3.Text = "ID:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(15, 65);
-            label4.Name = "label4";
-            label4.Size = new Size(34, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Cost:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(15, 215);
-            label5.Name = "label5";
-            label5.Size = new Size(70, 15);
-            label5.TabIndex = 4;
-            label5.Text = "Description:";
+            ItemIdTextBox.Location = new Point(63, 29);
+            ItemIdTextBox.Name = "ItemIdTextBox";
+            ItemIdTextBox.ReadOnly = true;
+            ItemIdTextBox.Size = new Size(163, 23);
+            ItemIdTextBox.TabIndex = 6;
             // 
             // label6
             // 
@@ -162,38 +164,42 @@
             label6.TabIndex = 5;
             label6.Text = "Name:";
             // 
-            // ItemIdTextBox
+            // label5
             // 
-            ItemIdTextBox.Location = new Point(63, 29);
-            ItemIdTextBox.Name = "ItemIdTextBox";
-            ItemIdTextBox.ReadOnly = true;
-            ItemIdTextBox.Size = new Size(163, 23);
-            ItemIdTextBox.TabIndex = 6;
+            label5.AutoSize = true;
+            label5.Location = new Point(15, 215);
+            label5.Name = "label5";
+            label5.Size = new Size(70, 15);
+            label5.TabIndex = 4;
+            label5.Text = "Description:";
             // 
-            // ItemCostTextBox
+            // label4
             // 
-            ItemCostTextBox.Location = new Point(63, 62);
-            ItemCostTextBox.Name = "ItemCostTextBox";
-            ItemCostTextBox.Size = new Size(163, 23);
-            ItemCostTextBox.TabIndex = 7;
+            label4.AutoSize = true;
+            label4.Location = new Point(15, 65);
+            label4.Name = "label4";
+            label4.Size = new Size(34, 15);
+            label4.TabIndex = 3;
+            label4.Text = "Cost:";
             // 
-            // ItemNameTextBox
+            // label3
             // 
-            ItemNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemNameTextBox.Location = new Point(15, 117);
-            ItemNameTextBox.Multiline = true;
-            ItemNameTextBox.Name = "ItemNameTextBox";
-            ItemNameTextBox.Size = new Size(480, 95);
-            ItemNameTextBox.TabIndex = 8;
+            label3.AutoSize = true;
+            label3.Location = new Point(15, 29);
+            label3.Name = "label3";
+            label3.Size = new Size(21, 15);
+            label3.TabIndex = 2;
+            label3.Text = "ID:";
             // 
-            // ItemInfoTextBox
+            // label2
             // 
-            ItemInfoTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemInfoTextBox.Location = new Point(15, 233);
-            ItemInfoTextBox.Multiline = true;
-            ItemInfoTextBox.Name = "ItemInfoTextBox";
-            ItemInfoTextBox.Size = new Size(480, 163);
-            ItemInfoTextBox.TabIndex = 9;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label2.Location = new Point(3, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(91, 17);
+            label2.TabIndex = 1;
+            label2.Text = "Selected Item";
             // 
             // ItemsTab
             // 

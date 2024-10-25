@@ -1,30 +1,24 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CustomersTab : UserControl
     {
         /// <summary>
-        /// True, если данные в полях корректны, иначе false
+        /// True, если данные валидны, иначе false.
         /// </summary>
-        bool _isValidData = true;
+        private bool _isDataValid = true;
 
         /// <summary>
-        /// Список, хранящий всех покупателей
+        /// True, если лист пустой, иначе false.
+        /// </summary>
+        private bool _isDataClear = false;
+
+        /// <summary>
+        /// Хранит элементы типа <see cref="Customer"/>.
         /// </summary>
         private List<Customer> _customers = new();
 
         /// <summary>
-        /// Выбранный покупатель
+        /// Текущий элемент списка.
         /// </summary>
         private Customer _currentCustomer;
 
@@ -42,10 +36,13 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            Customer newCustomer = new Customer();
-            _customers.Add(newCustomer);
+            Customer customer = new Customer();
+            _customers.Add(customer);
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
+            CustomersListBox.SelectedIndex = _customers.Count - 1;
+
+            CheckDataForClear();
         }
 
         private void RemoveCustomerButton_Click(object sender, EventArgs e)
@@ -53,57 +50,113 @@ namespace ObjectOrientedPractics.View.Tabs
             _customers.Remove(_currentCustomer);
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
+            CustomersListBox.SelectedIndex = _customers.Count - 1;
+
+            CheckDataForClear();
         }
+
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedItem == null) return;
-            if (!_isValidData)
+
+            if (!_isDataValid)
             {
                 CustomersListBox.SelectedItem = _currentCustomer;
                 return;
             }
 
             _currentCustomer = CustomersListBox.SelectedItem as Customer;
-
-            CustomerIDTextBox.Text = _currentCustomer.Id.ToString();
+            CustomerIdTextBox.Text = _currentCustomer.Id.ToString();
+            CustomerFullNameTextBox.Text = _currentCustomer.FullName.ToString();
             CustomerAddressTextBox.Text = _currentCustomer.Address;
-            CustomerFullNameTextBox.Text = _currentCustomer.FullName;
-
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
         }
 
-        private void CustomersListBox_Click(object sender, EventArgs e)
+        private void CustomerFullNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            _isValidData = true;
-
-            CustomerAddressTextBox.BackColor = Color.White;
+            if (_isDataClear) return;
+            _isDataValid = true;
             CustomerFullNameTextBox.BackColor = Color.White;
 
+            if (string.IsNullOrEmpty(CustomerFullNameTextBox.Text) || CheckWordOnDigit(CustomerFullNameTextBox.Text))
+            {
+                _isDataValid = false;
+                CustomerFullNameTextBox.BackColor = Color.LightPink;
+                return;
+            }
             try
             {
-                string newAddress = CustomerAddressTextBox.Text;
-                _currentCustomer.Address = newAddress;
+                _currentCustomer.FullName = CustomerFullNameTextBox.Text;
             }
             catch (Exception ex)
             {
-                _isValidData = false;
-                CustomerAddressTextBox.BackColor = Color.LightPink;
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            try
-            {
-                string newFullName = CustomerFullNameTextBox.Text;
-                _currentCustomer.FullName = newFullName;
-
-            }
-            catch (Exception ex)
-            {
-                _isValidData = false;
+                _isDataValid = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CustomerAddressTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_isDataClear) return;
+            _isDataValid = true;
+            CustomerAddressTextBox.BackColor = Color.White;
+
+            if (string.IsNullOrEmpty(CustomerAddressTextBox.Text))
+            {
+                _isDataValid = false;
+                CustomerAddressTextBox.BackColor = Color.LightPink;
+                return;
+            }
+            try
+            {
+                _currentCustomer.Address = CustomerAddressTextBox.Text;
+            }
+            catch (Exception ex)
+            {
+                _isDataValid = false;
+                CustomerAddressTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void CheckDataForClear()
+        {
+            _isDataClear = true;
+
+            if (_customers.Count <= 0)
+            {
+                CustomerIdTextBox.Clear();
+                CustomerIdTextBox.Enabled = false;
+                CustomerFullNameTextBox.Clear();
+                CustomerFullNameTextBox.Enabled = false;
+                CustomerAddressTextBox.Clear();
+                CustomerAddressTextBox.Enabled = false;
+            }
+            else
+            {
+                CustomerIdTextBox.Enabled = true;
+                CustomerFullNameTextBox.Enabled = true;
+                CustomerAddressTextBox.Enabled = true;
+
+                _isDataClear = false;
+            }
+        }
+
+        public bool CheckWordOnDigit(string text)
+        {
+            bool hasDigit = false;
+
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c) && c != ' ')
+                {
+                    hasDigit = true;
+                    break;
+                }
+            }
+            return hasDigit;
         }
     }
 }

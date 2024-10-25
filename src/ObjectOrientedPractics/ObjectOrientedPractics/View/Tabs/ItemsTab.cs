@@ -3,22 +3,22 @@
     public partial class ItemsTab : UserControl
     {
         /// <summary>
-        /// True, если данные в полях корректны, иначе false.
+        /// True, если данные валидны, иначе false.
         /// </summary>
         private bool _isDataValid = true;
 
         /// <summary>
-        /// True, если нет элементов в списке, false если есть хотя бы один.
+        /// True, если лист пустой, иначе false.
         /// </summary>
         private bool _isDataClear = false;
 
         /// <summary>
-        /// Список, хранящий всех покупателей.
+        /// Хранит элементы типа <see cref="Item"/>.
         /// </summary>
         private List<Item> _items = new();
 
         /// <summary>
-        /// Выбранный покупатель.
+        /// Текущий элемент списка.
         /// </summary>
         private Item _currentItem;
 
@@ -36,11 +36,13 @@
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            Item newItem = new Item();
-            _items.Add(newItem);
+            Item item = new Item();
+            _items.Add(item);
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;
             ItemsListBox.SelectedIndex = _items.Count - 1;
+
+            CheckDataForClear();
         }
 
         private void RemoveItemButton_Click(object sender, EventArgs e)
@@ -49,18 +51,19 @@
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _items;
             ItemsListBox.SelectedIndex = _items.Count - 1;
+
+            CheckDataForClear();
         }
 
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedItem == null) return;
+
             if (!_isDataValid)
             {
                 ItemsListBox.SelectedItem = _currentItem;
                 return;
             }
-
-            _currentItem = ItemsListBox.SelectedItem as Item;
 
             _currentItem = ItemsListBox.SelectedItem as Item;
             ItemIdTextBox.Text = _currentItem.Id.ToString();
@@ -95,7 +98,6 @@
                 ItemCostTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void ItemNameTextBox_TextChanged(object sender, EventArgs e)
@@ -174,6 +176,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public bool CheckNumberOnLetter(string text)
         {
             bool hasLetter = false;
@@ -189,6 +196,11 @@
             return hasLetter;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public bool CheckWordOnDigit(string text)
         {
             bool hasDigit = false;
