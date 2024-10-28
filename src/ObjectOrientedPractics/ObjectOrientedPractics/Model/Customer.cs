@@ -21,6 +21,16 @@
         private Address _address;
 
         /// <summary>
+        /// 
+        /// </summary>
+        private Cart _cart;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Order _order;
+
+        /// <summary>
         /// Возвращает значение поля id.
         /// </summary>
         public int Id { get { return _id; } }
@@ -47,6 +57,30 @@
             set
             {
                 _address = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Cart Cart
+        {
+            get { return _cart; }
+            set
+            {
+                _cart = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Order Order
+        {
+            get { return _order; }
+            set
+            {
+                _order = value;
             }
         }
 
