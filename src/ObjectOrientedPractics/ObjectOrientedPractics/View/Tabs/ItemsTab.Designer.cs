@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            ItemsPanel = new Panel();
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             ItemsListBox = new ListBox();
@@ -45,21 +45,21 @@
             label4 = new Label();
             label3 = new Label();
             label1 = new Label();
-            panel1.SuspendLayout();
+            ItemsPanel.SuspendLayout();
             SelectedItemPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // ItemsPanel
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel1.Controls.Add(RemoveItemButton);
-            panel1.Controls.Add(AddItemButton);
-            panel1.Controls.Add(ItemsListBox);
-            panel1.Controls.Add(label2);
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(287, 464);
-            panel1.TabIndex = 0;
+            ItemsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ItemsPanel.Controls.Add(RemoveItemButton);
+            ItemsPanel.Controls.Add(AddItemButton);
+            ItemsPanel.Controls.Add(ItemsListBox);
+            ItemsPanel.Controls.Add(label2);
+            ItemsPanel.Location = new Point(3, 3);
+            ItemsPanel.Name = "ItemsPanel";
+            ItemsPanel.Size = new Size(287, 464);
+            ItemsPanel.TabIndex = 0;
             // 
             // RemoveItemButton
             // 
@@ -229,13 +229,13 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(SelectedItemPanel);
-            Controls.Add(panel1);
+            Controls.Add(ItemsPanel);
             MinimumSize = new Size(800, 470);
             Name = "ItemsTab";
             Size = new Size(800, 470);
             Load += ItemsTab_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            ItemsPanel.ResumeLayout(false);
+            ItemsPanel.PerformLayout();
             SelectedItemPanel.ResumeLayout(false);
             SelectedItemPanel.PerformLayout();
             ResumeLayout(false);
@@ -243,7 +243,7 @@
 
         #endregion
 
-        private Panel panel1;
+        private Panel ItemsPanel;
         private Button RemoveItemButton;
         private Button AddItemButton;
         private ListBox ItemsListBox;

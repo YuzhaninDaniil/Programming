@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Address address1 = new Address();
             AddCustomerButton = new Button();
             RemoveCustomerButton = new Button();
             CustomersListBox = new ListBox();
@@ -39,9 +40,11 @@
             CustomerIdTextBox = new TextBox();
             label2 = new Label();
             label3 = new Label();
-            addressControl1 = new Controls.AddressControl();
+            DeliveryAddressPanel = new Panel();
+            CustomerAddressControl = new Controls.AddressControl();
             CustomersPanel.SuspendLayout();
             SelectedCustomerPanel.SuspendLayout();
+            DeliveryAddressPanel.SuspendLayout();
             SuspendLayout();
             // 
             // AddCustomerButton
@@ -158,19 +161,35 @@
             label3.TabIndex = 6;
             label3.Text = "ID:";
             // 
-            // addressControl1
+            // DeliveryAddressPanel
             // 
-            addressControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            addressControl1.Location = new Point(295, 94);
-            addressControl1.Name = "addressControl1";
-            addressControl1.Size = new Size(514, 200);
-            addressControl1.TabIndex = 6;
+            DeliveryAddressPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            DeliveryAddressPanel.Controls.Add(CustomerAddressControl);
+            DeliveryAddressPanel.Location = new Point(291, 94);
+            DeliveryAddressPanel.Name = "DeliveryAddressPanel";
+            DeliveryAddressPanel.Size = new Size(518, 200);
+            DeliveryAddressPanel.TabIndex = 7;
+            // 
+            // CustomerAddressControl
+            // 
+            address1.Apartment = "";
+            address1.Building = "";
+            address1.City = "";
+            address1.Country = "";
+            address1.Index = 100000;
+            address1.Street = "";
+            CustomerAddressControl.Address = address1;
+            CustomerAddressControl.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            CustomerAddressControl.Location = new Point(1, 3);
+            CustomerAddressControl.Name = "CustomerAddressControl";
+            CustomerAddressControl.Size = new Size(514, 194);
+            CustomerAddressControl.TabIndex = 7;
             // 
             // CustomersTab
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(addressControl1);
+            Controls.Add(DeliveryAddressPanel);
             Controls.Add(SelectedCustomerPanel);
             Controls.Add(CustomersPanel);
             Name = "CustomersTab";
@@ -180,6 +199,7 @@
             CustomersPanel.PerformLayout();
             SelectedCustomerPanel.ResumeLayout(false);
             SelectedCustomerPanel.PerformLayout();
+            DeliveryAddressPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -196,6 +216,7 @@
         private TextBox CustomerIdTextBox;
         private Label label2;
         private Label label3;
-        private Controls.AddressControl addressControl1;
+        private Panel DeliveryAddressPanel;
+        private Controls.AddressControl CustomerAddressControl;
     }
 }

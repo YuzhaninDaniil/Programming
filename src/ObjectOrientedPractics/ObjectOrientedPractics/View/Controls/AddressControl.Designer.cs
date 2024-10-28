@@ -72,6 +72,7 @@
             AddressApartmentTextBox.Name = "AddressApartmentTextBox";
             AddressApartmentTextBox.Size = new Size(101, 23);
             AddressApartmentTextBox.TabIndex = 12;
+            AddressApartmentTextBox.TextChanged += AddressApartmentTextBox_TextChanged;
             // 
             // AddressBuildingTextBox
             // 
@@ -79,6 +80,7 @@
             AddressBuildingTextBox.Name = "AddressBuildingTextBox";
             AddressBuildingTextBox.Size = new Size(101, 23);
             AddressBuildingTextBox.TabIndex = 11;
+            AddressBuildingTextBox.TextChanged += AddressBuildingTextBox_TextChanged;
             // 
             // AddressCityTextBox
             // 
@@ -87,6 +89,7 @@
             AddressCityTextBox.Name = "AddressCityTextBox";
             AddressCityTextBox.Size = new Size(284, 23);
             AddressCityTextBox.TabIndex = 10;
+            AddressCityTextBox.TextChanged += AddressCityTextBox_TextChanged;
             // 
             // AddressStreetTextBox
             // 
@@ -95,6 +98,7 @@
             AddressStreetTextBox.Name = "AddressStreetTextBox";
             AddressStreetTextBox.Size = new Size(548, 23);
             AddressStreetTextBox.TabIndex = 9;
+            AddressStreetTextBox.TextChanged += AddressStreetTextBox_TextChanged;
             // 
             // AddressCountryTextBox
             // 
@@ -102,6 +106,7 @@
             AddressCountryTextBox.Name = "AddressCountryTextBox";
             AddressCountryTextBox.Size = new Size(221, 23);
             AddressCountryTextBox.TabIndex = 8;
+            AddressCountryTextBox.TextChanged += AddressCountryTextBox_TextChanged;
             // 
             // AddressPostIndexTextBox
             // 
@@ -109,6 +114,7 @@
             AddressPostIndexTextBox.Name = "AddressPostIndexTextBox";
             AddressPostIndexTextBox.Size = new Size(139, 23);
             AddressPostIndexTextBox.TabIndex = 7;
+            AddressPostIndexTextBox.TextChanged += AddressPostIndexTextBox_TextChanged;
             // 
             // label7
             // 

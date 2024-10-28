@@ -26,7 +26,7 @@
         public int Id { get { return _id; } }
 
         /// <summary>
-        ///  Возвращает и задаёт ФИО покупателя. Не может быть больше 200 символов или пустым.
+        ///  Возвращает и задает ФИО покупателя. Не должно быть больше 200 символов или пустым.
         /// </summary>
         public string FullName
         {
@@ -39,7 +39,7 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт адрес покупателя. Не может быть больше 500 символов или пустым.
+        /// Возвращает и задаёт адрес покупателя.
         /// </summary>
         public Address Address
         {
@@ -73,9 +73,9 @@
         }
 
         /// <summary>
-        /// Возвращает <see cref="FullName"/>.
+        /// Переопределяет метод <see cref="ToString()"/>.
         /// </summary>
-        /// <returns>string</returns>
+        /// <returns>Возвращает <see cref="FullName"/>.</returns>
         public override string ToString()
         {
             return FullName;

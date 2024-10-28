@@ -3,41 +3,64 @@
     public partial class ItemsTab : UserControl
     {
         /// <summary>
-        /// True, если данные в полях корректны, иначе false.
+        /// Хранит данные о корректности данных.
         /// </summary>
         private bool _isDataValid = true;
 
-
         /// <summary>
-        /// True, если список пустой, иначе false.
-        /// </summary>
-        private bool _isDataClear = false;
-
-        /// <summary>
-        /// Список, хранящий всех покупателей.
+        /// Список, хранящий все товары и информацию о них.
         /// </summary>
         private List<Item> _items = new();
 
         /// <summary>
-        /// Выбранный покупатель.
+        /// Текущий выбранный товар.
         /// </summary>
         private Item _currentItem;
 
+        /// <summary>
+        /// Возвращает и задает список класса <see cref="Item"/>.
+        /// </summary>
+        public List<Item> Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException($"{nameof(Items)} не должно быть null.");
+                }
+                _items = value;
+            }
+        }
+
+        /// <summary>
+        /// Инициализирует компоненты класса.
+        /// </summary>
         public ItemsTab()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// При запуске приложения загружает в ListBox <see cref="ItemsListBox"/> список типа <see cref="Item"/>.
+        /// А также загруждает Combobox типа <see cref="Category"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemsTab_Load(object sender, EventArgs e)
         {
-            _items.Add(new Item());
             ItemsListBox.DataSource = _items;
-            ItemsListBox.SelectedIndex = 0;
-
-
             ItemCategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
         }
 
+        /// <summary>
+        /// Добавляет в список экземпляр класса <see cref="Item"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddItemButton_Click(object sender, EventArgs e)
         {
             Item item = new Item();
@@ -46,9 +69,14 @@
             ItemsListBox.DataSource = _items;
             ItemsListBox.SelectedIndex = _items.Count - 1;
 
-            CheckDataForClear();
+            ValueValidator.CheckDataForClear(_items, SelectedItemPanel);
         }
 
+        /// <summary>
+        /// Удаляет из списка экземпляр класса <see cref="Item"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             _items.Remove(_currentItem);
@@ -56,9 +84,15 @@
             ItemsListBox.DataSource = _items;
             ItemsListBox.SelectedIndex = _items.Count - 1;
 
-            CheckDataForClear();
+            ValueValidator.CheckDataForClear(_items, SelectedItemPanel);
         }
 
+        /// <summary>
+        /// Меняет отображение списка при добавлении/удалении элемента. Также загружает в Textboxes данные из полей текущего элемента списка.
+        /// Если данные некорректны, невозможно покинуть текущий элемент списка, пока данные не станут корректными.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedItem == null) return;
@@ -80,13 +114,17 @@
             ItemsListBox.DataSource = _items;
         }
 
+        /// <summary>
+        /// Меняет состояние свойства Cost через валидацию вводимых данных.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemCostTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_isDataClear) return;
             _isDataValid = true;
             ItemCostTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(ItemCostTextBox.Text) || CheckNumberOnLetter(ItemCostTextBox.Text))
+            if (string.IsNullOrEmpty(ItemCostTextBox.Text) || ValueValidator.CheckNumberOnLetter(ItemCostTextBox.Text))
             {
                 _isDataValid = false;
                 ItemCostTextBox.BackColor = Color.LightPink;
@@ -105,13 +143,17 @@
             }
         }
 
+        /// <summary>
+        /// Меняет состояние свойства Name через валидацию вводимых данных.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_isDataClear) return;
             _isDataValid = true;
             ItemNameTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(ItemNameTextBox.Text) || CheckWordOnDigit(ItemNameTextBox.Text))
+            if (string.IsNullOrEmpty(ItemNameTextBox.Text) || ValueValidator.CheckWordOnDigit(ItemNameTextBox.Text))
             {
                 _isDataValid = false;
                 ItemNameTextBox.BackColor = Color.LightPink;
@@ -129,9 +171,13 @@
             }
         }
 
+        /// <summary>
+        /// Меняет состояние свойства Info через валидацию вводимых данных.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemInfoTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_isDataClear) return;
             _isDataValid = true;
             ItemInfoTextBox.BackColor = Color.White;
 
@@ -153,80 +199,14 @@
             }
         }
 
+        /// <summary>
+        /// Меняет состояние свойства Category через валидацию вводимых данных.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ItemCategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentItem.Category = _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
-        }
-
-        /// <summary>
-        /// Проверяет на то, пустые ли TextBoxes.
-        /// </summary>
-        public void CheckDataForClear()
-        {
-            _isDataClear = true;
-
-            if (_items.Count <= 0)
-            {
-                ItemIdTextBox.Clear();
-                ItemIdTextBox.Enabled = false;
-                ItemCostTextBox.Clear();
-                ItemCostTextBox.Enabled = false;
-                ItemNameTextBox.Clear();
-                ItemNameTextBox.Enabled = false;
-                ItemInfoTextBox.Clear();
-                ItemInfoTextBox.Enabled = false;
-                ItemCategoryComboBox.Enabled = false;
-            }
-            else
-            {
-                ItemIdTextBox.Enabled = true;
-                ItemCostTextBox.Enabled = true;
-                ItemNameTextBox.Enabled = true;
-                ItemInfoTextBox.Enabled = true;
-                ItemCategoryComboBox.Enabled = true;
-
-                _isDataClear = false;
-            }
-        }
-
-        /// <summary>
-        /// Проверяет число на то, есть ли в нем буквы.
-        /// </summary>
-        /// <param name="text">Число.</param>
-        /// <returns></returns>
-        public bool CheckNumberOnLetter(string text)
-        {
-            bool hasLetter = false;
-
-            foreach (char c in text)
-            {
-                if (char.IsLetter(c))
-                {
-                    hasLetter = true;
-                    break;
-                }
-            }
-            return hasLetter;
-        }
-
-        /// <summary>
-        /// Проверяет слово на то, есть ли в нем цифры.
-        /// </summary>
-        /// <param name="text">Текст.</param>
-        /// <returns></returns>
-        public bool CheckWordOnDigit(string text)
-        {
-            bool hasDigit = false;
-
-            foreach (char c in text)
-            {
-                if (!char.IsLetter(c))
-                {
-                    hasDigit = true;
-                    break;
-                }
-            }
-            return hasDigit;
+            _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
         }
     }
 }

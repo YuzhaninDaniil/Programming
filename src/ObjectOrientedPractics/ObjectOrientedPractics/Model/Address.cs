@@ -36,14 +36,11 @@
         private string _apartment;
 
         /// <summary>
-        /// Возвращает и задаёт Почтовый индекс. Должно быть целым шестизначным числом.
+        /// Возвращает и задает Почтовый индекс. Должно быть целым шестизначным числом.
         /// </summary>
         public int Index
         {
-            get
-            {
-                return _index;
-            }
+            get { return _index; }
             set
             {
                 ValueValidator.CheckNumberInRange(value, 100000, 999999, nameof(Index));
@@ -52,14 +49,11 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт Страну/регион. Не должно превышать 50 символов.
+        /// Возвращает и задает Страну/регион. Не должно превышать 50 символов.
         /// </summary>
         public string Country
         {
-            get
-            {
-                return _country;
-            }
+            get { return _country; }
             set
             {
                 ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
@@ -68,14 +62,11 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт Город (населенный пункт). Не должно превышать 50 символов.
+        /// Возвращает и задает Город (населенный пункт). Не должно превышать 50 символов.
         /// </summary>
         public string City
         {
-            get
-            {
-                return _city;
-            }
+            get { return _city; }
             set
             {
                 ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
@@ -84,14 +75,11 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт Улицу. Не должно превышать 100 символов.
+        /// Возвращает и задает Улицу. Не должно превышать 100 символов.
         /// </summary>
         public string Street
         {
-            get
-            {
-                return _street;
-            }
+            get { return _street; }
             set
             {
                 ValueValidator.AssertStringOnLength(value, 100, nameof(Street));
@@ -100,14 +88,11 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт Номер дома. Не должно превышать 10 символов.
+        /// Возвращает и задает Номер дома. Не должно превышать 10 символов.
         /// </summary>
         public string Building
         {
-            get
-            {
-                return _building;
-            }
+            get { return _building; }
             set
             {
                 ValueValidator.AssertStringOnLength(value, 10, nameof(Building));
@@ -116,14 +101,11 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт Номер квартиры/помещения. Не должно превышать 10 символов.
+        /// Возвращает и задает Номер квартиры/помещения. Не должно превышать 10 символов.
         /// </summary>
         public string Apartment
         {
-            get
-            {
-                return _apartment;
-            }
+            get { return _apartment; }
             set
             {
                 ValueValidator.AssertStringOnLength(value, 10, nameof(Apartment));
@@ -132,20 +114,20 @@
         }
 
         /// <summary>
-        /// Создаёт пустой экземпляр класса <see cref="Address"/>.
+        /// Создает пустой экземпляр класса <see cref="Address"/>.
         /// </summary>
         public Address()
         {
             Index = 100000;
-            Country = "";
-            City = "";
-            Street = "";
-            Building = "";
-            Apartment = "";
+            Country = "Russia";
+            City = "Tomsk";
+            Street = "Lenina";
+            Building = "59";
+            Apartment = "3";
         }
 
         /// <summary>
-        /// Создаёт экземпляр класса <see cref="Address"/>.
+        /// Создает экземпляр класса <see cref="Address"/>.
         /// </summary>
         /// <param name="index">Почтовый индекс.</param>
         /// <param name="country">Страна/регион.</param>

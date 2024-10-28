@@ -26,17 +26,17 @@
         private double _cost;
 
         /// <summary>
-        /// Возвращает Id товара.
-        /// </summary>
-        public int Id { get { return _id; } }
-
-        /// <summary>
         /// Хранит и возвращает категорию товара.
         /// </summary>
         public Category Category { get; set; }
 
         /// <summary>
-        /// Возвращает и задает название товара. Не может быть пустым или содержать больше 200 символов.
+        /// Возвращает Id товара.
+        /// </summary>
+        public int Id { get { return _id; } }
+
+        /// <summary>
+        /// Возвращает и задает название товара. Не должно быть пустым или содержать больше 200 символов.
         /// </summary>
         public string Name
         {
@@ -49,7 +49,7 @@
         }
 
         /// <summary>
-        /// Возвращает и задает информацию о товаре. Не может быть пустым или содержать больше 1000 символов.
+        /// Возвращает и задает информацию о товаре. Не должно быть пустым или содержать больше 1000 символов.
         /// </summary>
         public string Info
         {
@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// Возвращает и задает цену товара. Не может быть меньше 0 или больше 100000.
+        /// Возвращает и задает цену товара. Не должно быть меньше 0 или больше 100000.
         /// </summary>
         public double Cost
         {
@@ -89,10 +89,10 @@
         /// <summary>
         /// Создает экзмепляр класса <see cref="Item"/>.
         /// </summary>
-        /// <param name="name">Название продукта</param>
-        /// <param name="info">Информация о продукте</param>
-        /// <param name="cost">Цена продукта</param>
-        /// <param name="category">Категория продукта</param>
+        /// <param name="name">Название продукта.</param>
+        /// <param name="info">Информация о продукте.</param>
+        /// <param name="cost">Цена продукта.</param>
+        /// <param name="category">Категория продукта.</param>
         public Item(string name, string info, double cost, Category category)
         {
             _id = IdGenerator.GetNextId();
@@ -103,9 +103,9 @@
         }
 
         /// <summary>
-        /// Возвращает <see cref="Name"/>.
+        /// Переопределяет метод <see cref="ToString()"/>.
         /// </summary>
-        /// <returns> string </returns>
+        /// <returns>Возвращает <see cref="Name"/>.</returns>
         public override string ToString()
         {
             return Name;
