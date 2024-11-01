@@ -84,6 +84,9 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="address"></param>
+        /// <param name="items"></param>
+        /// <param name="cost"></param>
         public Order(Address address, List<Item> items, double cost)
         {
             _id = IdGenerator.GetNextId();

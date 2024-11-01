@@ -108,12 +108,17 @@
             CustomersListBox.DataSource = _customers;
         }
 
+        /// <summary>
+        /// Меняет состояние свойства FullName через валидацию вводимых данных.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomerFullNameTextBox_TextChanged(object sender, EventArgs e)
         {
             _isDataValid = true;
             CustomerFullNameTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(CustomerFullNameTextBox.Text) || ValueValidator.CheckWordOnDigit(CustomerFullNameTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(CustomerFullNameTextBox.Text))
             {
                 _isDataValid = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
@@ -127,6 +132,7 @@
             {
                 _isDataValid = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

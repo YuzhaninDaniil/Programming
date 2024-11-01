@@ -124,7 +124,7 @@
             _isDataValid = true;
             ItemCostTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(ItemCostTextBox.Text) || ValueValidator.CheckNumberOnLetter(ItemCostTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(ItemCostTextBox.Text))
             {
                 _isDataValid = false;
                 ItemCostTextBox.BackColor = Color.LightPink;
@@ -153,7 +153,7 @@
             _isDataValid = true;
             ItemNameTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(ItemNameTextBox.Text) || ValueValidator.CheckWordOnDigit(ItemNameTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(ItemNameTextBox.Text))
             {
                 _isDataValid = false;
                 ItemNameTextBox.BackColor = Color.LightPink;
@@ -181,7 +181,7 @@
             _isDataValid = true;
             ItemInfoTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(ItemInfoTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(ItemInfoTextBox.Text))
             {
                 _isDataValid = false;
                 ItemInfoTextBox.BackColor = Color.LightPink;

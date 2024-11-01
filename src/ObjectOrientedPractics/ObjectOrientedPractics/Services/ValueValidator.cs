@@ -14,7 +14,7 @@
         /// <exception cref="ArgumentException"></exception>
         public static void AssertStringOnLength(string str, int maxLength, string propertyName)
         {
-            if(str.Length > maxLength)
+            if (str.Length > maxLength)
             {
                 throw new ArgumentException($"{propertyName} должен быть меньше {maxLength} символов.");
             }
@@ -37,43 +37,52 @@
         }
 
         /// <summary>
+        /// Проверяет строку на null или пустоту.
+        /// </summary>
+        /// <param name="text">Строка.</param>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        static public bool CheckStringOnNullOrEmpty(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Проверяет число на то, есть ли в нем буквы.
         /// </summary>
-        /// <param name="text">Проверяемая строка.</param>
-        /// <returns>Возвращает true, если в числе есть буква, иначе false.</returns>
-        static public bool CheckNumberOnLetter(string text)
+        /// <param name="number">Число.</param>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <exception cref="ArgumentException"></exception>
+        static public void CheckNumberOnLetter(double number, string propertyName)
         {
-            bool hasLetter = false;
-
-            foreach (char c in text)
+            foreach (char c in number.ToString())
             {
                 if (char.IsLetter(c))
                 {
-                    hasLetter = true;
-                    break;
+                    throw new ArgumentException($"{propertyName} не должно содержать буквы.");
                 }
             }
-            return hasLetter;
         }
 
         /// <summary>
         /// Проверяет слово на то, есть ли в нем цифры.
         /// </summary>
-        /// <param name="text">Проверяемая строка.</param>
-        /// <returns>Возвращает true, если в слове есть цифра, иначе false.</returns>
-        static public bool CheckWordOnDigit(string text)
+        /// <param name="text">Строка.</param>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <exception cref="ArgumentException"></exception>
+        static public void CheckWordOnDigit(string text, string propertyName)
         {
-            bool hasDigit = false;
-
             foreach (char c in text)
             {
-                if (!char.IsLetter(c))
+                if (!char.IsLetter(c) && c != ' ' && c != '-')
                 {
-                    hasDigit = true;
-                    break;
+                    throw new ArgumentException($"{propertyName} не должно содержать цифры.");
                 }
             }
-            return hasDigit;
         }
 
         /// <summary>

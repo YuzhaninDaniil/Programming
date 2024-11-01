@@ -16,7 +16,10 @@ namespace ObjectOrientedPractics
             _store.Customers.Add(new Customer());
 
             ItemsTab.Items = _store.Items;
+            CartsTab.Items = _store.Items;
+
             CustomersTab.Customers = _store.Customers;
+            CartsTab.Customers = _store.Customers;
         }
     }
 }

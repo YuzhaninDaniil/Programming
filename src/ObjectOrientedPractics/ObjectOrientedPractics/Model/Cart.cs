@@ -16,10 +16,6 @@
         public List<Item> Items
         {
             get { return _items; }
-            set
-            {
-                _items = value;
-            }
         }
 
         /// <summary>
@@ -30,16 +26,58 @@
             get
             {
                 double totalCost = 0.0;
-                if(Items.Count <= 0 || Items == null)
+
+                if (_items == null || _items.Count == 0)
                 {
-                    return 0.0;
+                    return totalCost;
                 }
-                foreach(Item item in Items)
+
+                foreach (var item in _items)
                 {
                     totalCost += item.Cost;
                 }
                 return totalCost;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Cart()
+        {
+            _items = new List<Item>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void AddItem(Item item)
+        {
+            if (item != null)
+            {
+                _items.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void RemoveItem(Item item)
+        {
+            if (item != null)
+            {
+                _items.Remove(item);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Clear()
+        {
+            _items = new List<Item>();
         }
     }
 }

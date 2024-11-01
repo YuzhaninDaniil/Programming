@@ -28,7 +28,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private Order _order;
+        private List<Order> _orders;
 
         /// <summary>
         /// Возвращает значение поля id.
@@ -44,6 +44,7 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 200, nameof(FullName));
+                ValueValidator.CheckWordOnDigit(value, nameof(FullName));
                 _fullName = value;
             }
         }
@@ -66,22 +67,16 @@
         public Cart Cart
         {
             get { return _cart; }
-            set
-            {
-                _cart = value;
-            }
+            private set { _cart = value; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Order Order
+        public List<Order> Orders
         {
-            get { return _order; }
-            set
-            {
-                _order = value;
-            }
+            get { return _orders; }
+            set { _orders = value; }
         }
 
         /// <summary>
@@ -92,6 +87,8 @@
             _id = IdGenerator.GetNextId();
             FullName = "FullName";
             Address = new Address();
+            Cart = new Cart();
+            Orders = new List<Order>();
         }
 
         /// <summary>
@@ -104,6 +101,8 @@
             _id = IdGenerator.GetNextId();
             FullName = fullName;
             Address = address;
+            Cart = new Cart();
+            Orders = new List<Order>();
         }
 
         /// <summary>

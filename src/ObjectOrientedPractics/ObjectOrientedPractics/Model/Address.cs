@@ -44,6 +44,7 @@
             set
             {
                 ValueValidator.CheckNumberInRange(value, 100000, 999999, nameof(Index));
+                ValueValidator.CheckNumberOnLetter(value, nameof(Index));
                 _index = value;
             }
         }
@@ -57,6 +58,7 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
+                ValueValidator.CheckWordOnDigit(value, nameof(Country));
                 _country = value;
             }
         }
@@ -70,6 +72,7 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
+                ValueValidator.CheckWordOnDigit(value, nameof(Country));
                 _city = value;
             }
         }

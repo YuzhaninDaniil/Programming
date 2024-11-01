@@ -1,20 +1,148 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CartsTab : UserControl
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<Item> _items;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<Customer> _customers;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Customer _currentCustomer;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Item> Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<Customer> Customers
+        {
+            get { return _customers; }
+            set { _customers = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public CartsTab()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CartsTab_Load(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentCustomer = CustomerComboBox.SelectedItem as Customer;
+            if (_currentCustomer is null) { return; }
+            UpdateCartData();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddToCartButton_Click(object sender, EventArgs e)
+        {
+            Item selectedItem = ItemsListBox.SelectedItem as Item;
+            if (selectedItem is null || _currentCustomer is null) { return; }
+            _currentCustomer.Cart.AddItem(selectedItem);
+
+            UpdateCartData();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveItemButton_Click(object sender, EventArgs e)
+        {
+            Item selectedItem = CartListBox.SelectedItem as Item;
+            if (selectedItem is null) { return; }
+
+            _currentCustomer.Cart.RemoveItem(selectedItem);
+
+            UpdateCartData();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearCartButton_Click(object sender, EventArgs e)
+        {
+            if (_currentCustomer is null) { return; }
+            _currentCustomer.Cart.Items.Clear();
+
+            UpdateCartData();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CreateOrderButton_Click(object sender, EventArgs e)
+        {
+            if (CartListBox.Items.Count == 0) { return; }
+            Order newOrder = new Order(_currentCustomer.Address, _currentCustomer.Cart.Items, _currentCustomer.Cart.Amount);
+            _currentCustomer.Orders.Add(newOrder);
+
+            _currentCustomer.Cart.Clear();
+            UpdateCartData();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void UpdateCartData()
+        {
+            AmountLabel.Text = _currentCustomer.Cart.Amount.ToString();
+
+            CartListBox.DataSource = null;
+            CartListBox.DataSource = _currentCustomer.Cart.Items;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RefreshData()
+        {
+            CustomerComboBox.DataSource = null;
+            ItemsListBox.DataSource = null;
+
+            CustomerComboBox.DataSource = Customers;
+            ItemsListBox.DataSource = Items;
         }
     }
 }
