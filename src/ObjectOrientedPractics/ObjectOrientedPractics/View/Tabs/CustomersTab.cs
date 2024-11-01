@@ -113,7 +113,7 @@
             _isDataValid = true;
             CustomerFullNameTextBox.BackColor = Color.White;
 
-            if (string.IsNullOrEmpty(CustomerFullNameTextBox.Text) || ValueValidator.CheckWordOnDigit(CustomerFullNameTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(CustomerFullNameTextBox.Text))
             {
                 _isDataValid = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;

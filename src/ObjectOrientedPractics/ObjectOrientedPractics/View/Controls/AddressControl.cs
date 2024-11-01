@@ -47,7 +47,7 @@
             AddressPostIndexTextBox.BackColor = Color.White;
             _isAddressDataValid = true;
 
-            if (string.IsNullOrEmpty(AddressPostIndexTextBox.Text) || ValueValidator.CheckNumberOnLetter(AddressPostIndexTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(AddressPostIndexTextBox.Text))
             {
                 _isAddressDataValid = false;
                 AddressPostIndexTextBox.BackColor = Color.LightPink;
@@ -62,6 +62,7 @@
             {
                 _isAddressDataValid = false;
                 AddressPostIndexTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             CheckIfAddressDataValid();
         }
@@ -76,7 +77,7 @@
             AddressCountryTextBox.BackColor = Color.White;
             _isAddressDataValid = true;
 
-            if (string.IsNullOrEmpty(AddressCountryTextBox.Text) || ValueValidator.CheckWordOnDigit(AddressCountryTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(AddressCountryTextBox.Text))
             {
                 _isAddressDataValid = false;
                 AddressCountryTextBox.BackColor = Color.LightPink;
@@ -106,7 +107,7 @@
             AddressCityTextBox.BackColor = Color.White;
             _isAddressDataValid = true;
 
-            if (string.IsNullOrEmpty(AddressCityTextBox.Text) || ValueValidator.CheckWordOnDigit(AddressCityTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(AddressCityTextBox.Text))
             {
                 _isAddressDataValid = false;
                 AddressCityTextBox.BackColor = Color.LightPink;
@@ -136,7 +137,7 @@
             AddressStreetTextBox.BackColor = Color.White;
             _isAddressDataValid = true;
 
-            if (string.IsNullOrEmpty(AddressStreetTextBox.Text) || ValueValidator.CheckWordOnDigit(AddressStreetTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(AddressStreetTextBox.Text))
             {
                 _isAddressDataValid = false;
                 AddressStreetTextBox.BackColor = Color.LightPink;
@@ -166,7 +167,7 @@
             AddressBuildingTextBox.BackColor = Color.White;
             _isAddressDataValid = true;
 
-            if (string.IsNullOrEmpty(AddressBuildingTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(AddressBuildingTextBox.Text))
             {
                 _isAddressDataValid = false;
                 AddressBuildingTextBox.BackColor = Color.LightPink;
@@ -196,7 +197,7 @@
             AddressApartmentTextBox.BackColor = Color.White;
             _isAddressDataValid = true;
 
-            if (string.IsNullOrEmpty(AddressApartmentTextBox.Text))
+            if (!ValueValidator.CheckStringOnNullOrEmpty(AddressApartmentTextBox.Text))
             {
                 _isAddressDataValid = false;
                 AddressApartmentTextBox.BackColor = Color.LightPink;

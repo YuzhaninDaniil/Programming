@@ -44,6 +44,7 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
+                ValueValidator.CheckWordOnDigit(value, nameof(Name));
                 _name = value;
             }
         }
@@ -70,6 +71,7 @@
             set
             { 
                 ValueValidator.CheckNumberInRange(value, 0, 100000, nameof(Cost));
+                ValueValidator.CheckNumberOnLetter(value, nameof(Cost));
                 _cost = value;
             }
         }

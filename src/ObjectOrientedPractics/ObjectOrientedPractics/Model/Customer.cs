@@ -34,6 +34,7 @@
             set
             {
                 ValueValidator.AssertStringOnLength(value, 200, nameof(FullName));
+                ValueValidator.CheckWordOnDigit(value, nameof(FullName));
                 _fullName = value;
             }
         }
