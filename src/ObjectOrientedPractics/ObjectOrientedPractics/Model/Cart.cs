@@ -1,25 +1,30 @@
 ﻿namespace ObjectOrientedPractics
 {
     /// <summary>
-    /// 
+    /// Хранит информацию о корзине товаров.
     /// </summary>
     public class Cart
     {
         /// <summary>
-        /// 
+        /// Список товаров.
         /// </summary>
         private List<Item> _items;
 
         /// <summary>
-        /// 
+        /// Возвращает список товаров.
         /// </summary>
         public List<Item> Items
         {
             get { return _items; }
+            set
+            {
+                if (value == null) return;
+                _items = value;
+            }
         }
 
         /// <summary>
-        /// 
+        /// Считает общую стоимость товаров.
         /// </summary>
         public double Amount
         {
@@ -41,7 +46,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Создает пустой экземпляр класса <see cref="Cart"/>.
         /// </summary>
         public Cart()
         {
@@ -49,31 +54,25 @@
         }
 
         /// <summary>
-        /// 
+        /// Добавляет товар из списка товаров.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">Товар.</param>
         public void AddItem(Item item)
         {
-            if (item != null)
-            {
-                _items.Add(item);
-            }
+            Items.Add(item);
         }
 
         /// <summary>
-        /// 
+        /// Удаляет товар из списка товаров.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">Товар.</param>
         public void RemoveItem(Item item)
         {
-            if (item != null)
-            {
-                _items.Remove(item);
-            }
+            Items.Remove(item);
         }
 
         /// <summary>
-        /// 
+        /// Очищает список товаров.
         /// </summary>
         public void Clear()
         {

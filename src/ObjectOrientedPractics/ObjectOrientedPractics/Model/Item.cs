@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-
-namespace ObjectOrientedPractics
+﻿namespace ObjectOrientedPractics
 {
     /// <summary>
     /// Хранит информацию о товаре.

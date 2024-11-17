@@ -147,5 +147,14 @@
             Building = building;
             Apartment = apartment;
         }
+
+        /// <summary>
+        /// Переопределяет метод <see cref="ToString()"/>.
+        /// </summary>
+        /// <returns>Возвращает <see cref="Name"/>.</returns>
+        public override string ToString()
+        {
+            return $"{Index} {Country} {City} {Street} {Building} {Apartment}";
+        }
     }
 }

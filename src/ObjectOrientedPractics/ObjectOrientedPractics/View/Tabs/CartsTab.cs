@@ -3,22 +3,22 @@
     public partial class CartsTab : UserControl
     {
         /// <summary>
-        /// 
+        /// Список товаров.
         /// </summary>
         private List<Item> _items;
 
         /// <summary>
-        /// 
+        /// Список покупателей.
         /// </summary>
         private List<Customer> _customers;
 
         /// <summary>
-        /// 
+        /// Текущий выбранный покупатель.
         /// </summary>
         private Customer _currentCustomer;
 
         /// <summary>
-        /// 
+        /// Возвращает и задает список товаров.
         /// </summary>
         public List<Item> Items
         {
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задает список покупателей.
         /// </summary>
         public List<Customer> Customers
         {
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Инициализирует компоненты класса.
         /// </summary>
         public CartsTab()
         {
@@ -44,7 +44,7 @@
         }
 
         /// <summary>
-        /// 
+        /// При запуске приложения загружает <see cref="CustomerComboBox"/> и  <see cref="ItemsListBox"/>.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -54,7 +54,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Выбирает текущего покупателя из Combobox.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -66,7 +66,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Добавляет в корзину выбранный товар.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -80,7 +80,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Удаляет из корзины выбранный товар.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -95,7 +95,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Очищает полностью корзину от списка товаров.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -108,7 +108,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Создает заказ на основе списка товаров.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -123,7 +123,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Загружает в список корзины данные из списка товаров. Выводит стоимость товаров в корзине.
         /// </summary>
         private void UpdateCartData()
         {
@@ -134,7 +134,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Перезаписывает данные в списках покупателя и товаров.
         /// </summary>
         public void RefreshData()
         {

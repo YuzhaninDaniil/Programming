@@ -21,12 +21,12 @@
         private Address _address;
 
         /// <summary>
-        /// 
+        /// Корзина покупателя.
         /// </summary>
         private Cart _cart;
 
         /// <summary>
-        /// 
+        /// Заказ покупателя.
         /// </summary>
         private List<Order> _orders;
 
@@ -50,7 +50,7 @@
         }
 
         /// <summary>
-        /// Возвращает и задаёт адрес покупателя.
+        /// Возвращает и задает адрес покупателя.
         /// </summary>
         public Address Address
         {
@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задает корзину покупателя.
         /// </summary>
         public Cart Cart
         {
@@ -71,7 +71,7 @@
         }
 
         /// <summary>
-        /// 
+        /// Возвращает и задает заказ покупателя.
         /// </summary>
         public List<Order> Orders
         {
