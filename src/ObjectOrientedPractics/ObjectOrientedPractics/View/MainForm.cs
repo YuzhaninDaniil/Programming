@@ -29,6 +29,11 @@ namespace ObjectOrientedPractics
             OrdersTab.Customers = _store.Customers;
         }
 
+        /// <summary>
+        /// Обновляет данные при повторном открытии страничек.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (MainTabControl.SelectedIndex)
