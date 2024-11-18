@@ -8,12 +8,12 @@
         /// <summary>
         /// Список всех покупателей.
         /// </summary>
-        private List<Customer> _customers;
+        private List<Customer> _customers = new List<Customer>();
 
         /// <summary>
         /// Список всех товаров.
         /// </summary>
-        private List<Item> _items;
+        private List<Item> _items = new List<Item>();
 
         /// <summary>
         /// Возвращает и задает список покупателей. Не должно быть null.

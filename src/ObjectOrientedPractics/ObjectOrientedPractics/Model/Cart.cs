@@ -52,31 +52,5 @@
         {
             _items = new List<Item>();
         }
-
-        /// <summary>
-        /// Добавляет товар из списка товаров.
-        /// </summary>
-        /// <param name="item">Товар.</param>
-        public void AddItem(Item item)
-        {
-            Items.Add(item);
-        }
-
-        /// <summary>
-        /// Удаляет товар из списка товаров.
-        /// </summary>
-        /// <param name="item">Товар.</param>
-        public void RemoveItem(Item item)
-        {
-            Items.Remove(item);
-        }
-
-        /// <summary>
-        /// Очищает список товаров.
-        /// </summary>
-        public void Clear()
-        {
-            _items = new List<Item>();
-        }
     }
 }

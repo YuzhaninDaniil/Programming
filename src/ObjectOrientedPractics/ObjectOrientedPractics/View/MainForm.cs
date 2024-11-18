@@ -27,6 +27,8 @@ namespace ObjectOrientedPractics
             CartsTab.Customers = _store.Customers;
 
             OrdersTab.Customers = _store.Customers;
+
+            OrdersTab.Customers = _store.Customers;
         }
 
         /// <summary>
@@ -38,11 +40,14 @@ namespace ObjectOrientedPractics
         {
             switch (MainTabControl.SelectedIndex)
             {
+                case 0:
+                case 1:
+                    break;
                 case 2:
                     CartsTab.RefreshData();
                     break;
                 case 3:
-                    OrdersTab.UpdateOrders();
+                    OrdersTab.RefreshData();
                     break;
             }
         }

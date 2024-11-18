@@ -61,7 +61,7 @@
         private void CustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentCustomer = CustomerComboBox.SelectedItem as Customer;
-            if (_currentCustomer is null) { return; }
+            if (_currentCustomer == null) return; 
             UpdateCartData();
         }
 
@@ -73,8 +73,8 @@
         private void AddToCartButton_Click(object sender, EventArgs e)
         {
             Item selectedItem = ItemsListBox.SelectedItem as Item;
-            if (selectedItem is null || _currentCustomer is null) { return; }
-            _currentCustomer.Cart.AddItem(selectedItem);
+            if (selectedItem == null || _currentCustomer == null) return; 
+            _currentCustomer.Cart.Items.Add(selectedItem);
 
             UpdateCartData();
         }
@@ -87,9 +87,9 @@
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             Item selectedItem = CartListBox.SelectedItem as Item;
-            if (selectedItem is null) { return; }
+            if (selectedItem == null) return; 
 
-            _currentCustomer.Cart.RemoveItem(selectedItem);
+            _currentCustomer.Cart.Items.Remove(selectedItem);
 
             UpdateCartData();
         }
@@ -101,7 +101,7 @@
         /// <param name="e"></param>
         private void ClearCartButton_Click(object sender, EventArgs e)
         {
-            if (_currentCustomer is null) { return; }
+            if (_currentCustomer == null) return;
             _currentCustomer.Cart.Items.Clear();
 
             UpdateCartData();
@@ -118,7 +118,7 @@
             Order newOrder = new Order(_currentCustomer.Address, _currentCustomer.Cart.Items, _currentCustomer.Cart.Amount);
             _currentCustomer.Orders.Add(newOrder);
 
-            _currentCustomer.Cart.Clear();
+            _currentCustomer.Cart.Items.Clear();
             UpdateCartData();
         }
 

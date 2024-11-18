@@ -28,7 +28,7 @@
         /// <summary>
         /// Заказ покупателя.
         /// </summary>
-        private List<Order> _orders;
+        private List<Order> _orders = new List<Order>();
 
         /// <summary>
         /// Возвращает значение поля id.

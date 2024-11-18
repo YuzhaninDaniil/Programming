@@ -22,8 +22,8 @@ namespace ObjectOrientedPractics.View.Tabs
             get { return _customers; }
             set
             {
-                _customers = value ?? new List<Customer>();
-                UpdateOrders();
+                _customers = (value != null) ? value : new List<Customer>();
+                RefreshData();
             }
         }
 
@@ -43,8 +43,8 @@ namespace ObjectOrientedPractics.View.Tabs
         private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (OrdersDataGridView.CurrentRow == null) { return; }
-            Order order = _orders[OrdersDataGridView.CurrentRow.Index];
-            order.Status = (OrderStatus)StatusComboBox.SelectedItem;
+            Order currentOrder = _orders[OrdersDataGridView.CurrentRow.Index];
+            currentOrder.Status = (OrderStatus)StatusComboBox.SelectedItem;
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace ObjectOrientedPractics.View.Tabs
             var currentIndex = OrdersDataGridView.CurrentRow.Index;
             if (currentIndex < 0 || currentIndex >= _orders.Count) return;
 
-            Order order = _orders[currentIndex];
-            ShowOrderInfo(order);
+            Order currentOrder = _orders[currentIndex];
+            ShowOrderInfo(currentOrder);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e"></param>
         private void OrdersTab_Load(object sender, EventArgs e)
         {
-            UpdateOrders();
+            RefreshData();
             StatusComboBox.DataSource = Enum.GetValues(typeof(OrderStatus));
         }
 
@@ -80,7 +80,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Обновляет данные в DataGridView.
         /// </summary>
-        public void UpdateOrders()
+        public void RefreshData()
         {
             _orders.Clear();
 
@@ -94,13 +94,13 @@ namespace ObjectOrientedPractics.View.Tabs
 
             foreach (var customer in _customers)
             {
-                if (customer?.Orders != null)
+                if (customer != null && customer.Orders != null)
                 {
                     foreach (var order in customer.Orders)
                     {
                         _orders.Add(order);
 
-                        var row = dataTable.NewRow();
+                        DataRow row = dataTable.NewRow();
                         row["ID"] = order.Id;
                         row["Date"] = order.Date;
                         row["CustomerName"] = customer.FullName;
