@@ -56,7 +56,6 @@
             address1.Street = "Lenina";
             addressControl1.Address = address1;
             addressControl1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            addressControl1.Enabled = false;
             addressControl1.Location = new Point(568, 158);
             addressControl1.Name = "addressControl1";
             addressControl1.Size = new Size(609, 163);
