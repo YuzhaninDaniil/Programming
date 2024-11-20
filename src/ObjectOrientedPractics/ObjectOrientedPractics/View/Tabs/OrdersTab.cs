@@ -23,7 +23,7 @@ namespace ObjectOrientedPractics.View.Tabs
             set
             {
                 _customers = value ?? new List<Customer>();
-                UpdateOrders();
+                RefreshData();
             }
         }
 
@@ -87,7 +87,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e"></param>
         private void OrdersTab_Load(object sender, EventArgs e)
         {
-            UpdateOrders();
+            RefreshData();
             StatusComboBox.DataSource = Enum.GetValues(typeof(OrderStatus));
             DeliveryTimeComboBox.DataSource = PriorityOrder.DeliveryTimeRange;
         }
@@ -96,7 +96,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Обновляет данные в DataGridView.
         /// </summary>
-        public void UpdateOrders()
+        public void RefreshData()
         {
             _orders.Clear();
 
