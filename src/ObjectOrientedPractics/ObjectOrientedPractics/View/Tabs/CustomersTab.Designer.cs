@@ -42,6 +42,7 @@
             label3 = new Label();
             DeliveryAddressPanel = new Panel();
             CustomerAddressControl = new Controls.AddressControl();
+            PriorityCheckBox = new CheckBox();
             CustomersPanel.SuspendLayout();
             SelectedCustomerPanel.SuspendLayout();
             DeliveryAddressPanel.SuspendLayout();
@@ -106,6 +107,7 @@
             // SelectedCustomerPanel
             // 
             SelectedCustomerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SelectedCustomerPanel.Controls.Add(PriorityCheckBox);
             SelectedCustomerPanel.Controls.Add(CustomerFullNameTextBox);
             SelectedCustomerPanel.Controls.Add(label4);
             SelectedCustomerPanel.Controls.Add(CustomerIdTextBox);
@@ -185,6 +187,17 @@
             CustomerAddressControl.Size = new Size(514, 194);
             CustomerAddressControl.TabIndex = 7;
             // 
+            // PriorityCheckBox
+            // 
+            PriorityCheckBox.AutoSize = true;
+            PriorityCheckBox.Location = new Point(274, 21);
+            PriorityCheckBox.Name = "PriorityCheckBox";
+            PriorityCheckBox.Size = new Size(75, 19);
+            PriorityCheckBox.TabIndex = 8;
+            PriorityCheckBox.Text = "Is Priority";
+            PriorityCheckBox.UseVisualStyleBackColor = true;
+            PriorityCheckBox.CheckedChanged += PriorityCheckBox_CheckedChanged;
+            // 
             // CustomersTab
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -218,5 +231,6 @@
         private Label label3;
         private Panel DeliveryAddressPanel;
         private Controls.AddressControl CustomerAddressControl;
+        private CheckBox PriorityCheckBox;
     }
 }

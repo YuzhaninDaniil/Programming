@@ -103,6 +103,7 @@
             CustomerFullNameTextBox.Text = _currentCustomer.FullName.ToString();
 
             CustomerAddressControl.Address = _currentCustomer.Address;
+            PriorityCheckBox.Checked = _currentCustomer.IsPriority;
 
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
@@ -134,6 +135,16 @@
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Передает информацию, является ли покупатель приоритетным.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentCustomer.IsPriority = PriorityCheckBox.Checked;
         }
     }
 }

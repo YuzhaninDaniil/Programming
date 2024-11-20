@@ -27,6 +27,7 @@ namespace ObjectOrientedPractics
             CartsTab.Customers = _store.Customers;
 
             OrdersTab.Customers = _store.Customers;
+            priorityOrdersTab.Items = _store.Items;
         }
 
         private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)

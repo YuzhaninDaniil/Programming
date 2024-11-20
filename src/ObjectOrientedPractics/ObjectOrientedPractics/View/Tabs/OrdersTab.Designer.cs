@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Address address1 = new Address();
+            Address address2 = new Address();
             addressControl1 = new Controls.AddressControl();
             IdTextBox = new TextBox();
             DateTextBox = new TextBox();
@@ -43,18 +43,23 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            PriorityOptionsPanel = new Panel();
+            DeliveryTimeComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).BeginInit();
+            PriorityOptionsPanel.SuspendLayout();
             SuspendLayout();
             // 
             // addressControl1
             // 
-            address1.Apartment = "3";
-            address1.Building = "59";
-            address1.City = "Tomsk";
-            address1.Country = "Russia";
-            address1.Index = 100000;
-            address1.Street = "Lenina";
-            addressControl1.Address = address1;
+            address2.Apartment = "3";
+            address2.Building = "59";
+            address2.City = "Tomsk";
+            address2.Country = "Russia";
+            address2.Index = 100000;
+            address2.Street = "Lenina";
+            addressControl1.Address = address2;
             addressControl1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             addressControl1.Enabled = false;
             addressControl1.Location = new Point(568, 158);
@@ -199,10 +204,54 @@
             label1.TabIndex = 28;
             label1.Text = "Orders";
             // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label8.Location = new Point(3, 5);
+            label8.Name = "label8";
+            label8.Size = new Size(107, 17);
+            label8.TabIndex = 42;
+            label8.Text = "Priority Options";
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Location = new Point(3, 41);
+            label9.Name = "label9";
+            label9.Size = new Size(81, 15);
+            label9.TabIndex = 43;
+            label9.Text = "Delivery Time:";
+            // 
+            // PriorityOptionsPanel
+            // 
+            PriorityOptionsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PriorityOptionsPanel.Controls.Add(DeliveryTimeComboBox);
+            PriorityOptionsPanel.Controls.Add(label8);
+            PriorityOptionsPanel.Controls.Add(label9);
+            PriorityOptionsPanel.Location = new Point(839, 0);
+            PriorityOptionsPanel.Name = "PriorityOptionsPanel";
+            PriorityOptionsPanel.Size = new Size(237, 117);
+            PriorityOptionsPanel.TabIndex = 44;
+            // 
+            // DeliveryTimeComboBox
+            // 
+            DeliveryTimeComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            DeliveryTimeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            DeliveryTimeComboBox.FormattingEnabled = true;
+            DeliveryTimeComboBox.Location = new Point(90, 36);
+            DeliveryTimeComboBox.Name = "DeliveryTimeComboBox";
+            DeliveryTimeComboBox.Size = new Size(126, 23);
+            DeliveryTimeComboBox.TabIndex = 45;
+            DeliveryTimeComboBox.SelectedIndexChanged += DeliveryTimeComboBox_SelectedIndexChanged;
+            // 
             // OrdersTab
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(PriorityOptionsPanel);
             Controls.Add(addressControl1);
             Controls.Add(IdTextBox);
             Controls.Add(DateTextBox);
@@ -221,6 +270,8 @@
             Size = new Size(1201, 663);
             Load += OrdersTab_Load;
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).EndInit();
+            PriorityOptionsPanel.ResumeLayout(false);
+            PriorityOptionsPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -241,5 +292,9 @@
         private Label label3;
         private Label label2;
         private Label label1;
+        private Label label8;
+        private Label label9;
+        private Panel PriorityOptionsPanel;
+        private ComboBox DeliveryTimeComboBox;
     }
 }
