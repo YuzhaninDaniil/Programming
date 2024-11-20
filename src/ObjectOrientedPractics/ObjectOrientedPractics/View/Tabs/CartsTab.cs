@@ -74,7 +74,7 @@
         {
             Item selectedItem = ItemsListBox.SelectedItem as Item;
             if (selectedItem is null || _currentCustomer is null) { return; }
-            _currentCustomer.Cart.AddItem(selectedItem);
+            _currentCustomer.Cart.Items.Add(selectedItem);
 
             UpdateCartData();
         }
@@ -89,7 +89,7 @@
             Item selectedItem = CartListBox.SelectedItem as Item;
             if (selectedItem is null) { return; }
 
-            _currentCustomer.Cart.RemoveItem(selectedItem);
+            _currentCustomer.Cart.Items.Remove(selectedItem);
 
             UpdateCartData();
         }
