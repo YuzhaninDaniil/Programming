@@ -5,7 +5,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Хранит информацию о процентах на скидку.
     /// </summary>
-    public class PercentDiscount : IDiscount
+    public class PercentDiscount : IDiscount, IComparable<PercentDiscount>
     {
         /// <summary>
         /// Скидка в процентах.
@@ -135,6 +135,19 @@ namespace ObjectOrientedPractics.Model.Discounts
         public override string ToString()
         {
             return Info;
+        }
+
+        /// <summary>
+        /// Сравнивает текущий объект PercentDiscount с другим объектом PercentDiscount по проценту скидки.
+        /// </summary>
+        /// <param name="other">Другой объект PercentDiscount для сравнения.</param>
+        /// <returns>
+        /// Отрицательное число, если процент текущего объекта меньше,
+        /// ноль, если они равны, или положительное число, если больше.
+        /// </returns>
+        public int CompareTo(PercentDiscount? other)
+        {
+            return Percent.CompareTo(other.Percent);
         }
     }
 }

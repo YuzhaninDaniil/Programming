@@ -3,7 +3,7 @@
     /// <summary>
     /// Хранит информацию о корзине товаров.
     /// </summary>
-    public class Cart
+    public class Cart : ICloneable
     {
         /// <summary>
         /// Список товаров.
@@ -54,11 +54,29 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        public Cart(List<Item> items)
+        {
+            Items = new List<Item>(items);
+        }
+
+        /// <summary>
         /// Очищает список товаров.
         /// </summary>
         public void Clear()
         {
             _items = new List<Item>();
+        }
+
+        /// <summary>
+        /// Создает глубокую копию текущего объекта Cart.
+        /// </summary>
+        /// <returns>Копия текущего объекта Cart с идентичными элементами.</returns>
+        public object Clone()
+        {
+            return new Cart(Items);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace ObjectOrientedPractics
     /// <summary>
     /// Хранит информацию о товаре.
     /// </summary>
-    public class Item
+    public class Item : ICloneable, IEquatable<Item>, IComparable<Item>
     {
         /// <summary>
         /// Уникальный идентификатор товара.
@@ -113,6 +113,58 @@ namespace ObjectOrientedPractics
         public override string ToString()
         {
             return Name;
+        }
+        /// <summary>
+        /// Создает копию текущего элемента с теми же значениями свойств.
+        /// </summary>
+        /// <returns>Копия текущего объекта Item.</returns>
+        public object Clone()
+        {
+            return new Item(Name, Info, Cost, Category);
+        }
+
+        /// <summary>
+        /// Переопределяет метод GetHashCode для получения хэш-кода объекта.
+        /// </summary>
+        /// <returns>Хэш-код текущего объекта.</returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// Определяет, равен ли текущий объект другому объекту Item.
+        /// </summary>
+        /// <param name="other">Другой элемент для сравнения.</param>
+        /// <returns>true, если объекты равны; в противном случае — false.</returns>
+        public bool Equals(Item other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        /// <summary>
+        /// Определяет, равен ли текущий объект другому объекту.
+        /// </summary>
+        /// <param name="other">Другой объект для сравнения.</param>
+        /// <returns>true, если объекты равны; в противном случае — false.</returns>
+        public override bool Equals(object other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (other.GetType() != this.GetType()) return false;
+            return Equals((Item)other);
+        }
+
+        /// <summary>
+        /// Сравнивает текущий объект Item с другим объектом Item по стоимости.
+        /// </summary>
+        /// <param name="other">Другой элемент для сравнения.</param>
+        /// <returns>Отрицательное число, если текущий объект меньше, ноль, если равны, или положительное число, если больше.</returns>
+        public int CompareTo(Item? other)
+        {
+            return Cost.CompareTo(other.Cost);
         }
     }
 }
