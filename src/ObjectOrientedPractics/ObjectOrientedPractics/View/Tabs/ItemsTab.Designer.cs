@@ -36,15 +36,15 @@
             SelectedItemPanel = new Panel();
             ItemCategoryComboBox = new ComboBox();
             ItemNameTextBox = new TextBox();
-            ItemInfoTextBox = new TextBox();
             ItemCostTextBox = new TextBox();
             ItemIdTextBox = new TextBox();
-            label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label1 = new Label();
+            ItemInfoTextBox = new TextBox();
+            label7 = new Label();
             ItemsPanel.SuspendLayout();
             SelectedItemPanel.SuspendLayout();
             SuspendLayout();
@@ -143,16 +143,6 @@
             ItemNameTextBox.TabIndex = 9;
             ItemNameTextBox.TextChanged += ItemNameTextBox_TextChanged;
             // 
-            // ItemInfoTextBox
-            // 
-            ItemInfoTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemInfoTextBox.Location = new Point(4, 274);
-            ItemInfoTextBox.Multiline = true;
-            ItemInfoTextBox.Name = "ItemInfoTextBox";
-            ItemInfoTextBox.Size = new Size(495, 145);
-            ItemInfoTextBox.TabIndex = 8;
-            ItemInfoTextBox.TextChanged += ItemInfoTextBox_TextChanged;
-            // 
             // ItemCostTextBox
             // 
             ItemCostTextBox.Location = new Point(72, 57);
@@ -168,15 +158,6 @@
             ItemIdTextBox.ReadOnly = true;
             ItemIdTextBox.Size = new Size(140, 23);
             ItemIdTextBox.TabIndex = 6;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(3, 255);
-            label7.Name = "label7";
-            label7.Size = new Size(70, 15);
-            label7.TabIndex = 5;
-            label7.Text = "Description:";
             // 
             // label6
             // 
@@ -224,6 +205,25 @@
             label1.TabIndex = 0;
             label1.Text = "Selected Item";
             // 
+            // ItemInfoTextBox
+            // 
+            ItemInfoTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemInfoTextBox.Location = new Point(4, 274);
+            ItemInfoTextBox.Multiline = true;
+            ItemInfoTextBox.Name = "ItemInfoTextBox";
+            ItemInfoTextBox.Size = new Size(495, 145);
+            ItemInfoTextBox.TabIndex = 8;
+            ItemInfoTextBox.TextChanged += ItemInfoTextBox_TextChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(3, 255);
+            label7.Name = "label7";
+            label7.Size = new Size(70, 15);
+            label7.TabIndex = 5;
+            label7.Text = "Description:";
+            // 
             // ItemsTab
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -249,7 +249,6 @@
         private ListBox ItemsListBox;
         private Label label2;
         private Panel SelectedItemPanel;
-        private Label label7;
         private Label label6;
         private Label label5;
         private Label label4;
@@ -257,8 +256,9 @@
         private Label label1;
         private ComboBox ItemCategoryComboBox;
         private TextBox ItemNameTextBox;
-        private TextBox ItemInfoTextBox;
         private TextBox ItemCostTextBox;
         private TextBox ItemIdTextBox;
+        private TextBox ItemInfoTextBox;
+        private Label label7;
     }
 }

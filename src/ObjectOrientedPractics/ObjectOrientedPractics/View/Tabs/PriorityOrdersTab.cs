@@ -1,4 +1,7 @@
-﻿namespace ObjectOrientedPractics.View.Tabs
+﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
+
+namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class PriorityOrdersTab : UserControl
     {

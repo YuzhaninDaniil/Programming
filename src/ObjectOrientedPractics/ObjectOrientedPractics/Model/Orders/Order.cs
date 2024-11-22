@@ -1,4 +1,6 @@
-﻿namespace ObjectOrientedPractics
+﻿using ObjectOrientedPractics.Model.Enums;
+
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Содержит информацию о заказе.
@@ -34,6 +36,22 @@
         /// Статус готовности заказа.
         /// </summary>
         private OrderStatus _status;
+
+        /// <summary>
+        /// Задает и возвраает сумму скидки.
+        /// </summary>
+        public double DiscountAmount { get; set; }
+
+        /// <summary>
+        /// Задает и возвращает конечную стоимость заказа.
+        /// </summary>
+        public double Total
+        {
+            get
+            {
+                return Cost - DiscountAmount;
+            }
+        }
 
         /// <summary>
         /// Возвращает и задает статус готовности заказа.
@@ -98,7 +116,6 @@
             _date = DateTime.Now;
             Address = new Address();
             Items = new List<Item>();
-            Cost = 0;
             Status = OrderStatus.New;
         }
 
@@ -108,13 +125,13 @@
         /// <param name="address">Адрес заказа.</param>
         /// <param name="items">Список товаров в заказе.</param>
         /// <param name="cost">Цена заказа.</param>
-        public Order(Address address, List<Item> items, double cost)
+        public Order(Address address, List<Item> items, double discountAmount)
         {
             _id = IdGenerator.GetNextId();
             _date = DateTime.Now;
             Address = address;
             Items = items;
-            Cost = cost;
+            DiscountAmount = discountAmount;
             Status = OrderStatus.New;
         }
     }
