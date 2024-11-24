@@ -137,17 +137,10 @@ namespace ObjectOrientedPractics.Model.Discounts
             return Info;
         }
 
-        /// <summary>
-        /// Сравнивает текущий объект PercentDiscount с другим объектом PercentDiscount по проценту скидки.
-        /// </summary>
-        /// <param name="other">Другой объект PercentDiscount для сравнения.</param>
-        /// <returns>
-        /// Отрицательное число, если процент текущего объекта меньше,
-        /// ноль, если они равны, или положительное число, если больше.
-        /// </returns>
-        public int CompareTo(PercentDiscount? other)
+        /// <inheritdoc/>
+        public int CompareTo(PercentDiscount? percentDiscount2)
         {
-            return Percent.CompareTo(other.Percent);
+            return Percent.CompareTo(percentDiscount2.Percent);
         }
     }
 }

@@ -70,13 +70,10 @@
             _items = new List<Item>();
         }
 
-        /// <summary>
-        /// Создает глубокую копию текущего объекта Cart.
-        /// </summary>
-        /// <returns>Копия текущего объекта Cart с идентичными элементами.</returns>
+        /// <inheritdoc/>
         public object Clone()
         {
-            return new Cart(Items);
+            return new Cart(this.Items);
         }
     }
 }

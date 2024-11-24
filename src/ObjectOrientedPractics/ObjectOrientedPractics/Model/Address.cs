@@ -157,46 +157,34 @@
             return $"{Index} {Country} {City} {Street} {Building} {Apartment}";
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public object Clone()
         {
-            return new Address(Index, Country, City, Street, Building, Apartment);
+            return new Address(this.Index, this.Country, this.City, this.Street, this.Building, this.Apartment);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
-        /// <summary>
-        /// Определяет, равен ли текущий объект адреса другому объекту адреса.
-        /// </summary>
-        /// <param name="other">Другой адрес для сравнения.</param>
-        /// <returns>true, если адреса равны; в противном случае — false.</returns>
+        /// <inheritdoc/>
         public bool Equals(Address other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
-            return (Index == other.Index &&
+            return
+                (Index == other.Index &&
                 Country == other.Country &&
                 City == other.City &&
                 Street == other.Street &&
                 Building == other.Building &&
-                Apartment == other.Apartment);
+                Apartment == other.Apartment
+                );
         }
 
-        /// <summary>
-        /// Определяет, равен ли текущий объект адреса другому объекту.
-        /// </summary>
-        /// <param name="other">Другой объект для сравнения.</param>
-        /// <returns>true, если объекты равны; в противном случае — false.</returns>
+        /// <inheritdoc/>
         public override bool Equals(object other)
         {
             if (other is null) return false;

@@ -102,17 +102,10 @@
             return Info;
         }
 
-        /// <summary>
-        /// Сравнивает текущий объект PointsDiscount с другим объектом PointsDiscount по количеству очков.
-        /// </summary>
-        /// <param name="other">Другой объект PointsDiscount для сравнения.</param>
-        /// <returns>
-        /// Отрицательное число, если количество очков текущего объекта меньше, 
-        /// ноль, если они равны, или положительное число, если больше.
-        /// </returns>
-        public int CompareTo(PointsDiscount? other)
+        /// <inheritdoc/>
+        public int CompareTo(PointsDiscount? pointsDiscount2)
         {
-            return Points.CompareTo(other.Points);
+            return Points.CompareTo(pointsDiscount2.Points);
         }
     }
 }
