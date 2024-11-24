@@ -120,7 +120,7 @@ namespace ObjectOrientedPractics.Model.Orders
         }
 
         /// <summary>
-        /// Создает экзмепляр класса <see cref="Cart"/>.
+        /// Создает экзмепляр класса <see cref="Order"/>.
         /// </summary>
         /// <param name="address">Адрес заказа.</param>
         /// <param name="items">Список товаров в заказе.</param>
