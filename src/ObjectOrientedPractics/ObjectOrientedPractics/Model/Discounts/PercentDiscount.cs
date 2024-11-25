@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 
 namespace ObjectOrientedPractics.Model.Discounts
 {
@@ -138,9 +139,15 @@ namespace ObjectOrientedPractics.Model.Discounts
         }
 
         /// <inheritdoc/>
-        public int CompareTo(PercentDiscount? percentDiscount2)
+        public int CompareTo(PercentDiscount other)
         {
-            return Percent.CompareTo(percentDiscount2.Percent);
+            if (other == null)
+                return 1;
+            if (Percent < other.Percent)
+                return -1;
+            if (Percent > other.Percent)
+                return 1;
+            return 0;
         }
     }
 }

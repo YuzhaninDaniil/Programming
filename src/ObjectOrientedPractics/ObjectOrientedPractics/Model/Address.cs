@@ -164,16 +164,12 @@
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        /// <inheritdoc/>
         public bool Equals(Address other)
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
             return
                 (Index == other.Index &&
                 Country == other.Country &&
@@ -187,9 +183,12 @@
         /// <inheritdoc/>
         public override bool Equals(object other)
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (other.GetType() != this.GetType()) return false;
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+            if (other.GetType() != this.GetType())
+                return false;
             return Equals((Address)other);
         }
     }

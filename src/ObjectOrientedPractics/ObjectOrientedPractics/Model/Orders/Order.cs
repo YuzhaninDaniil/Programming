@@ -5,7 +5,7 @@ namespace ObjectOrientedPractics.Model.Orders
     /// <summary>
     /// Содержит информацию о заказе.
     /// </summary>
-    public class Order
+    public class Order : IEquatable<Order>
     {
         /// <summary>
         /// Уникальный идентификатор заказа.
@@ -134,5 +134,28 @@ namespace ObjectOrientedPractics.Model.Orders
             DiscountAmount = discountAmount;
             Status = OrderStatus.New;
         }
+
+        /// <inheritdoc/>
+        public bool Equals(Order other)
+        {
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+            return Id == other.Id;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object other)
+        {
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+            if (other.GetType() != this.GetType())
+                return false;
+            return Equals((Order)other);
+        }
+
     }
 }
