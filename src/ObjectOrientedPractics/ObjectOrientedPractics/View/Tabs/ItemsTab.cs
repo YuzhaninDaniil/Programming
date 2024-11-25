@@ -1,4 +1,5 @@
 ﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -13,6 +14,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Список, хранящий все товары и информацию о них.
         /// </summary>
         private List<Item> _items = new();
+
+        private List<Item> _filteredItems;
+
+        private bool isNameChanged = false;
 
         /// <summary>
         /// Текущий выбранный товар.
@@ -48,14 +53,17 @@ namespace ObjectOrientedPractics.View.Tabs
 
         /// <summary>
         /// При запуске приложения загружает в ListBox <see cref="ItemsListBox"/> список типа <see cref="Item"/>.
-        /// А также загруждает Combobox типа <see cref="Category"/>.
+        /// А также загружает Combobox типа <see cref="Category"/>.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ItemsTab_Load(object sender, EventArgs e)
         {
-            ItemsListBox.DataSource = _items;
+            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+
             ItemCategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
+            SortComboBox.SelectedIndex = 0;
+            ItemsListBox.DataSource = _filteredItems;
         }
 
         /// <summary>
@@ -67,11 +75,8 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             Item item = new Item();
             _items.Add(item);
-            ItemsListBox.DataSource = null;
-            ItemsListBox.DataSource = _items;
-            ItemsListBox.SelectedIndex = _items.Count - 1;
-
-            ValueValidator.CheckDataForClear(_items, SelectedItemPanel);
+            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+            FilterItems();
         }
 
         /// <summary>
@@ -82,11 +87,9 @@ namespace ObjectOrientedPractics.View.Tabs
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             _items.Remove(_currentItem);
-            ItemsListBox.DataSource = null;
-            ItemsListBox.DataSource = _items;
-            ItemsListBox.SelectedIndex = _items.Count - 1;
+            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
 
-            ValueValidator.CheckDataForClear(_items, SelectedItemPanel);
+            UpdateListBoxData();
         }
 
         /// <summary>
@@ -105,15 +108,21 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
+            if (isNameChanged)
+            {
+                FilterItems();
+                isNameChanged = false;
+            }
+
             _currentItem = ItemsListBox.SelectedItem as Item;
+
             ItemIdTextBox.Text = _currentItem.Id.ToString();
             ItemCostTextBox.Text = _currentItem.Cost.ToString();
             ItemNameTextBox.Text = _currentItem.Name;
             ItemInfoTextBox.Text = _currentItem.Info;
             ItemCategoryComboBox.SelectedItem = _currentItem.Category;
 
-            ItemsListBox.DataSource = null;
-            ItemsListBox.DataSource = _items;
+            
         }
 
         /// <summary>
@@ -163,7 +172,13 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             try
             {
-                _currentItem.Name = ItemNameTextBox.Text;
+                //_currentItem.Name = ItemNameTextBox.Text;
+                string name = ItemNameTextBox.Text;
+                if (name != _currentItem.Name)
+                {
+                    isNameChanged = true;
+                }
+                _currentItem.Name = name;
             }
             catch (Exception ex)
             {
@@ -208,7 +223,67 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e"></param>
         private void ItemCategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_currentItem is null) { return; }
             _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterItems();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+            UpdateListBoxData();
+        }
+
+        void FilterItems()
+        {
+            if (_items == null) return;
+
+            string searchText = SearchTextBox.Text;
+            string selectedOrder = SortComboBox.SelectedItem.ToString();
+
+            _filteredItems = DataTools.Filter(_items, item =>
+                 item.Name.Contains(searchText)
+                 );
+            switch (selectedOrder)
+            {
+                case "Name":
+                    _filteredItems = DataTools.Sort(_filteredItems, DataTools.CompareByName);
+
+                    break;
+                case "Cost (Ascending)":
+
+                    _filteredItems = DataTools.Sort(_filteredItems, DataTools.CompareByCostAscending);
+
+                    break;
+                case "Cost (Descending)":
+
+                    _filteredItems = DataTools.Sort(_filteredItems, DataTools.CompareByCostDescending);
+
+                    break;
+            }
+
+            UpdateListBoxData();
+        }
+
+        void UpdateListBoxData()
+        {
+            ItemsListBox.DataSource = null;
+            ItemsListBox.DataSource = _filteredItems;
+        }
+
     }
 }
