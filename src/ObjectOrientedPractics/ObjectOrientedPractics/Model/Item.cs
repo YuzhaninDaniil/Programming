@@ -124,32 +124,37 @@ namespace ObjectOrientedPractics
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        /// <inheritdoc/>
         public bool Equals(Item other)
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
             return Id == other.Id;
         }
 
         /// <inheritdoc/>
         public override bool Equals(object other)
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-            if (other.GetType() != this.GetType()) return false;
+            if (other == null)
+                return false;
+            if (ReferenceEquals(this, other))
+                return true;
+            if (other.GetType() != this.GetType())
+                return false;
             return Equals((Item)other);
         }
 
         /// <inheritdoc />
-        public int CompareTo(Item? item2)
+        public int CompareTo(Item other)
         {
-            return Cost.CompareTo(item2.Cost);
+            if (other == null)
+                return 1;
+            if (Cost < other.Cost)
+                return -1;
+            if (Cost > other.Cost)
+                return 1;
+            return 0;
         }
     }
 }

@@ -11,13 +11,19 @@ namespace ObjectOrientedPractics.View.Tabs
         private bool _isDataValid = true;
 
         /// <summary>
+        /// Содержит информацию, изменилось ли имя товара.
+        /// </summary>
+        private bool _isItemNameChanged = false;
+
+        /// <summary>
         /// Список, хранящий все товары и информацию о них.
         /// </summary>
         private List<Item> _items = new();
 
-        private List<Item> _filteredItems;
-
-        private bool isNameChanged = false;
+        /// <summary>
+        /// Хранит список отображаемых отфильтрованных товаров.
+        /// </summary>
+        private List<Item> _displayedItems;
 
         /// <summary>
         /// Текущий выбранный товар.
@@ -59,11 +65,11 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e"></param>
         private void ItemsTab_Load(object sender, EventArgs e)
         {
-            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
-
+            _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+            SortComboBox.DataSource = Enum.GetValues(typeof(SortOption));
             ItemCategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
             SortComboBox.SelectedIndex = 0;
-            ItemsListBox.DataSource = _filteredItems;
+            ItemsListBox.DataSource = _displayedItems;
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             Item item = new Item();
             _items.Add(item);
-            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+            _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
             FilterItems();
         }
 
@@ -87,7 +93,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             _items.Remove(_currentItem);
-            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+            _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
 
             UpdateListBoxData();
         }
@@ -108,10 +114,10 @@ namespace ObjectOrientedPractics.View.Tabs
                 return;
             }
 
-            if (isNameChanged)
+            if (_isItemNameChanged)
             {
                 FilterItems();
-                isNameChanged = false;
+                _isItemNameChanged = false;
             }
 
             _currentItem = ItemsListBox.SelectedItem as Item;
@@ -121,8 +127,6 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemNameTextBox.Text = _currentItem.Name;
             ItemInfoTextBox.Text = _currentItem.Info;
             ItemCategoryComboBox.SelectedItem = _currentItem.Category;
-
-            
         }
 
         /// <summary>
@@ -172,13 +176,11 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             try
             {
-                //_currentItem.Name = ItemNameTextBox.Text;
-                string name = ItemNameTextBox.Text;
-                if (name != _currentItem.Name)
+                if (ItemNameTextBox.Text != _currentItem.Name)
                 {
-                    isNameChanged = true;
+                    _isItemNameChanged = true;
                 }
-                _currentItem.Name = name;
+                _currentItem.Name = ItemNameTextBox.Text;
             }
             catch (Exception ex)
             {
@@ -223,12 +225,12 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e"></param>
         private void ItemCategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_currentItem is null) { return; }
+            if (_currentItem == null) { return; }
             _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
         }
 
         /// <summary>
-        /// 
+        /// Отвечает за сортировку списка товаров.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -238,51 +240,50 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// 
+        /// Меняет порядок товаров в ListBox при вводе нового значения.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
-            _filteredItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
+            _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
             UpdateListBoxData();
         }
 
+        /// <summary>
+        /// Загружает в список отображаемых товаров новый список, а также применяет к нему сортировку.
+        /// </summary>
         void FilterItems()
         {
             if (_items == null) return;
 
-            string searchText = SearchTextBox.Text;
-            string selectedOrder = SortComboBox.SelectedItem.ToString();
+            _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
 
-            _filteredItems = DataTools.Filter(_items, item =>
-                 item.Name.Contains(searchText)
-                 );
-            switch (selectedOrder)
+            switch ((SortOption)SortComboBox.SelectedItem)
             {
-                case "Name":
-                    _filteredItems = DataTools.Sort(_filteredItems, DataTools.CompareByName);
-
+                case SortOption.Name: 
+                    _displayedItems = DataTools.Sort(_displayedItems, DataTools.CompareByName);
                     break;
-                case "Cost (Ascending)":
 
-                    _filteredItems = DataTools.Sort(_filteredItems, DataTools.CompareByCostAscending);
-
+                case SortOption.CostAscending: 
+                    _displayedItems = DataTools.Sort(_displayedItems, DataTools.CompareByCostAscending);
                     break;
-                case "Cost (Descending)":
 
-                    _filteredItems = DataTools.Sort(_filteredItems, DataTools.CompareByCostDescending);
-
+                case SortOption.CostDescending: 
+                    _displayedItems = DataTools.Sort(_displayedItems, DataTools.CompareByCostDescending);
                     break;
             }
 
             UpdateListBoxData();
         }
 
+        /// <summary>
+        /// Отображает изменения в Листбоксе.
+        /// </summary>
         void UpdateListBoxData()
         {
             ItemsListBox.DataSource = null;
-            ItemsListBox.DataSource = _filteredItems;
+            ItemsListBox.DataSource = _displayedItems;
         }
 
     }

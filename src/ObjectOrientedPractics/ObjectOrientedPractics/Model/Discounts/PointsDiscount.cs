@@ -103,9 +103,15 @@
         }
 
         /// <inheritdoc/>
-        public int CompareTo(PointsDiscount? pointsDiscount2)
+        public int CompareTo(PointsDiscount other)
         {
-            return Points.CompareTo(pointsDiscount2.Points);
+            if (other == null)
+                return 1;
+            if (Points < other.Points)
+                return -1;
+            if (Points > other.Points)
+                return 1;
+            return 0;
         }
     }
 }

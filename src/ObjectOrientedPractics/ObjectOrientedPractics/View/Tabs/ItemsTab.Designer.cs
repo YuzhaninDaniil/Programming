@@ -74,7 +74,6 @@
             SortComboBox.Anchor = AnchorStyles.Bottom;
             SortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             SortComboBox.FormattingEnabled = true;
-            SortComboBox.Items.AddRange(new object[] { "Name", "Cost (Ascending)", "Cost (Descending)" });
             SortComboBox.Location = new Point(67, 396);
             SortComboBox.Name = "SortComboBox";
             SortComboBox.Size = new Size(217, 23);
