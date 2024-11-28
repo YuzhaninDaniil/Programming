@@ -10,21 +10,6 @@ namespace ObjectOrientedPractics
     public class Item : ICloneable, IEquatable<Item>, IComparable<Item>
     {
         /// <summary>
-        /// Событие для изменения названия товара.
-        /// </summary>
-        public event EventHandler NameChanged;
-
-        /// <summary>
-        /// Событие для изменения цены товара.
-        /// </summary>
-        public event EventHandler CostChanged;
-
-        /// <summary>
-        /// Событие для изменения информации товара.
-        /// </summary>
-        public event EventHandler InfoChanged;
-
-        /// <summary>
         /// Уникальный идентификатор товара.
         /// </summary>
         private readonly int _id;
@@ -106,6 +91,21 @@ namespace ObjectOrientedPractics
                 }
             }
         }
+
+        /// <summary>
+        /// Событие для изменения названия товара.
+        /// </summary>
+        public event EventHandler NameChanged;
+
+        /// <summary>
+        /// Событие для изменения цены товара.
+        /// </summary>
+        public event EventHandler CostChanged;
+
+        /// <summary>
+        /// Событие для изменения информации товара.
+        /// </summary>
+        public event EventHandler InfoChanged;
 
         /// <summary>
         /// Создает экзмепляр класса <see cref="Item"/>.

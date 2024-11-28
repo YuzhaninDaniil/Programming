@@ -6,11 +6,6 @@
     public class Address : ICloneable, IEquatable<Address>
     {
         /// <summary>
-        /// Событие для изменения адреса
-        /// </summary>
-        public event EventHandler AddressChanged;
-
-        /// <summary>
         /// Почтовый индекс.
         /// </summary>
         private int _index;
@@ -144,6 +139,11 @@
                 }
             }
         }
+
+        /// <summary>
+        /// Событие для изменения адреса
+        /// </summary>
+        public event EventHandler AddressChanged;
 
         /// <summary>
         /// Создает пустой экземпляр класса <see cref="Address"/>.
