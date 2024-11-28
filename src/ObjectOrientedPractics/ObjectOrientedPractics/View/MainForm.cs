@@ -46,10 +46,10 @@ namespace ObjectOrientedPractics
         //}
 
         /// <summary>
-        /// 
+        /// Обновляет данные на вкладках "Корзины" и "Заказы".
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Аргументы события.</param>
         void RefreshTabsData(object sender, EventArgs e)
         {
             CartsTab.RefreshData();
