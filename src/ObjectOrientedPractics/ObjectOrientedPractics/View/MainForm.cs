@@ -28,19 +28,32 @@ namespace ObjectOrientedPractics
 
             OrdersTab.Customers = _store.Customers;
             PriorityOrdersTab.Items = _store.Items;
+
+            ItemsTab.ItemsChanged += RefreshTabsData;
         }
 
-        private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        //private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    switch (MainTabControl.SelectedIndex)
+        //    {
+        //        case 2:
+        //            CartsTab.RefreshData();
+        //            break;
+        //        case 3:
+        //            OrdersTab.RefreshData();
+        //            break;
+        //    }
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void RefreshTabsData(object sender, EventArgs e)
         {
-            switch (MainTabControl.SelectedIndex)
-            {
-                case 2:
-                    CartsTab.RefreshData();
-                    break;
-                case 3:
-                    OrdersTab.RefreshData();
-                    break;
-            }
+            CartsTab.RefreshData();
+            OrdersTab.RefreshData();
         }
     }
 }

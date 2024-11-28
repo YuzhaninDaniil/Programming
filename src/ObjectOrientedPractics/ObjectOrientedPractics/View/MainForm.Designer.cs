@@ -61,7 +61,7 @@
             MainTabControl.SelectedIndex = 0;
             MainTabControl.Size = new Size(1018, 688);
             MainTabControl.TabIndex = 0;
-            MainTabControl.SelectedIndexChanged += MainTabControl_SelectedIndexChanged;
+            //MainTabControl.SelectedIndexChanged += MainTabControl_SelectedIndexChanged;
             // 
             // ItemsTabPage
             // 

@@ -6,6 +6,11 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class ItemsTab : UserControl
     {
         /// <summary>
+        /// Событие для изменения информации о товарах.
+        /// </summary>
+        public event EventHandler ItemsChanged;
+
+        /// <summary>
         /// Хранит данные о корректности данных.
         /// </summary>
         private bool _isDataValid = true;
@@ -83,6 +88,8 @@ namespace ObjectOrientedPractics.View.Tabs
             _items.Add(item);
             _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
             FilterItems();
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -96,6 +103,8 @@ namespace ObjectOrientedPractics.View.Tabs
             _displayedItems = DataTools.Filter(_items, item => item.Name.Contains(SearchTextBox.Text));
 
             UpdateListBoxData();
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -149,6 +158,8 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 double cost = double.Parse(ItemCostTextBox.Text);
                 _currentItem.Cost = cost;
+
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -181,6 +192,8 @@ namespace ObjectOrientedPractics.View.Tabs
                     _isItemNameChanged = true;
                 }
                 _currentItem.Name = ItemNameTextBox.Text;
+
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -209,6 +222,8 @@ namespace ObjectOrientedPractics.View.Tabs
             try
             {
                 _currentItem.Info = ItemInfoTextBox.Text;
+
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -227,6 +242,8 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentItem == null) { return; }
             _currentItem.Category = (Category)ItemCategoryComboBox.SelectedItem;
+
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
