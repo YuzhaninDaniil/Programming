@@ -14,7 +14,7 @@
         /// <exception cref="ArgumentException"></exception>
         public static void AssertStringOnLength(string value, int maxLength, string propertyName)
         {
-            if(value.Length > maxLength)
+            if (str.Length > maxLength)
             {
                 throw new ArgumentException($"{propertyName} должен быть меньше {maxLength} символов.");
             }
@@ -24,15 +24,107 @@
         /// Проверяет, находится ли число в указанном диапазоне.
         /// </summary>
         /// <param name="number">Число.</param>
-        /// <param name="minValue">Нижняя граница диапазоне.</param>
+        /// <param name="minValue">Нижняя граница диапазона.</param>
         /// <param name="maxValue">Верхняя граница диапазона.</param>
-        /// <param name="propertyName">Имя свойства.</param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void CheckNumberInRange(double number, double minValue, double maxValue, string propertyName)
+        /// <param name="propertyName">Имя войства.</param>
+        /// <exception cref="ArgumentException"></exception>
+        static public void CheckNumberInRange(double number, double minValue, double maxValue, string propertyName)
         {
             if (number < minValue || number > maxValue)
             {
                 throw new ArgumentException($"{propertyName} должен быть в диапазоне от {minValue} до {maxValue}.");
+            }
+        }
+
+        /// <summary>
+        /// Проверяет строку на null или пустоту.
+        /// </summary>
+        /// <param name="text">Строка.</param>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        static public bool CheckStringOnNullOrEmpty(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Проверяет число на то, есть ли в нем буквы.
+        /// </summary>
+        /// <param name="number">Число.</param>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <exception cref="ArgumentException"></exception>
+        static public void CheckNumberOnLetter(double number, string propertyName)
+        {
+            foreach (char c in number.ToString())
+            {
+                if (char.IsLetter(c))
+                {
+                    throw new ArgumentException($"{propertyName} не должно содержать буквы.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Проверяет слово на то, есть ли в нем цифры.
+        /// </summary>
+        /// <param name="text">Строка.</param>
+        /// <param name="propertyName">Имя свойства.</param>
+        /// <exception cref="ArgumentException"></exception>
+        static public void CheckWordOnDigit(string text, string propertyName)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c) && c != ' ' && c != '-')
+                {
+                    throw new ArgumentException($"{propertyName} не должно содержать цифры.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Проверяет на то, пустой ли список.
+        /// Если да, то удаляем с экрана элементы внутри <see cref="Panel"/>.
+        /// Если в списке есть элементы, отображаем их.
+        /// </summary>
+        static public void CheckDataForClear(List<Item> list, params Panel[] panels)
+        {
+            if (list.Count <= 0)
+            {
+                foreach (var panel in panels)
+                {
+                    panel.Visible = false;
+                }
+                return;
+            }
+            foreach (var panel in panels)
+            {
+                panel.Visible = true;
+            }
+
+        }
+
+        /// <summary>
+        /// Проверяет на то, пустой ли список.
+        /// Если да, то удаляем с экрана элементы внутри <see cref="Panel"/>.
+        /// Если в списке есть элементы, отображаем их.
+        /// </summary>
+        static public void CheckDataForClear(List<Customer> list, params Panel[] panels)
+        {
+            if (list.Count <= 0)
+            {
+                foreach (var panel in panels)
+                {
+                    panel.Visible = false;
+                }
+                return;
+            }
+            foreach (var panel in panels)
+            {
+                panel.Visible = true;
             }
         }
     }

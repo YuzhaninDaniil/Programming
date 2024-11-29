@@ -13,7 +13,7 @@
         /// <summary>
         /// Создает уникальный идентификатор и возвращает его.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>_id</returns>
         public static int GetNextId()
         {
             return _id++;
