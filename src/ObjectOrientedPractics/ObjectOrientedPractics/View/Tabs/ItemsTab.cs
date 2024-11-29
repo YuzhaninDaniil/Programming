@@ -1,3 +1,4 @@
+
 ﻿using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 
@@ -22,6 +23,9 @@ namespace ObjectOrientedPractics.View.Tabs
 
         /// <summary>
         /// Список, хранящий все товары и информацию о них.
+        /// True, если данные валидны, иначе false.
+        /// </summary>
+        private bool _isDataValid = true;
         /// </summary>
         private List<Item> _items = new();
 
@@ -169,6 +173,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+
         /// <summary>
         /// Меняет состояние свойства Name через валидацию вводимых данных.
         /// </summary>
@@ -213,15 +218,15 @@ namespace ObjectOrientedPractics.View.Tabs
             _isDataValid = true;
             ItemInfoTextBox.BackColor = Color.White;
 
-            if (!ValueValidator.CheckStringOnNullOrEmpty(ItemInfoTextBox.Text))
-            {
-                _isDataValid = false;
-                ItemInfoTextBox.BackColor = Color.LightPink;
-                return;
-            }
+           if (!ValueValidator.CheckStringOnNullOrEmpty(ItemInfoTextBox.Text))
+           {
+               _isDataValid = false;
+               ItemInfoTextBox.BackColor = Color.LightPink;
+               return;
+           }
             try
             {
-                _currentItem.Info = ItemInfoTextBox.Text;
+               _currentItem.Info = ItemInfoTextBox.Text;
 
                 ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -302,6 +307,5 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemsListBox.DataSource = null;
             ItemsListBox.DataSource = _displayedItems;
         }
-
     }
 }

@@ -12,7 +12,7 @@
         /// <param name="maxLength">Максимальная длина для строки.</param>
         /// <param name="propertyName">Имя свойства.</param>
         /// <exception cref="ArgumentException"></exception>
-        public static void AssertStringOnLength(string str, int maxLength, string propertyName)
+        public static void AssertStringOnLength(string value, int maxLength, string propertyName)
         {
             if (str.Length > maxLength)
             {

@@ -161,7 +161,7 @@
             CustomerIdTextBox.Size = new Size(191, 23);
             CustomerIdTextBox.TabIndex = 6;
             // 
-            // label2
+            // label4
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
