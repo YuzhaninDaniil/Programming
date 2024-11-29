@@ -29,26 +29,20 @@
         private void InitializeComponent()
         {
             ItemsPanel = new Panel();
-            SortComboBox = new ComboBox();
-            label9 = new Label();
-            SearchTextBox = new TextBox();
-            label8 = new Label();
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             ItemsListBox = new ListBox();
-            label2 = new Label();
+            label1 = new Label();
             SelectedItemPanel = new Panel();
-            ItemCategoryComboBox = new ComboBox();
-            ItemNameTextBox = new TextBox();
             ItemInfoTextBox = new TextBox();
+            ItemNameTextBox = new TextBox();
             ItemCostTextBox = new TextBox();
             ItemIdTextBox = new TextBox();
-            label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
-            label1 = new Label();
+            label2 = new Label();
             ItemsPanel.SuspendLayout();
             SelectedItemPanel.SuspendLayout();
             SuspendLayout();
@@ -56,65 +50,22 @@
             // ItemsPanel
             // 
             ItemsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ItemsPanel.Controls.Add(SortComboBox);
-            ItemsPanel.Controls.Add(label9);
-            ItemsPanel.Controls.Add(SearchTextBox);
-            ItemsPanel.Controls.Add(label8);
             ItemsPanel.Controls.Add(RemoveItemButton);
             ItemsPanel.Controls.Add(AddItemButton);
             ItemsPanel.Controls.Add(ItemsListBox);
-            ItemsPanel.Controls.Add(label2);
+            ItemsPanel.Controls.Add(label1);
             ItemsPanel.Location = new Point(3, 3);
             ItemsPanel.Name = "ItemsPanel";
             ItemsPanel.Size = new Size(287, 464);
             ItemsPanel.TabIndex = 0;
             // 
-            // SortComboBox
-            // 
-            SortComboBox.Anchor = AnchorStyles.Bottom;
-            SortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            SortComboBox.FormattingEnabled = true;
-            SortComboBox.Location = new Point(67, 396);
-            SortComboBox.Name = "SortComboBox";
-            SortComboBox.Size = new Size(217, 23);
-            SortComboBox.TabIndex = 8;
-            SortComboBox.SelectedIndexChanged += SortComboBox_SelectedIndexChanged;
-            // 
-            // label9
-            // 
-            label9.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label9.AutoSize = true;
-            label9.Location = new Point(5, 399);
-            label9.Name = "label9";
-            label9.Size = new Size(56, 15);
-            label9.TabIndex = 7;
-            label9.Text = "Order by:";
-            // 
-            // SearchTextBox
-            // 
-            SearchTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            SearchTextBox.Location = new Point(44, 24);
-            SearchTextBox.Name = "SearchTextBox";
-            SearchTextBox.Size = new Size(240, 23);
-            SearchTextBox.TabIndex = 6;
-            SearchTextBox.TextChanged += SearchTextBox_TextChanged;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(5, 27);
-            label8.Name = "label8";
-            label8.Size = new Size(33, 15);
-            label8.TabIndex = 5;
-            label8.Text = "Find:";
-            // 
             // RemoveItemButton
             // 
             RemoveItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            RemoveItemButton.Location = new Point(103, 424);
+            RemoveItemButton.Location = new Point(102, 429);
             RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(94, 37);
-            RemoveItemButton.TabIndex = 4;
+            RemoveItemButton.Size = new Size(93, 32);
+            RemoveItemButton.TabIndex = 3;
             RemoveItemButton.Text = "Remove";
             RemoveItemButton.UseVisualStyleBackColor = true;
             RemoveItemButton.Click += RemoveItemButton_Click;
@@ -122,10 +73,10 @@
             // AddItemButton
             // 
             AddItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            AddItemButton.Location = new Point(3, 424);
+            AddItemButton.Location = new Point(3, 429);
             AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(94, 37);
-            AddItemButton.TabIndex = 3;
+            AddItemButton.Size = new Size(93, 32);
+            AddItemButton.TabIndex = 2;
             AddItemButton.Text = "Add";
             AddItemButton.UseVisualStyleBackColor = true;
             AddItemButton.Click += AddItemButton_Click;
@@ -135,141 +86,120 @@
             ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ItemsListBox.FormattingEnabled = true;
             ItemsListBox.ItemHeight = 15;
-            ItemsListBox.Location = new Point(5, 54);
+            ItemsListBox.Location = new Point(3, 29);
             ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(279, 334);
-            ItemsListBox.TabIndex = 2;
+            ItemsListBox.Size = new Size(279, 394);
+            ItemsListBox.TabIndex = 1;
             ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label2.Location = new Point(5, 4);
-            label2.Name = "label2";
-            label2.Size = new Size(42, 17);
-            label2.TabIndex = 1;
-            label2.Text = "Items";
-            // 
-            // SelectedItemPanel
-            // 
-            SelectedItemPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            SelectedItemPanel.Controls.Add(ItemCategoryComboBox);
-            SelectedItemPanel.Controls.Add(ItemNameTextBox);
-            SelectedItemPanel.Controls.Add(ItemInfoTextBox);
-            SelectedItemPanel.Controls.Add(ItemCostTextBox);
-            SelectedItemPanel.Controls.Add(ItemIdTextBox);
-            SelectedItemPanel.Controls.Add(label7);
-            SelectedItemPanel.Controls.Add(label6);
-            SelectedItemPanel.Controls.Add(label5);
-            SelectedItemPanel.Controls.Add(label4);
-            SelectedItemPanel.Controls.Add(label3);
-            SelectedItemPanel.Controls.Add(label1);
-            SelectedItemPanel.Location = new Point(296, 3);
-            SelectedItemPanel.Name = "SelectedItemPanel";
-            SelectedItemPanel.Size = new Size(501, 464);
-            SelectedItemPanel.TabIndex = 1;
-            // 
-            // ItemCategoryComboBox
-            // 
-            ItemCategoryComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            ItemCategoryComboBox.FormattingEnabled = true;
-            ItemCategoryComboBox.Location = new Point(72, 89);
-            ItemCategoryComboBox.Name = "ItemCategoryComboBox";
-            ItemCategoryComboBox.Size = new Size(140, 23);
-            ItemCategoryComboBox.TabIndex = 10;
-            ItemCategoryComboBox.SelectedIndexChanged += ItemCategoryComboBox_SelectedIndexChanged;
-            // 
-            // ItemNameTextBox
-            // 
-            ItemNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemNameTextBox.Location = new Point(3, 147);
-            ItemNameTextBox.Multiline = true;
-            ItemNameTextBox.Name = "ItemNameTextBox";
-            ItemNameTextBox.Size = new Size(495, 95);
-            ItemNameTextBox.TabIndex = 9;
-            ItemNameTextBox.TextChanged += ItemNameTextBox_TextChanged;
-            // 
-            // ItemInfoTextBox
-            // 
-            ItemInfoTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemInfoTextBox.Location = new Point(4, 274);
-            ItemInfoTextBox.Multiline = true;
-            ItemInfoTextBox.Name = "ItemInfoTextBox";
-            ItemInfoTextBox.Size = new Size(495, 145);
-            ItemInfoTextBox.TabIndex = 8;
-            ItemInfoTextBox.TextChanged += ItemInfoTextBox_TextChanged;
-            // 
-            // ItemCostTextBox
-            // 
-            ItemCostTextBox.Location = new Point(72, 57);
-            ItemCostTextBox.Name = "ItemCostTextBox";
-            ItemCostTextBox.Size = new Size(140, 23);
-            ItemCostTextBox.TabIndex = 7;
-            ItemCostTextBox.TextChanged += ItemCostTextBox_TextChanged;
-            // 
-            // ItemIdTextBox
-            // 
-            ItemIdTextBox.Location = new Point(72, 24);
-            ItemIdTextBox.Name = "ItemIdTextBox";
-            ItemIdTextBox.ReadOnly = true;
-            ItemIdTextBox.Size = new Size(140, 23);
-            ItemIdTextBox.TabIndex = 6;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(3, 255);
-            label7.Name = "label7";
-            label7.Size = new Size(70, 15);
-            label7.TabIndex = 5;
-            label7.Text = "Description:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(3, 129);
-            label6.Name = "label6";
-            label6.Size = new Size(42, 15);
-            label6.TabIndex = 4;
-            label6.Text = "Name:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(3, 92);
-            label5.Name = "label5";
-            label5.Size = new Size(58, 15);
-            label5.TabIndex = 3;
-            label5.Text = "Category:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(3, 60);
-            label4.Name = "label4";
-            label4.Size = new Size(34, 15);
-            label4.TabIndex = 2;
-            label4.Text = "Cost:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(3, 24);
-            label3.Name = "label3";
-            label3.Size = new Size(21, 15);
-            label3.TabIndex = 1;
-            label3.Text = "ID:";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(3, 4);
+            label1.Location = new Point(3, 9);
             label1.Name = "label1";
-            label1.Size = new Size(91, 17);
+            label1.Size = new Size(42, 17);
             label1.TabIndex = 0;
-            label1.Text = "Selected Item";
+            label1.Text = "Items";
+            // 
+            // SelectedItemPanel
+            // 
+            SelectedItemPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            SelectedItemPanel.Controls.Add(ItemInfoTextBox);
+            SelectedItemPanel.Controls.Add(ItemNameTextBox);
+            SelectedItemPanel.Controls.Add(ItemCostTextBox);
+            SelectedItemPanel.Controls.Add(ItemIdTextBox);
+            SelectedItemPanel.Controls.Add(label6);
+            SelectedItemPanel.Controls.Add(label5);
+            SelectedItemPanel.Controls.Add(label4);
+            SelectedItemPanel.Controls.Add(label3);
+            SelectedItemPanel.Controls.Add(label2);
+            SelectedItemPanel.Location = new Point(296, 3);
+            SelectedItemPanel.Name = "SelectedItemPanel";
+            SelectedItemPanel.Size = new Size(501, 464);
+            SelectedItemPanel.TabIndex = 1;
+            // 
+            // ItemInfoTextBox
+            // 
+            ItemInfoTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemInfoTextBox.Location = new Point(15, 233);
+            ItemInfoTextBox.Multiline = true;
+            ItemInfoTextBox.Name = "ItemInfoTextBox";
+            ItemInfoTextBox.Size = new Size(480, 163);
+            ItemInfoTextBox.TabIndex = 9;
+            ItemInfoTextBox.TextChanged += ItemInfoTextBox_TextChanged;
+            // 
+            // ItemNameTextBox
+            // 
+            ItemNameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemNameTextBox.Location = new Point(15, 117);
+            ItemNameTextBox.Multiline = true;
+            ItemNameTextBox.Name = "ItemNameTextBox";
+            ItemNameTextBox.Size = new Size(480, 95);
+            ItemNameTextBox.TabIndex = 8;
+            ItemNameTextBox.TextChanged += ItemNameTextBox_TextChanged;
+            // 
+            // ItemCostTextBox
+            // 
+            ItemCostTextBox.Location = new Point(63, 62);
+            ItemCostTextBox.Name = "ItemCostTextBox";
+            ItemCostTextBox.Size = new Size(163, 23);
+            ItemCostTextBox.TabIndex = 7;
+            ItemCostTextBox.TextChanged += ItemCostTextBox_TextChanged;
+            // 
+            // ItemIdTextBox
+            // 
+            ItemIdTextBox.Location = new Point(63, 29);
+            ItemIdTextBox.Name = "ItemIdTextBox";
+            ItemIdTextBox.ReadOnly = true;
+            ItemIdTextBox.Size = new Size(163, 23);
+            ItemIdTextBox.TabIndex = 6;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(15, 99);
+            label6.Name = "label6";
+            label6.Size = new Size(42, 15);
+            label6.TabIndex = 5;
+            label6.Text = "Name:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(15, 215);
+            label5.Name = "label5";
+            label5.Size = new Size(70, 15);
+            label5.TabIndex = 4;
+            label5.Text = "Description:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(15, 65);
+            label4.Name = "label4";
+            label4.Size = new Size(34, 15);
+            label4.TabIndex = 3;
+            label4.Text = "Cost:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(15, 29);
+            label3.Name = "label3";
+            label3.Size = new Size(21, 15);
+            label3.TabIndex = 2;
+            label3.Text = "ID:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label2.Location = new Point(3, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(91, 17);
+            label2.TabIndex = 1;
+            label2.Text = "Selected Item";
             // 
             // ItemsTab
             // 
@@ -294,22 +224,16 @@
         private Button RemoveItemButton;
         private Button AddItemButton;
         private ListBox ItemsListBox;
-        private Label label2;
+        private Label label1;
         private Panel SelectedItemPanel;
+        private TextBox ItemInfoTextBox;
+        private TextBox ItemNameTextBox;
+        private TextBox ItemCostTextBox;
+        private TextBox ItemIdTextBox;
         private Label label6;
         private Label label5;
         private Label label4;
         private Label label3;
-        private Label label1;
-        private ComboBox ItemCategoryComboBox;
-        private TextBox ItemNameTextBox;
-        private TextBox ItemCostTextBox;
-        private TextBox ItemIdTextBox;
-        private TextBox ItemInfoTextBox;
-        private Label label7;
-        private ComboBox SortComboBox;
-        private Label label9;
-        private TextBox SearchTextBox;
-        private Label label8;
+        private Label label2;
     }
 }

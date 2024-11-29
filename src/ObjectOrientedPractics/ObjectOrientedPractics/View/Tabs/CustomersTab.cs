@@ -1,66 +1,39 @@
-﻿using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Model.Enums;
-using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.View.Forms;
-
-namespace ObjectOrientedPractics.View.Tabs
+﻿namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CustomersTab : UserControl
     {
         /// <summary>
-        /// True, если данные в полях корректны, иначе false.
+        /// True, если данные валидны, иначе false.
         /// </summary>
-        bool _isDataValid = true;
+        private bool _isDataValid = true;
 
         /// <summary>
-        /// Список, хранящий всех покупателей и информацию о них.
+        /// True, если лист пустой, иначе false.
+        /// </summary>
+        private bool _isDataClear = false;
+
+        /// <summary>
+        /// Хранит элементы типа <see cref="Customer"/>.
         /// </summary>
         private List<Customer> _customers = new();
 
         /// <summary>
-        /// Текущий выбранный покупатель.
+        /// Текущий элемент списка.
         /// </summary>
         private Customer _currentCustomer;
 
-        /// <summary>
-        /// Возвращает и задает список класса <see cref="Customer"/>.
-        /// </summary>
-        public List<Customer> Customers
-        {
-            get { return _customers; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException($"{nameof(Customers)} не должно быть null.");
-                }
-                _customers = value;
-            }
-        }
-
-        /// <summary>
-        /// Инициализирует компоненты класса.
-        /// </summary>
         public CustomersTab()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// При запуске приложения загружает в ListBox <see cref="CustomersListBox"/> список типа <see cref="Customer"/>.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CustomersTab_Load(object sender, EventArgs e)
         {
+            _customers.Add(new Customer());
             CustomersListBox.DataSource = _customers;
+            CustomersListBox.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Добавляет в список экземпляр класса <see cref="Customer"/>.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
             Customer customer = new Customer();
@@ -69,14 +42,9 @@ namespace ObjectOrientedPractics.View.Tabs
             CustomersListBox.DataSource = _customers;
             CustomersListBox.SelectedIndex = _customers.Count - 1;
 
-            ValueValidator.CheckDataForClear(_customers, SelectedCustomerPanel, DeliveryAddressPanel);
+            CheckDataForClear();
         }
 
-        /// <summary>
-        /// Удаляет из списка экземпляр класса <see cref="Customer"/>.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RemoveCustomerButton_Click(object sender, EventArgs e)
         {
             _customers.Remove(_currentCustomer);
@@ -84,20 +52,14 @@ namespace ObjectOrientedPractics.View.Tabs
             CustomersListBox.DataSource = _customers;
             CustomersListBox.SelectedIndex = _customers.Count - 1;
 
-            ValueValidator.CheckDataForClear(_customers, SelectedCustomerPanel, DeliveryAddressPanel);
+            CheckDataForClear();
         }
 
-        /// <summary>
-        /// Меняет отображение списка при добавлении/удалении элемента. Также загружает в Textboxes данные из полей текущего элемента списка.
-        /// Если данные некорректны, невозможно покинуть текущий элемент списка, пока данные не станут корректными.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CustomersListBox.SelectedItem == null) return;
 
-            if (!_isDataValid || !CustomerAddressControl.CheckIfAddressDataValid())
+            if (!_isDataValid)
             {
                 CustomersListBox.SelectedItem = _currentCustomer;
                 return;
@@ -106,26 +68,18 @@ namespace ObjectOrientedPractics.View.Tabs
             _currentCustomer = CustomersListBox.SelectedItem as Customer;
             CustomerIdTextBox.Text = _currentCustomer.Id.ToString();
             CustomerFullNameTextBox.Text = _currentCustomer.FullName.ToString();
-
-            CustomerAddressControl.Address = _currentCustomer.Address;
-            PriorityCheckBox.Checked = _currentCustomer.IsPriority;
-            CustomersDiscountsListBox.DataSource = _currentCustomer.Discounts;
-
+            CustomerAddressTextBox.Text = _currentCustomer.Address;
             CustomersListBox.DataSource = null;
             CustomersListBox.DataSource = _customers;
         }
 
-        /// <summary>
-        /// Меняет состояние свойства FullName через валидацию вводимых данных.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CustomerFullNameTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_isDataClear) return;
             _isDataValid = true;
             CustomerFullNameTextBox.BackColor = Color.White;
 
-            if (!ValueValidator.CheckStringOnNullOrEmpty(CustomerFullNameTextBox.Text))
+            if (string.IsNullOrEmpty(CustomerFullNameTextBox.Text) || CheckWordOnDigit(CustomerFullNameTextBox.Text))
             {
                 _isDataValid = false;
                 CustomerFullNameTextBox.BackColor = Color.LightPink;
@@ -143,72 +97,27 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
-        /// <summary>
-        /// Передает информацию, является ли покупатель приоритетным.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void CustomerAddressTextBox_TextChanged(object sender, EventArgs e)
         {
-            _currentCustomer.IsPriority = PriorityCheckBox.Checked;
-        }
+            if (_isDataClear) return;
+            _isDataValid = true;
+            CustomerAddressTextBox.BackColor = Color.White;
 
-        /// <summary>
-        /// Удаляет выбранную скидку на категорию товаров.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RemoveDiscountButton_Click(object sender, EventArgs e)
-        {
-            if (CustomersListBox.SelectedItem is null || CustomersDiscountsListBox.SelectedIndex < 1) return;
-
-            _currentCustomer.Discounts.RemoveAt(CustomersDiscountsListBox.SelectedIndex);
-
-            CustomersDiscountsListBox.DataSource = null;
-            CustomersDiscountsListBox.DataSource = _currentCustomer.Discounts;
-        }
-
-        /// <summary>
-        /// Добавляет ту скиду на товары, что выберет пользователь в появляющейся форме.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddDiscountButton_Click(object sender, EventArgs e)
-        {
-            ShowAddDiscountForm();
-        }
-
-        /// <summary>
-        /// Выводит форму и запоминает выбор пользователя.
-        /// </summary>
-        public void ShowAddDiscountForm()
-        {
-            if (CustomersListBox.SelectedItem is null)
+            if (string.IsNullOrEmpty(CustomerAddressTextBox.Text))
             {
-                MessageBox.Show("Пожалуйста, выберите покупателя.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                _isDataValid = false;
+                CustomerAddressTextBox.BackColor = Color.LightPink;
                 return;
             }
-
-            var addDiscountForm = new AddDiscountForm();
-
-            if (addDiscountForm.ShowDialog() == DialogResult.OK)
+            try
             {
-                Category selectedCategory = addDiscountForm.SelectedCategory;
-
-                foreach (IDiscount discount in _currentCustomer.Discounts)
-                {
-                    if (discount is PercentDiscount percentDiscount && percentDiscount.Category == selectedCategory)
-                    {
-                        MessageBox.Show("Скидка для этой категории уже существует.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-
-                PercentDiscount newDiscount = new PercentDiscount(selectedCategory);
-                _currentCustomer.Discounts.Add(newDiscount);
-
-                CustomersDiscountsListBox.DataSource = null;
-                CustomersDiscountsListBox.DataSource = _currentCustomer.Discounts;
+                _currentCustomer.Address = CustomerAddressTextBox.Text;
+            }
+            catch (Exception ex)
+            {
+                _isDataValid = false;
+                CustomerAddressTextBox.BackColor = Color.LightPink;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

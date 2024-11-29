@@ -1,13 +1,9 @@
-﻿using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model.Discounts;
-using ObjectOrientedPractics.Model.Orders;
-
-namespace ObjectOrientedPractics
+﻿namespace ObjectOrientedPractics
 {
     /// <summary>
     /// Хранит данные о покупателе.
     /// </summary>
-    public class Customer
+    internal class Customer
     {
         /// <summary>
         /// Уникальный идентификатор покупателя.
@@ -20,24 +16,9 @@ namespace ObjectOrientedPractics
         private string _fullName;
 
         /// <summary>
-        /// Адрес покупателя.
+        /// Аддресс покупателя.
         /// </summary>
-        private Address _address;
-
-        /// <summary>
-        /// Корзина покупателя.
-        /// </summary>
-        private Cart _cart;
-
-        /// <summary>
-        /// Заказ покупателя.
-        /// </summary>
-        private List<Order> _orders;
-
-        /// <summary>
-        /// Хранит все скидки, имеющиеся у покупателя.
-        /// </summary>
-        public List<IDiscount> Discounts { get; private set; }
+        private string _address;
 
         /// <summary>
         /// Возвращает значение поля id.
@@ -45,12 +26,7 @@ namespace ObjectOrientedPractics
         public int Id { get { return _id; } }
 
         /// <summary>
-        /// Определяет, является ли покупатель приоритетным.
-        /// </summary>
-        public bool IsPriority { get; set; }
-
-        /// <summary>
-        ///  Возвращает и задает ФИО покупателя. Не должно быть больше 200 символов или пустым.
+        ///  Возвращает и задаёт ФИО покупателя. Не может быть больше 200 символов или пустым.
         /// </summary>
         public string FullName
         {
@@ -58,39 +34,21 @@ namespace ObjectOrientedPractics
             set
             {
                 ValueValidator.AssertStringOnLength(value, 200, nameof(FullName));
-                ValueValidator.CheckWordOnDigit(value, nameof(FullName));
                 _fullName = value;
             }
         }
 
         /// <summary>
-        /// Возвращает и задает адрес покупателя.
+        /// Возвращает и задаёт адрес покупателя. Не может быть больше 500 символов или пустым.
         /// </summary>
-        public Address Address
+        public string Address
         {
             get { return _address; }
             set
             {
+                ValueValidator.AssertStringOnLength(value, 500, nameof(Address));
                 _address = value;
             }
-        }
-
-        /// <summary>
-        /// Возвращает и задает корзину покупателя.
-        /// </summary>
-        public Cart Cart
-        {
-            get { return _cart; }
-            private set { _cart = value; }
-        }
-
-        /// <summary>
-        /// Возвращает и задает заказ покупателя.
-        /// </summary>
-        public List<Order> Orders
-        {
-            get { return _orders; }
-            set { _orders = value; }
         }
 
         /// <summary>
@@ -100,31 +58,25 @@ namespace ObjectOrientedPractics
         {
             _id = IdGenerator.GetNextId();
             FullName = "FullName";
-            Address = new Address();
-            Cart = new Cart();
-            Orders = new List<Order>();
-            Discounts = new List<IDiscount> { new PointsDiscount() };
+            Address = "Address";
         }
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="Customer"/>.
+        /// Создает экземпляр класса <see cref="Customer"/>
         /// </summary>
         /// <param name="fullName">ФИО покупателя.</param>
         /// <param name="address">Адрес покупателя.</param>
-        public Customer(string fullName, Address address)
+        public Customer(string fullName, string address)
         {
             _id = IdGenerator.GetNextId();
             FullName = fullName;
             Address = address;
-            Cart = new Cart();
-            Orders = new List<Order>();
-            Discounts = new List<IDiscount> { new PointsDiscount() };
         }
 
         /// <summary>
-        /// Переопределяет метод <see cref="ToString()"/>.
+        /// Возвращает <see cref="FullName"/>.
         /// </summary>
-        /// <returns>Возвращает <see cref="FullName"/>.</returns>
+        /// <returns></returns>
         public override string ToString()
         {
             return FullName;
