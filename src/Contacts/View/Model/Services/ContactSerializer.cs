@@ -43,10 +43,8 @@ namespace View.Model.Servicies
             try
             {
                 if (!File.Exists(Path))
-                {
                     return null;
-                }
-
+                
                 string json = File.ReadAllText(Path);
 
                 Contact contact = JsonConvert.DeserializeObject<Contact>(json);
@@ -67,13 +65,7 @@ namespace View.Model.Servicies
         /// </summary>
         public ContactSerializer()
         {
-            Path = System.IO.Path.Combine
-                (
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "Contacts",
-                "contacts.json"
-                );
-
+            Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Contacts","contacts.json");
             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(Path));
         }
     }
