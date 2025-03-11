@@ -19,7 +19,7 @@ namespace View.Model.Services
         /// <param name="contact">Объект <see cref="Contact"/>, который сохраняется в файл.</param>
         public void SaveContact(Contact contact)
         {
-            string json = JsonConvert.SerializeObject(contact, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(contact);
             File.WriteAllText(FilePath, json);
         }
 

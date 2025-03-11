@@ -83,9 +83,9 @@
         /// </summary>
         public Contact()
         {
-            Name = "Смирнов Юрий";
-            Number = "+7-913-111-22-33";
-            Email = "YuriSmirnov@mail.ru";
+            Name = "Surname Name";
+            Number = "+X-XXX-XXX-XX-XX";
+            Email = "qwerty@mail.ru";
         }
     }
 }
