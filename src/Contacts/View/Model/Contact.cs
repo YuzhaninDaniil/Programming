@@ -6,64 +6,19 @@
     public class Contact
     {
         /// <summary>
-        /// Имя контакта.
-        /// </summary>
-        private string _name;
-
-        /// <summary>
-        /// Номер телефона контакта.
-        /// </summary>
-        private string _number;
-
-        /// <summary>
-        /// Почта контакта.
-        /// </summary>
-        private string _email;
-
-        /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Возвращает и задает номер телефона контакта.
         /// </summary>
-        public string Number
-        {
-            get
-            {
-                return _number;
-            }
-            set
-            {
-                _number = value;
-            }
-        }
+        public string Number { get; set; }
 
         /// <summary>
         /// Возвращает и задает электронную почту контакта.
         /// </summary>
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                _email = value;
-            }
-        }
+        public string Email { get; set; }
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Contact"/> с указанными именем, номером телефона и электронной почтой.
