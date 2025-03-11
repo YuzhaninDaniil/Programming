@@ -39,7 +39,7 @@ namespace View.Model.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Произошла ошибка при загрузке файла {ex.Message}");
+                return new Contact();
             }
             return new Contact();
         }
