@@ -29,12 +29,18 @@ namespace View.Model.Services
         /// <returns>Объект <see cref="Contact"/> из файла.</returns>
         public Contact LoadContact()
         {
-            if (File.Exists(FilePath))
+            try
             {
-                string json = File.ReadAllText(FilePath);
-                return JsonConvert.DeserializeObject<Contact>(json);
+                if (File.Exists(FilePath))
+                {
+                    string json = File.ReadAllText(FilePath);
+                    return JsonConvert.DeserializeObject<Contact>(json);
+                }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Произошла ошибка при загрузке файла {ex.Message}");
+            }
             return new Contact();
         }
 
