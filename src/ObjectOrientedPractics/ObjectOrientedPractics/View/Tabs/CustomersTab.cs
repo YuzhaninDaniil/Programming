@@ -211,5 +211,51 @@ namespace ObjectOrientedPractics.View.Tabs
                 CustomersDiscountsListBox.DataSource = _currentCustomer.Discounts;
             }
         }
+
+        /// <summary>
+        /// Проверяет TextBoxes на пустоту.
+        /// </summary>
+        public void CheckDataForClear()
+        {
+            _isDataClear = true;
+
+            if (_customers.Count <= 0)
+            {
+                CustomerIdTextBox.Clear();
+                CustomerIdTextBox.Enabled = false;
+                CustomerFullNameTextBox.Clear();
+                CustomerFullNameTextBox.Enabled = false;
+                CustomerAddressTextBox.Clear();
+                CustomerAddressTextBox.Enabled = false;
+            }
+            else
+            {
+                CustomerIdTextBox.Enabled = true;
+                CustomerFullNameTextBox.Enabled = true;
+                CustomerAddressTextBox.Enabled = true;
+
+                _isDataClear = false;
+            }
+        }
+
+        /// <summary>
+        /// Првоеряет слово на то, есть ли в нем цифры.
+        /// </summary>
+        /// <param name="text">Текст.</param>
+        /// <returns></returns>
+        public bool CheckWordOnDigit(string text)
+        {
+            bool hasDigit = false;
+
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c) && c != ' ')
+                {
+                    hasDigit = true;
+                    break;
+                }
+            }
+            return hasDigit;
+        }
     }
 }

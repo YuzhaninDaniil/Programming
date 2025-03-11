@@ -55,14 +55,14 @@ namespace ObjectOrientedPractics
         public int Id { get { return _id; } }
 
         /// <summary>
-        /// Возвращает и задает название товара. Не должно быть пустым или содержать больше 200 символов.
+        /// Возвращает и задает название товара. Не должно быть пустым или содержать больше 190 символов.
         /// </summary>
         public string Name
         {
             get { return _name; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
+                ValueValidator.AssertStringOnLength(value, 190, nameof(Name));
                 ValueValidator.CheckWordOnDigit(value, nameof(Name));
                 if(_name != value)
                 {
@@ -90,14 +90,14 @@ namespace ObjectOrientedPractics
         }
 
         /// <summary>
-        /// Возвращает и задает цену товара. Не должно быть меньше 0 или больше 100000.
+        /// Возвращает и задает цену товара. Не должно быть меньше 0 или больше 10000.
         /// </summary>
         public double Cost
         {
             get { return _cost; }
             set
             { 
-                ValueValidator.CheckNumberInRange(value, 0, 100000, nameof(Cost));
+                ValueValidator.CheckNumberInRange(value, 0, 10000, nameof(Cost));
                 ValueValidator.CheckNumberOnLetter(value, nameof(Cost));
                 if (_cost != value)
                 {
