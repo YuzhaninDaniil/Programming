@@ -21,6 +21,7 @@ namespace View.ViewModel
 
         /// <summary>
         /// Делегат.
+        /// Используется для обновления данных при загрузке данных.
         /// </summary>
         private Action<Contact> _updateContact;
 

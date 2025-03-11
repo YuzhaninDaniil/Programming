@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        
         xmlns:vm="clr-namespace:View.ViewModel"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="500">
     
     <Window.DataContext>
-    <vm:MainVM/>
+        <vm:MainVM/>
     </Window.DataContext>
     <Grid Margin="15">
         <Grid.RowDefinitions>
