@@ -33,14 +33,14 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Find:" Margin="3" VerticalAlignment="Center"/>
+                    <Label Content="Find:" Margin="-3,3,3,3" VerticalAlignment="Center"/>
                     <TextBox x:Name="SearchTextBox" Grid.Column="1" Margin="3" VerticalAlignment="Center"/>
                 </Grid>
 
                 <!-- Список контактов -->
                 <ListBox x:Name="ContactsListBox" Grid.Row="1" Margin="8"
                      ItemsSource="{Binding Contacts}"
-                     SelectedItem="{Binding SelectedContact, Mode=TwoWay}">
+                     SelectedItem="{Binding SelectedContact}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
@@ -54,10 +54,10 @@
                         Command="{Binding AddCommand}"/>
                     <Button Content="Edit" Width="50" Height="25" Margin="3"
                         Command="{Binding EditCommand}"
-                        IsEnabled="{Binding IsContactSelected}"/>
+                        IsEnabled="{Binding SelectedContact}"/>
                     <Button Content="Remove" Width="50" Height="25" Margin="3"
                         Command="{Binding RemoveCommand}"
-                        IsEnabled="{Binding IsContactSelected}"/>
+                        IsEnabled="{Binding SelectedContact}"/>
                 </StackPanel>
             </Grid>
 
@@ -72,16 +72,18 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Плейсхолдер для фото -->
-                <Border Grid.Column="0" Width="100" Height="100" Background="LightGray" Margin="8,8,8,3" VerticalAlignment="Top"/>
+                <Grid Margin="0, 19, 0, 0">
+                    <Image Width="100" Height="100" VerticalAlignment="Top" Source="/contact.jpg"/>
+                </Grid>
 
                 <!-- Поля для редактирования контакта -->
                 <StackPanel Grid.Column="1" Margin="8,8,8,8">
                     <Label Content="Name:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsContactReadOnly}"/>
+                    <TextBox Text="{Binding SelectedContact.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsReadOnly}"/>
                     <Label Content="Phone Number:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Number, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsContactReadOnly}"/>
+                    <TextBox Text="{Binding SelectedContact.Number, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsReadOnly}"/>
                     <Label Content="Email:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsContactReadOnly}"/>
+                    <TextBox Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsReadOnly}"/>
                 </StackPanel>
 
                 <!-- Кнопка Apply -->

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace View.ViewModel
 {
@@ -8,14 +7,15 @@ namespace View.ViewModel
     /// </summary>
     public class RelayCommand : ICommand
     {
-        #region Поля
-
+        /// <summary>
+        /// Делегат, представляющий метод для выполнения.
+        /// </summary>
         private readonly Action<object> _execute;
+
+        /// <summary>
+        /// Делегат, представляющий метод для проверки возможности выполнения команды.
+        /// </summary>
         private readonly Predicate<object> _canExecute;
-
-        #endregion
-
-        #region Конструкторы
 
         /// <summary>
         /// Инициализирует новый экземпляр команды с делегированием действий.
@@ -24,21 +24,23 @@ namespace View.ViewModel
         /// <param name="canExecute">Предикат, определяющий, можно ли выполнить команду.</param>
         public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _execute = execute;
             _canExecute = canExecute;
         }
-
-        #endregion
-
-        #region Методы
 
         /// <summary>
         /// Событие, которое вызывается при изменении состояния команды.
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value; 
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
         }
 
         /// <summary>
@@ -59,7 +61,5 @@ namespace View.ViewModel
         {
             _execute(parameter);
         }
-
-        #endregion
     }
 }

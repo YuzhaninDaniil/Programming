@@ -1,43 +1,27 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 
 namespace View.Model.Servicies
 {
     /// <summary>
-    /// Класс для сериализации и десериализации контактов.
-    /// </summary>
+    /// Класс, отвечающий за сериализацию и десериализацию объектов типа <see cref="Contact"/>.
+    /// </summary
     public class ContactSerializer
     {
-        #region Поля
-
         /// <summary>
-        /// Путь к файлу для сохранения и загрузки контактов.
+        /// Хранит и возвращает путь к файлу, в котором хранятся данные контакта.
         /// </summary>
-        public string FilePath { get; set; }
-
-        #endregion
-
-        #region Конструкторы
+        public string FilePath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
 
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="ContactSerializer"/>.
-        /// Устанавливает стандартный путь для сохранения файлов.
+        /// Создает новый экземпляр класса <see cref="ContactSerializer"/>.
+        /// Устанавливает путь к файлу.
         /// </summary>
         public ContactSerializer()
         {
-            FilePath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "Contacts",
-                "contacts.json"
-            );
-
-            Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+            if (!Directory.Exists(Path.GetDirectoryName(FilePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
         }
-
-        #endregion
-
-        #region Методы
 
         /// <summary>
         /// Сохраняет контакты в файл в формате JSON.
@@ -45,16 +29,8 @@ namespace View.Model.Servicies
         /// <param name="contacts">Список контактов для сохранения.</param>
         public void SaveContacts(IEnumerable<Contact> contacts)
         {
-            try
-            {
-                string json = JsonConvert.SerializeObject(contacts, Formatting.Indented);
-                File.WriteAllText(FilePath, json);
-                Console.WriteLine("Контакты успешно сохранены.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка при сохранении контактов: {ex.Message}");
-            }
+            string json = JsonConvert.SerializeObject(contacts, Formatting.Indented);
+            File.WriteAllText(FilePath, json);
         }
 
         /// <summary>
@@ -67,22 +43,17 @@ namespace View.Model.Servicies
             {
                 if (!File.Exists(FilePath))
                 {
-                    Console.WriteLine("Файл не найден.");
                     return new List<Contact>();
                 }
 
                 string json = File.ReadAllText(FilePath);
                 List<Contact> contacts = JsonConvert.DeserializeObject<List<Contact>>(json);
-                Console.WriteLine("Контакты успешно загружены.");
                 return contacts;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при загрузке контактов: {ex.Message}");
                 return new List<Contact>();
             }
         }
-
-        #endregion
     }
 }
