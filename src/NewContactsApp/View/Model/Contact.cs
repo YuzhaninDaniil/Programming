@@ -1,0 +1,43 @@
+﻿using System.ComponentModel;
+
+namespace View.Model
+{
+    /// <summary>
+    /// Класс, представляющий контакт с именем, номером телефона и электронной почтой.
+    /// </summary>
+    public class Contact
+    {
+        /// <summary>
+        /// Получает или задает имя контакта.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Получает или задает номер телефона контакта.
+        /// </summary>
+        public string Number { get; set; }
+
+        /// <summary>
+        /// Получает или задает электронную почту контакта.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Contact"/> с указанными именем, номером телефона и электронной почтой.
+        /// </summary>
+        /// <param name="name">Имя контакта.</param>
+        /// <param name="number">Номер телефона контакта.</param>
+        /// <param name="email">Электронная почта контакта.</param>
+        public Contact(string name, string number, string email)
+        {
+            Name = name;
+            Number = number;
+            Email = email;
+        }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр класса <see cref="Contact"/> без параметров.
+        /// </summary>
+        public Contact() { }
+    }
+}
