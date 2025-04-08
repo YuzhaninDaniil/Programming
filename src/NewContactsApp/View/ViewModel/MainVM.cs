@@ -23,12 +23,12 @@ namespace View.ViewModel
         private ContactVM _selectedContact;
 
         /// <summary>
-        /// Флаг, указывающий, находится ли приложение в режиме редактирования.
+        /// Флаг, указывающий, редактируемо ли приложение.
         /// </summary>
-        private bool _isEditMode = false;
+        private bool _isEditing = false;
 
         /// <summary>
-        /// Флаг, указывающий был ли создан новый контакт.
+        /// Флаг, указывающий, создан ли  новый контакт.
         /// </summary>
         private bool _isNewContact = false;
 
@@ -38,12 +38,12 @@ namespace View.ViewModel
         private int _selectedContactIndex;
 
         /// <summary>
-        /// Сервис для сериализации и десериализации контактов.
+        /// Объект для сериализации и десериализации контактов.
         /// </summary>
         private ContactSerializer _contactsSerializer = new ContactSerializer();
 
         /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="MainVM"/>. Загружает контакты из файла, создаёт ContactVM и инициализирует команды.
+        /// Инициализирует новый экземпляр класса <see cref="MainVM"/>. Отвечает за сереализацию и десереализацию, вызов команд.
         /// </summary>
         public MainVM()
         {
@@ -51,8 +51,8 @@ namespace View.ViewModel
             Contacts = new ObservableCollection<ContactVM>(loadedContacts.Select(c => new ContactVM(c)));
 
             AddCommand = new RelayCommand(AddContact);
-            EditCommand = new RelayCommand(EditContact, CanEditOrRemoveContact);
-            RemoveCommand = new RelayCommand(RemoveContact, CanEditOrRemoveContact);
+            EditCommand = new RelayCommand(EditContact, CanModifyContact);
+            RemoveCommand = new RelayCommand(RemoveContact, CanModifyContact);
             ApplyCommand = new RelayCommand(ApplyContact);
         }
 
@@ -85,7 +85,10 @@ namespace View.ViewModel
             {
                 if (_selectedContact != value)
                 {
-                    IsEditMode = false;
+                    if (SelectedContact is not null && SelectedContact != value)
+                    {
+                        IsEditing = false;
+                    }
 
                     _selectedContact = value;
                     OnPropertyChanged(nameof(SelectedContact));
@@ -96,18 +99,18 @@ namespace View.ViewModel
         /// <summary>
         /// Получает или задаёт значение, указывающее, находится ли приложение в режиме редактирования.
         /// </summary>
-        public bool IsEditMode
+        public bool IsEditing
         {
             get
             {
-                return _isEditMode;
+                return _isEditing;
             }
             set
             {
-                _isEditMode = value;
-                OnPropertyChanged(nameof(IsEditMode));
+                _isEditing = value;
+                OnPropertyChanged(nameof(IsEditing));
                 OnPropertyChanged(nameof(IsReadOnly));
-                OnPropertyChanged(nameof(ApplyButtonVisibility));
+                //OnPropertyChanged(nameof(ApplyButtonVisibility));
             }
         }
 
@@ -118,20 +121,11 @@ namespace View.ViewModel
         {
             get
             {
-                return !IsEditMode;
+                return !IsEditing;
             }
         }
 
-        /// <summary>
-        /// Получает значение, указывающее видимость кнопки "Apply".
-        /// </summary>
-        public Visibility ApplyButtonVisibility
-        {
-            get
-            {
-                return IsEditMode ? Visibility.Visible : Visibility.Collapsed;
-            } 
-        }
+        
 
         /// <summary>
         /// Получает команду для добавления нового контакта.
@@ -156,7 +150,7 @@ namespace View.ViewModel
         /// <summary>
         /// Обработчик команды AddCommand. Создаёт новый контакт и добавляет его в коллекцию.
         /// </summary>
-        /// <param name="parameter">Параметр команды .</param>
+        /// <param name="parameter">Параметр команды.</param>
         private void AddContact(object parameter)
         {
             SelectedContact = null;
@@ -164,11 +158,11 @@ namespace View.ViewModel
             ContactVM newContactVM = new ContactVM(newContact);
             SelectedContact = newContactVM;
             _isNewContact = true;
-            IsEditMode = true;
+            IsEditing = true;
         }
 
         /// <summary>
-        /// Обработчик команды EditCommand. Перевод приложения в режим редактирования.
+        /// Обработчик команды EditCommand. Переводит приложение в режим редактирования.
         /// </summary>
         /// <param name="parameter">Параметр команды.</param>
         public void EditContact(object parameter)
@@ -181,7 +175,7 @@ namespace View.ViewModel
             };
             _selectedContactIndex = Contacts.IndexOf(SelectedContact);
             SelectedContact = clonedContact;
-            IsEditMode = true;
+            IsEditing = true;
         }
 
         /// <summary>
@@ -189,7 +183,7 @@ namespace View.ViewModel
         /// </summary>
         /// <param name="parameter">Параметр команды.</param>
         /// <returns>true, если команда может быть выполнена, иначе false.</returns>
-        private bool CanEditOrRemoveContact(object parameter)
+        private bool CanModifyContact(object parameter)
         {
             return SelectedContact != null;
         }
@@ -238,10 +232,9 @@ namespace View.ViewModel
             else
             {
                 Contacts[_selectedContactIndex] = SelectedContact;
-                //_selectedContactIndex = -1;
             }
 
-            IsEditMode = false;
+            IsEditing = false;
             _isNewContact = false;
             _contactsSerializer.SaveContacts(new ObservableCollection<Contact>(Contacts.Select(x => x.Contact)));
         }

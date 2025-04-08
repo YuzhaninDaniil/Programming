@@ -4,8 +4,7 @@ using View.Model;
 namespace View.ViewModel
 {
     /// <summary>
-    /// ViewModel для представления контакта в UI.
-    /// Оборачивает объект Contact и реализует INotifyPropertyChanged.
+    /// ViewModel для представления контакта в UI. Служит оберткой для объекта Contact.
     /// </summary>
     public class ContactVM : INotifyPropertyChanged
     {

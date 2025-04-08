@@ -6,10 +6,16 @@
         xmlns:local="clr-namespace:View"
         xmlns:vm="clr-namespace:View.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Icon="contacts_96x96.ico">
+    
     <Window.DataContext>
         <vm:MainVM />
     </Window.DataContext>
+
+    <Window.Resources>
+        <vm:BoolToVisibilityConverter x:Key="BooleanToVisibility"/>
+        <vm:BooleanInverseConverter x:Key="BooleanInverse"/>
+    </Window.Resources>
 
     <DockPanel Margin="15">
         <Grid>
@@ -19,7 +25,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Левая колонка -->
             <Grid Grid.Column="0" Background="#f8f8f8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -27,7 +32,6 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Строка поиска -->
                 <Grid Margin="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -37,58 +41,50 @@
                     <TextBox x:Name="SearchTextBox" Grid.Column="1" Margin="3" VerticalAlignment="Center"/>
                 </Grid>
 
-                <!-- Список контактов -->
-                <ListBox x:Name="ContactsListBox" Grid.Row="1" Margin="8"
+                <ListBox x:Name="ContactsListBox" Grid.Row="1" Margin="8,8,8,8"
                      ItemsSource="{Binding Contacts}"
                      SelectedItem="{Binding SelectedContact}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Name}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <!-- Кнопки управления -->
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8">
                     <Button Content="Add" Width="50" Height="25" Margin="3"
                         Command="{Binding AddCommand}"/>
                     <Button Content="Edit" Width="50" Height="25" Margin="3"
-                        Command="{Binding EditCommand}"
-                        IsEnabled="{Binding SelectedContact}"/>
+                        Command="{Binding EditCommand}" IsEnabled="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
+                    
                     <Button Content="Remove" Width="50" Height="25" Margin="3"
-                        Command="{Binding RemoveCommand}"
-                        IsEnabled="{Binding SelectedContact}"/>
+                        Command="{Binding RemoveCommand}" IsEnabled="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
                 </StackPanel>
             </Grid>
 
-            <!-- Разделитель -->
             <GridSplitter Grid.Column="1" Width="3" Background="White" HorizontalAlignment="Stretch"/>
 
-            <!-- Правая колонка -->
             <Grid Grid.Column="2" Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Плейсхолдер для фото -->
-                <Grid Margin="0, 19, 0, 0">
-                    <Image Width="100" Height="100" VerticalAlignment="Top" Source="/contact.jpg"/>
+                <Grid Margin="0, 43, 0, 0">
+                    <Image Width="100" Height="100" VerticalAlignment="Top" Source="/contacts_96x96.ico"/>
                 </Grid>
 
-                <!-- Поля для редактирования контакта -->
                 <StackPanel Grid.Column="1" Margin="8,8,8,8">
                     <Label Content="Name:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsReadOnly}"/>
+                    <TextBox Text="{Binding SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3" IsReadOnly="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
                     <Label Content="Phone Number:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Number, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsReadOnly}"/>
+                    <TextBox Text="{Binding SelectedContact.Number, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3" IsReadOnly="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
                     <Label Content="Email:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,3,0,3" IsReadOnly="{Binding IsReadOnly}"/>
+                    <TextBox Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3" IsReadOnly="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
                 </StackPanel>
 
-                <!-- Кнопка Apply -->
                 <Button Grid.Column="1" Content="Apply" Width="75" Height="25" Margin="8,50,8,8" 
-                    HorizontalAlignment="Right" Visibility="{Binding ApplyButtonVisibility}" Command="{Binding ApplyCommand}"/>
+                    HorizontalAlignment="Right" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibility}}" Command="{Binding ApplyCommand}"/>
             </Grid>
         </Grid>
     </DockPanel>
