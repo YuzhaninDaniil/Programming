@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace View.Model
+﻿namespace View.Model
 {
     /// <summary>
     /// Класс, представляющий контакт с именем, номером телефона и электронной почтой.
