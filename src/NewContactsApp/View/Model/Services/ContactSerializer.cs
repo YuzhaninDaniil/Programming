@@ -6,7 +6,7 @@ namespace View.Model.Services
 {
     /// <summary>
     /// Класс, отвечающий за сериализацию и десериализацию объектов типа <see cref="Contact"/>.
-    /// </summary
+    /// </summary>
     public static class ContactSerializer
     {
         /// <summary>
@@ -15,13 +15,15 @@ namespace View.Model.Services
         public static string FilePath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
 
         /// <summary>
-        /// Создает новый экземпляр класса <see cref="ContactSerializer"/>.
-        /// Устанавливает путь к файлу.
+        /// Метод для создания папки, если она не существует.
         /// </summary>
-        static ContactSerializer()
+        public static void EnsureDirectoryExists()
         {
-            if (!Directory.Exists(Path.GetDirectoryName(FilePath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+            var directory = Path.GetDirectoryName(FilePath);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
         /// <summary>
@@ -30,6 +32,8 @@ namespace View.Model.Services
         /// <param name="contacts">Список контактов для сохранения.</param>
         public static void SaveContacts(IEnumerable<Contact> contacts)
         {
+            EnsureDirectoryExists();
+
             string json = JsonConvert.SerializeObject(contacts, Formatting.Indented);
             File.WriteAllText(FilePath, json);
         }
@@ -48,10 +52,10 @@ namespace View.Model.Services
                 }
 
                 string json = File.ReadAllText(FilePath);
-                ObservableCollection<Contact> contacts = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(json);
-                return contacts;
+                var contacts = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(json);
+                return contacts ?? new ObservableCollection<Contact>();
             }
-            catch (Exception ex)
+            catch
             {
                 return new ObservableCollection<Contact>();
             }

@@ -10,8 +10,14 @@ namespace View.Controls
     /// </summary>
     public partial class ContactControl : UserControl
     {
+        /// <summary>
+        /// Регулярное выражение, по которому ограничивается ввод данных для номера телефона.
+        /// </summary>
         private static readonly Regex PhoneNumberRegex = new Regex(@"^[0-9+\-()\s]*$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// Создает новый экземпляр класса <see cref="ContactControl"/>.
+        /// </summary>
         public ContactControl()
         {
             InitializeComponent();
