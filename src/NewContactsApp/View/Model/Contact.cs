@@ -37,9 +37,9 @@ namespace View.Model
                 OnPropertyChanged(nameof(Name));
             }
         }
-
-        [StringLength(100)]
+      
         [RegularExpression(@"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$")]
+        [StringLength(100)]
         /// <summary>
         /// Получает или задает номер телефона контакта.
         /// </summary>
@@ -53,8 +53,8 @@ namespace View.Model
             }
         }
 
-        [StringLength(100)]
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")]
+        [StringLength(100)]
         /// <summary>
         /// Получает или задает почту контакта.
         /// </summary>
@@ -132,9 +132,9 @@ namespace View.Model
         private string ValidateName()
         {
             if (string.IsNullOrEmpty(Name))
-                return "Имя не может быть пустым.";
+                return "Имя не должно быть пустым.";
             if (Name.Length > 100)
-                return "Имя не должно превышать 100 символов.";
+                return "Имя должно быть не длиннее 100 символов.";
             return null;
         }
 
@@ -145,11 +145,11 @@ namespace View.Model
         private string ValidatePhoneNumber()
         {
             if (string.IsNullOrEmpty(PhoneNumber))
-                return "Номер телефона не может быть пустым.";
+                return "Номер телефона не должен быть пустым.";
             if (PhoneNumber.Length > 100)
-                return "Номер телефона не должен превышать 100 символов.";
+                return "Номер телефона должен быть не длиннее 100 символов.";
             if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneNumber, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
-                return "Номер телефона должен содержать только цифры или символы +-().";
+                return "Номер телефона может содержать только цифры или символы +-().";
             return null;
         }
 
@@ -160,9 +160,9 @@ namespace View.Model
         private string ValidateEmail()
         {
             if (string.IsNullOrEmpty(Email))
-                return "Адрес почты не может быть пустым.";
+                return "Адрес почты не должен быть пустым.";
             if (Email.Length > 100)
-                return "Адрес почты не должен превышать 100 символов.";
+                return "Адрес почты должен быть не длиннее 100 символов..";
             if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 return "Неправильный формат адреса почты.";
             return null;

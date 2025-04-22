@@ -10,8 +10,7 @@ namespace View.Controls
     /// </summary>
     public partial class ContactControl : UserControl
     {
-        private static readonly Regex PhoneNumberRegex =
-            new Regex(@"^[0-9+\-()\s]*$", RegexOptions.Compiled);
+        private static readonly Regex PhoneNumberRegex = new Regex(@"^[0-9+\-()\s]*$", RegexOptions.Compiled);
 
         public ContactControl()
         {
@@ -19,17 +18,13 @@ namespace View.Controls
         }
 
         /// <summary>
-        /// Обрабатывает ввод символов в поле телефонного номера,
-        /// разрешая только цифры, плюсы, скобки, дефисы и пробелы
+        /// Обрабатывает ввод символов в поле телефонного номера,разрешая только цифры, плюсы, скобки, дефисы и пробелы.
         /// </summary>
         private void PhoneNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            var textBox = (TextBox)sender;
+            TextBox textBox = (TextBox)sender;
             string newText = textBox.Text + e.Text;
-
-            bool isValidInput = PhoneNumberRegex.IsMatch(e.Text) && newText.Length <= 100;
-
-            e.Handled = !isValidInput;
+            e.Handled = !(PhoneNumberRegex.IsMatch(e.Text) && newText.Length <= 100);
         }
 
         /// <summary>
@@ -40,14 +35,12 @@ namespace View.Controls
             if (e.DataObject.GetDataPresent(DataFormats.Text))
             {
                 string text = (string)e.DataObject.GetData(DataFormats.Text);
-                var textBox = (TextBox)sender;
+                TextBox textBox = (TextBox)sender;
                 string newText = textBox.Text + text;
 
                 if (!string.IsNullOrEmpty(text))
-                {
-                    bool isValidPaste = PhoneNumberRegex.IsMatch(text) && newText.Length <= 100;
-
-                    if (!isValidPaste)
+                { 
+                    if (!(PhoneNumberRegex.IsMatch(text) && newText.Length <= 100))
                     {
                         e.CancelCommand();
                     }
