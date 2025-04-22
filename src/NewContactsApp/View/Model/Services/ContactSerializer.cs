@@ -1,34 +1,39 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using Newtonsoft.Json;
 
-namespace View.Model.Servicies
+namespace View.Model.Services
 {
     /// <summary>
     /// Класс, отвечающий за сериализацию и десериализацию объектов типа <see cref="Contact"/>.
-    /// </summary
-    public class ContactSerializer
+    /// </summary>
+    public static class ContactSerializer
     {
         /// <summary>
         /// Хранит и возвращает путь к файлу, в котором хранятся данные контакта.
         /// </summary>
-        public string FilePath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
+        public static string FilePath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
 
         /// <summary>
-        /// Создает новый экземпляр класса <see cref="ContactSerializer"/>.
-        /// Устанавливает путь к файлу.
+        /// Метод для создания папки, если она не существует.
         /// </summary>
-        public ContactSerializer()
+        public static void EnsureDirectoryExists()
         {
-            if (!Directory.Exists(Path.GetDirectoryName(FilePath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
+            var directory = Path.GetDirectoryName(FilePath);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
         /// <summary>
         /// Сохраняет контакты в файл в формате JSON.
         /// </summary>
         /// <param name="contacts">Список контактов для сохранения.</param>
-        public void SaveContacts(IEnumerable<Contact> contacts)
+        public static void SaveContacts(IEnumerable<Contact> contacts)
         {
+            EnsureDirectoryExists();
+
             string json = JsonConvert.SerializeObject(contacts, Formatting.Indented);
             File.WriteAllText(FilePath, json);
         }
@@ -37,22 +42,22 @@ namespace View.Model.Servicies
         /// Загружает контакты из файла.
         /// </summary>
         /// <returns>Список контактов.</returns>
-        public List<Contact> LoadContacts()
+        public static ObservableCollection<Contact> LoadContacts()
         {
             try
             {
                 if (!File.Exists(FilePath))
                 {
-                    return new List<Contact>();
+                    return new ObservableCollection<Contact>();
                 }
 
                 string json = File.ReadAllText(FilePath);
-                List<Contact> contacts = JsonConvert.DeserializeObject<List<Contact>>(json);
-                return contacts;
+                var contacts = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(json);
+                return contacts ?? new ObservableCollection<Contact>();
             }
-            catch (Exception ex)
+            catch
             {
-                return new List<Contact>();
+                return new ObservableCollection<Contact>();
             }
         }
     }
