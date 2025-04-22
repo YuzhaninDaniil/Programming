@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
         xmlns:vm="clr-namespace:View.ViewModel"
+        xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="contacts_96x96.ico">
-    
+        Title="MainWindow" Height="450" Width="800" Icon="icon.png">
+
     <Window.DataContext>
         <vm:MainVM />
     </Window.DataContext>
@@ -15,77 +16,82 @@
     <Window.Resources>
         <vm:BoolToVisibilityConverter x:Key="BooleanToVisibility"/>
         <vm:BooleanInverseConverter x:Key="BooleanInverse"/>
+
+        <DataTemplate x:Key="contactTemplate">
+            <StackPanel Margin="3" Orientation="Horizontal">
+                <Image Width="40" Height="40" Margin="0,0,8,0" VerticalAlignment="Center"
+                       Source="user.ico"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Name}"/>
+                    <TextBlock FontSize="10" Text="{Binding PhoneNumber}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
 
-    <DockPanel Margin="15">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="70"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </Grid.Resources>
 
-            <Grid Grid.Column="0" Background="#f8f8f8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-                <Grid Margin="8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Find:" Margin="-3,3,3,3" VerticalAlignment="Center"/>
-                    <TextBox x:Name="SearchTextBox" Grid.Column="1" Margin="3" VerticalAlignment="Center"/>
-                </Grid>
-
-                <ListBox x:Name="ContactsListBox" Grid.Row="1" Margin="8,8,8,8"
-                     ItemsSource="{Binding Contacts}"
-                     SelectedItem="{Binding SelectedContact}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="8">
-                    <Button Content="Add" Width="50" Height="25" Margin="3"
-                        Command="{Binding AddCommand}"/>
-                    <Button Content="Edit" Width="50" Height="25" Margin="3"
-                        Command="{Binding EditCommand}" IsEnabled="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
-                    
-                    <Button Content="Remove" Width="50" Height="25" Margin="3"
-                        Command="{Binding RemoveCommand}" IsEnabled="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
-                </StackPanel>
-            </Grid>
-
-            <GridSplitter Grid.Column="1" Width="3" Background="White" HorizontalAlignment="Stretch"/>
-
-            <Grid Grid.Column="2" Background="White">
+        <DockPanel Grid.Column="0" Margin="5">
+            <Grid DockPanel.Dock="Top" Height="30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Margin="0, 43, 0, 0">
-                    <Image Width="100" Height="100" VerticalAlignment="Top" Source="/contacts_96x96.ico"/>
-                </Grid>
-
-                <StackPanel Grid.Column="1" Margin="8,8,8,8">
-                    <Label Content="Name:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3" IsReadOnly="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
-                    <Label Content="Phone Number:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Number, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3" IsReadOnly="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
-                    <Label Content="Email:" Margin="0,3,0,3"/>
-                    <TextBox Text="{Binding SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}" Margin="0,3,0,3" IsReadOnly="{Binding IsEditing, Converter={StaticResource BooleanInverse}}"/>
-                </StackPanel>
-
-                <Button Grid.Column="1" Content="Apply" Width="75" Height="25" Margin="8,50,8,8" 
-                    HorizontalAlignment="Right" Visibility="{Binding IsEditing, Converter={StaticResource BooleanToVisibility}}" Command="{Binding ApplyCommand}"/>
+                <Label Content="Find:" Grid.Column="0"/>
+                <TextBox x:Name="SearchTextBox" Height="20" Grid.Column="1" Margin="3,0,0,0"/>
             </Grid>
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                <Button x:Name="AddButton" Content="Add" Width="79.5" Height="25" Margin="3"
+                        Command="{Binding AddCommand}" CommandParameter="{Binding CurrentContact}"/>
+                <Button x:Name="EditButton" Content="Edit" Width="79.5" Height="25" Margin="3"
+                        Command="{Binding EditCommand}" CommandParameter="{Binding CurrentContact}"/>
+                <Button x:Name="RemoveButton" Content="Remove" Width="79.5" Height="25" Margin="3"
+                        Command="{Binding RemoveCommand}" CommandParameter="{Binding CurrentContact}"/>
+            </StackPanel>
+
+            <ListBox x:Name="ContactsListBox" ItemTemplate="{StaticResource contactTemplate}" 
+                     ItemsSource="{Binding Contacts}" SelectedItem="{Binding CurrentContact}"
+                     Margin="0,5,0,0"/>
+        </DockPanel>
+
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="White"/>
+
+        <Grid Grid.Column="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <controls:ContactControl Grid.Row="0"/>
+
+            <Button x:Name="ApplyButton" Grid.Row="1" Content="Apply" HorizontalAlignment="Left" 
+                    Command="{Binding ApplyCommand}" Margin="121,0,0,210" Width="79.5" Height="25"
+                    Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibility}}"
+                    />
         </Grid>
-    </DockPanel>
+    </Grid>
 </Window>
