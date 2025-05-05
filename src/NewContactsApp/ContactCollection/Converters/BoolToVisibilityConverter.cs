@@ -1,8 +1,14 @@
-﻿using System.Globalization;
-using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows;
 
-namespace View.ViewModel
+
+namespace ContactCollection.Converters
 {
     /// <summary>
     /// Конвертер для преобразования значения типа <see cref="bool"/> в <see cref="Visibility"/>.
