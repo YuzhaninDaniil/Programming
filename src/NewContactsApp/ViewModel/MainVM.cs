@@ -222,7 +222,7 @@ namespace ViewModel
 
         /// <summary>
         /// Обрабатывает изменение выбранного контакта после его смены.
-        /// Уведомляет о возможности выполнения команд
+        /// Уведомляет о возможности выполнения команд.
         /// </summary>
         /// <param name="value">Новое значение выбранного контакта.</param>
         partial void OnSelectedContactChanged(Contact value)
