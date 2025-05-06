@@ -12,29 +12,29 @@ namespace ViewModel
     /// </summary>
     public partial class MainVM : ObservableObject
     {
-        [ObservableProperty]
         /// <summary>
         /// Коллекция контактов.
         /// </summary>
+        [ObservableProperty]
         private ObservableCollection<Contact> _contacts;
 
+        /// <summary>
+        /// Выбранный контакт из списка.
+        /// </summary>
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(EditContactCommand))]
         [NotifyCanExecuteChangedFor(nameof(RemoveContactCommand))]
         [NotifyCanExecuteChangedFor(nameof(ApplyContactCommand))]
-        /// <summary>
-        /// Выбранный контакт из списка.
-        /// </summary>
         private Contact _selectedContact;
 
+        /// <summary>
+        /// Флаг, указывающий, находится ли приложение в режиме редактирования.
+        /// </summary>
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(EditContactCommand))]
         [NotifyCanExecuteChangedFor(nameof(RemoveContactCommand))]
         [NotifyCanExecuteChangedFor(nameof(ApplyContactCommand))]
         [NotifyPropertyChangedFor(nameof(IsReadOnly))]
-        /// <summary>
-        /// Флаг, указывающий, находится ли приложение в режиме редактирования.
-        /// </summary>
         private bool _isEditMode = false;
 
         /// <summary>
@@ -61,12 +61,12 @@ namespace ViewModel
             Contacts = new ObservableCollection<Contact>(ContactSerializer.LoadContacts());
         }
 
-        [RelayCommand]
         /// <summary>
         /// Обработчик команды AddCommand.
         /// Создаёт новый контакт и подготавливает ViewModel к редактированию.
         /// </summary>
         /// <param name="parameter">Параметр команды (не используется).</param>
+        [RelayCommand]
         private void AddContact(object parameter)
         {
             SelectedContact = null;
@@ -77,12 +77,12 @@ namespace ViewModel
             SelectedContact.PropertyChanged += SelectedContactChanged;
         }
 
-        [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
         /// <summary>
         /// Обработчик команды EditCommand.
         /// Переводит приложение в режим редактирования выбранного контакта.
         /// </summary>
         /// <param name="parameter">Параметр команды (не используется).</param>
+        [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
         public void EditContact(object parameter)
         {
             if (IsEditMode)
@@ -116,12 +116,12 @@ namespace ViewModel
             ApplyContactCommand.NotifyCanExecuteChanged();
         }
 
-        [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
         /// <summary>
         /// Обработчик команды RemoveCommand.
         /// Удаляет выбранный контакт из коллекции.
         /// </summary>
         /// <param name="parameter">Параметр команды (не используется).</param>
+        [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
         private void RemoveContact(object parameter)
         {
             if (SelectedContact != null)
@@ -153,12 +153,12 @@ namespace ViewModel
             }
         }
 
-        [RelayCommand(CanExecute = nameof(CanApplyContact))]
         /// <summary>
         /// Обработчик команды ApplyCommand.
         /// Применяет изменения к контакту и сохраняет их в файл.
         /// </summary>
         /// <param name="parameter">Параметр команды (не используется).</param>
+        [RelayCommand(CanExecute = nameof(CanApplyContact))]
         private void ApplyContact(object parameter)
         {
             SelectedContact.PropertyChanged -= SelectedContactChanged;
