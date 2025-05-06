@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Text.RegularExpressions;
 
 namespace Model
 {
