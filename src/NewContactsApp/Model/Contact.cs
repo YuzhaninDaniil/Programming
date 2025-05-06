@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.RegularExpressions;
 
@@ -39,60 +37,82 @@ namespace Model
             !string.IsNullOrEmpty(this[nameof(Email)]);
 
         /// <summary>
+        /// Возвращает сообщение об ошибке для всего объекта.
+        /// </summary>
+        public string Error
+        {
+            get { return null; }
+        }
+
+        /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Contact"/>.
         /// </summary>
         public Contact() { }
 
-        #region IDataErrorInfo
-
         /// <summary>
-        /// Возвращает сообщение об ошибке для указанного свойства.
+        /// Возвращает сообщение об ошибке для указанного свойства, вызывая соответствующий метод проверки.
         /// </summary>
-        /// <param name="columnName">Имя проверяемого свойства.</param>
-        /// <returns>Сообщение об ошибке или <c>null</c>, если ошибок нет.</returns>
-        public string this[string columnName]
+        /// <param name="propertyName">Имя свойства, для которого нужно получить сообщение об ошибке.</param>
+        /// <returns>Сообщение об ошибке, если свойство недействительно, иначе <c>null</c>.</returns>
+        public string this[string propertyName]
         {
             get
             {
-                string error = null;
-
-                switch (columnName)
+                switch (propertyName)
                 {
                     case nameof(Name):
-                        if (string.IsNullOrWhiteSpace(Name))
-                            error = "Имя не может быть пустым.";
-                        else if (Name.Length > 100)
-                            error = "Имя не должно превышать 100 символов.";
-                        break;
-
+                        return ValidateName();
                     case nameof(PhoneNumber):
-                        if (string.IsNullOrWhiteSpace(PhoneNumber))
-                            error = "Номер телефона не может быть пустым.";
-                        else if (PhoneNumber.Length > 100)
-                            error = "Номер телефона не должен превышать 100 символов.";
-                        else if (!Regex.IsMatch(PhoneNumber, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
-                            error = "Номер телефона должен содержать только цифры или символы +-().";
-                        break;
-
+                        return ValidatePhoneNumber();
                     case nameof(Email):
-                        if (string.IsNullOrWhiteSpace(Email))
-                            error = "Адрес почты не может быть пустым.";
-                        else if (Email.Length > 100)
-                            error = "Адрес почты не должен превышать 100 символов.";
-                        else if (!Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                            error = "Неправильный формат адреса почты.";
-                        break;
+                        return ValidateEmail();
+                    default:
+                        return null;
                 }
-
-                return error;
             }
         }
 
         /// <summary>
-        /// Не используется. Всегда возвращает <c>null</c>.
+        /// Проверяет корректность значения свойства Name.
         /// </summary>
-        public string Error => null;
+        /// <returns>Сообщение об ошибке, если значение недействительно, иначе <c>null</c>.</returns>
+        private string ValidateName()
+        {
+            if (string.IsNullOrEmpty(Name))
+                return "Имя не должно быть пустым.";
+            if (Name.Length > 100)
+                return "Имя должно быть не длиннее 100 символов.";
+            return null;
+        }
 
-        #endregion
+        /// <summary>
+        /// Проверяет корректность значения свойства PhoneNumber.
+        /// </summary>
+        /// <returns>Сообщение об ошибке, если значение недействительно, иначе <c>null</c>.</returns>
+        private string ValidatePhoneNumber()
+        {
+            if (string.IsNullOrEmpty(PhoneNumber))
+                return "Номер телефона не должен быть пустым.";
+            if (PhoneNumber.Length > 100)
+                return "Номер телефона должен быть не длиннее 100 символов.";
+            if (!System.Text.RegularExpressions.Regex.IsMatch(PhoneNumber, @"^\+[0-9]\s?\(?\d{3}\)?\s?\d{3}[-\s]?\d{2}[-\s]?\d{2}$"))
+                return "Номер телефона может содержать только цифры или символы +-().";
+            return null;
+        }
+
+        /// <summary>
+        /// Проверяет корректность значения свойства Email.
+        /// </summary>
+        /// <returns>Сообщение об ошибке, если значение недействительно, иначе <c>null</c>.</returns>
+        private string ValidateEmail()
+        {
+            if (string.IsNullOrEmpty(Email))
+                return "Адрес почты не должен быть пустым.";
+            if (Email.Length > 100)
+                return "Адрес почты должен быть не длиннее 100 символов..";
+            if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                return "Неправильный формат адреса почты.";
+            return null;
+        }
     }
 }

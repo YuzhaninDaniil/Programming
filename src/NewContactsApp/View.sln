@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactCollection", "ContactCollection\ContactCollection.csproj", "{FD590F3E-BB00-496F-B2E2-ACD35FB1FBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContactCollection", "ContactCollection\ContactCollection.csproj", "{FD590F3E-BB00-496F-B2E2-ACD35FB1FBC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{E710725A-CA7F-488F-B508-7A00EE1BF37A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{E710725A-CA7F-488F-B508-7A00EE1BF37A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{73958093-4B47-4FC2-9180-53B517F1B199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{73958093-4B47-4FC2-9180-53B517F1B199}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

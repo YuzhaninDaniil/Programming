@@ -7,14 +7,14 @@
         xmlns:conv="clr-namespace:ContactCollection.Converters"
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel" xmlns:controls="clr-namespace:ContactCollection.Controls"
         mc:Ignorable="d"
-        Title="Contacts" Height="516" Width="710" MinWidth="730">
+        Title="Contacts" Height="516" Width="710" MinWidth="730" Icon="icon.png">
 
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BooleanToVisibility"/>
         <conv:BooleanInverseConverter x:Key="BooleanInverse"/>
         <DataTemplate x:Key="contactTemplate">
             <StackPanel Margin="3" Orientation="Horizontal">
-                <Image Width="40" Height="40" Source="C:\Users\скда\source\repos\Programm1ng\scr\Contact Collection\View\ContactCollection\new_contact.png" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                <Image Width="40" Height="40" Source="\icon.png" Margin="0,0,8,0" VerticalAlignment="Center"/>
                 <StackPanel>
                     <TextBlock FontSize="12" FontWeight="SemiBold" Text="{Binding Name}"/>
                     <TextBlock FontSize="10" Text="{Binding PhoneNumber}"/>
@@ -27,7 +27,7 @@
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter Property="ToolTip"
                         Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Background" Value="LightPink"/>
                 </Trigger>
             </Style.Triggers>
         </Style>

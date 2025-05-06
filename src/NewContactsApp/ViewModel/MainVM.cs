@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using Model.Services;
 using Model;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace ViewModel
 {
@@ -13,8 +12,6 @@ namespace ViewModel
     /// </summary>
     public partial class MainVM : ObservableObject
     {
-        #region Поля
-
         [ObservableProperty]
         /// <summary>
         /// Коллекция контактов.
@@ -46,27 +43,14 @@ namespace ViewModel
         private bool _isNewContact = false;
 
         /// <summary>
-        /// Сервис для сериализации и десериализации контактов.
-        /// </summary>
-        private ContactSerializer _serializer = new ContactSerializer();
-
-        /// <summary>
         /// Индекс выбранного контакта.
         /// </summary>
         private int _selectedIndex;
-
-        #endregion
-
-        #region Свойства
 
         /// <summary>
         /// Получает значение, указывающее, находится ли приложение в режиме только для чтения.
         /// </summary>
         public bool IsReadOnly => !IsEditMode;
-
-        #endregion
-
-        #region Конструктор
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="MainVM"/>.
@@ -74,13 +58,8 @@ namespace ViewModel
         /// </summary>
         public MainVM()
         {
-            _serializer = new ContactSerializer();
-            Contacts = new ObservableCollection<Contact>(_serializer.LoadContacts());
+            Contacts = new ObservableCollection<Contact>(ContactSerializer.LoadContacts());
         }
-
-        #endregion
-
-        #region Обработчики команд
 
         [RelayCommand]
         /// <summary>
@@ -192,10 +171,6 @@ namespace ViewModel
             SaveContacts();
         }
 
-        #endregion
-
-        #region Вспомогательные методы
-
         /// <summary>
         /// Определяет, может ли быть выполнена команда EditCommand или RemoveCommand.
         /// </summary>
@@ -221,7 +196,7 @@ namespace ViewModel
         /// </summary>
         private void SaveContacts()
         {
-            _serializer.SaveContacts(Contacts);
+            ContactSerializer.SaveContacts(Contacts);
         }
 
         partial void OnSelectedContactChanging(Contact oldValue, Contact newValue)
@@ -240,7 +215,5 @@ namespace ViewModel
             RemoveContactCommand.NotifyCanExecuteChanged();
             ApplyContactCommand.NotifyCanExecuteChanged();
         }
-
-        #endregion
     }
 }

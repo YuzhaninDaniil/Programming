@@ -1,64 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 
 namespace Model.Services
 {
+    /// <summary>
+    /// Класс, отвечающий за сериализацию и десериализацию объектов типа <see cref="Contact"/>.
+    /// </summary>
+    public static class ContactSerializer
+    {
         /// <summary>
-        /// Предоставляет методы для сериализации и десериализации.
-        /// коллекции контактов.
+        /// Хранит и возвращает путь к файлу, в котором хранятся данные контакта.
         /// </summary>
-        public class ContactSerializer
+        public static string FilePath { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
+
+        /// <summary>
+        /// Метод для создания папки, если она не существует.
+        /// </summary>
+        public static void EnsureDirectoryExists()
         {
-            /// <summary>
-            /// Путь к файлу, в котором хранятся контакты.
-            /// </summary>
-            private string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts", "contacts.json");
-
-            /// <summary>
-            /// Инициализирует новый экземпляр класса <see cref="ContactSerializer"/>.
-            /// Создаёт директорию, если она не существует.
-            /// </summary>
-            public ContactSerializer()
+            var directory = Path.GetDirectoryName(FilePath);
+            if (!Directory.Exists(directory))
             {
-                string directoryPath = Path.GetDirectoryName(_filePath);
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
+                Directory.CreateDirectory(directory);
             }
+        }
 
-            /// <summary>
-            /// Сохраняет коллекцию контактов.
-            /// </summary>
-            /// <param name="contacts">Коллекция контактов для сохранения.</param>
-            public void SaveContacts(ObservableCollection<Contact> contacts)
-            {
-                string json = JsonConvert.SerializeObject(contacts);
-                File.WriteAllText(_filePath, json);
-            }
+        /// <summary>
+        /// Сохраняет коллекцию контактов.
+        /// </summary>
+        /// <param name="contacts">Коллекция контактов для сохранения.</param>
+        public static void SaveContacts(ObservableCollection<Contact> contacts)
+        {
+            string json = JsonConvert.SerializeObject(contacts);
+            File.WriteAllText(FilePath, json);
+        }
 
-            /// <summary>
-            /// Хагружает коллекцию контактов из файла.
-            /// </summary>
-            /// <returns>Коллекцию контактов, загруженная из файла.
-            /// Возвращает новую пустую коллекцию, если файл не существует.</returns>
-            public ObservableCollection<Contact> LoadContacts()
+        /// <summary>
+        /// Загружает контакты из файла.
+        /// </summary>
+        /// <returns>Список контактов.</returns>
+        public static ObservableCollection<Contact> LoadContacts()
+        {
+            try
             {
-                if (File.Exists(_filePath))
+                if (!File.Exists(FilePath))
                 {
-                    string json = File.ReadAllText(_filePath);
-                    return JsonConvert.DeserializeObject<ObservableCollection<Contact>>(json);
+                    return new ObservableCollection<Contact>();
                 }
 
+                string json = File.ReadAllText(FilePath);
+                var contacts = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(json);
+                return contacts ?? new ObservableCollection<Contact>();
+            }
+            catch
+            {
                 return new ObservableCollection<Contact>();
             }
-
         }
-    
+    }
 }
+
+
