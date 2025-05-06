@@ -43,18 +43,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- Разделитель -->
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Center" Width="3"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Center" Width="3" Background="White"/>
 
-        <!-- Левая колонка -->
-        <Grid Grid.Column="0" Background="#f8f8f8">
+        <Grid Grid.Column="0" Background="White">
             <Grid Margin="8">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Список и поиск -->
                 <Grid Grid.Row="0">
                     <Label Content="Find:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBox x:Name="SearchTextBox" Margin="38,6,0,0" VerticalAlignment="Top"/>
@@ -66,7 +63,6 @@
                         ItemTemplate="{StaticResource contactTemplate}"/>
                 </Grid>
 
-                <!-- Кнопки -->
                 <Grid Grid.Row="1" Margin="0, 3, 0, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -83,14 +79,12 @@
             </Grid>
         </Grid>
 
-        <!-- Правая колонка -->
         <Grid Grid.Column="2">
             <controls:ContactControl/>
 
-            <!-- Кнопка Apply -->
             <Button Grid.Column="1" Content="Apply" Width="75" Height="25"
-                    Margin="103,50,8,8" HorizontalAlignment="left" 
-                    Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibility}}"  
+                    Margin="111,20,3,8" HorizontalAlignment="left" 
+                     Visibility="{Binding IsEditMode, Converter={StaticResource BooleanToVisibility}}"
                     Command="{Binding ApplyContactCommand}"/>
         </Grid>
     </Grid>

@@ -74,7 +74,7 @@ namespace ViewModel
             SelectedContact = newContact;
             _isNewContact = true;
             IsEditMode = true;
-            SelectedContact.PropertyChanged += SelectedContanctChanged;
+            SelectedContact.PropertyChanged += SelectedContactChanged;
         }
 
         [RelayCommand(CanExecute = nameof(CanEditOrRemoveContact))]
@@ -100,12 +100,18 @@ namespace ViewModel
             _selectedIndex = Contacts.IndexOf(SelectedContact);
             var newIndex = _selectedIndex;
             SelectedContact = clonedContact;
-            SelectedContact.PropertyChanged += SelectedContanctChanged;
+            SelectedContact.PropertyChanged += SelectedContactChanged;
             IsEditMode = true;
             _selectedIndex = newIndex;
         }
 
-        private void SelectedContanctChanged(object? sender, PropertyChangedEventArgs e)
+        /// <summary>
+        /// Обработчик события изменения свойств выбранного контакта.
+        /// Вызывает обновление доступности команд.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Содержит данные об изменении свойства.</param>
+        private void SelectedContactChanged(object? sender, PropertyChangedEventArgs e)
         {
             ApplyContactCommand.NotifyCanExecuteChanged();
         }
@@ -155,7 +161,7 @@ namespace ViewModel
         /// <param name="parameter">Параметр команды (не используется).</param>
         private void ApplyContact(object parameter)
         {
-            SelectedContact.PropertyChanged -= SelectedContanctChanged;
+            SelectedContact.PropertyChanged -= SelectedContactChanged;
             if (_isNewContact)
             {
                 Contacts.Add(SelectedContact);
@@ -199,16 +205,26 @@ namespace ViewModel
             ContactSerializer.SaveContacts(Contacts);
         }
 
-        partial void OnSelectedContactChanging(Contact oldValue, Contact newValue)
+        /// <summary>
+        /// Обрабатывает изменение выбранного контакта перед его сменой.
+        /// </summary>
+        /// <param name="previousValue">Предыдущее значение выбранного контакта.</param>
+        /// <param name="newValue">Новое значение выбранного контакта.</param>
+        partial void OnSelectedContactChanging(Contact previousValue, Contact newValue)
         {
-            if (oldValue != null)
+            if (previousValue != null)
             {
-                oldValue.PropertyChanged -= SelectedContanctChanged;
+                previousValue.PropertyChanged -= SelectedContactChanged;
             }
 
             IsEditMode = false;
         }
 
+        /// <summary>
+        /// Обрабатывает изменение выбранного контакта после его смены.
+        /// Уведомляет о возможности выполнения команд.
+        /// </summary>
+        /// <param name="value">Новое значение выбранного контакта.</param>
         partial void OnSelectedContactChanged(Contact value)
         {
             EditContactCommand.NotifyCanExecuteChanged();

@@ -108,7 +108,7 @@ namespace Model
             if (string.IsNullOrEmpty(Email))
                 return "Адрес почты не должен быть пустым.";
             if (Email.Length > 100)
-                return "Адрес почты должен быть не длиннее 100 символов..";
+                return "Адрес почты должен быть не длиннее 100 символов.";
             if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 return "Неправильный формат адреса почты.";
             return null;
