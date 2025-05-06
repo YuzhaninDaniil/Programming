@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Model.Services;
 using Model;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace ViewModel
 {
